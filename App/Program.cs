@@ -5,6 +5,7 @@ namespace Rbyte.App
 {
     class Program
     {   // TODO: komentarze
+        // TODO: pokazac mozliwości Enum (GetName), (GetValue)
         static void Main(string[] args)
         {
             while (true)
@@ -19,25 +20,25 @@ namespace Rbyte.App
             }
         }
 
-        public static void ExecuteSelectedOption(int choice)
+        public static void ExecuteSelectedOption(MenuOptionEnum choice)
         {
             switch (choice)
             {
-                case 1:
+                case MenuOptionEnum.ShowCurrentTime:
                     Console.WriteLine(DateTime.Now.ToString("hh:mm:ss"));
                     return;
-                case 2:
+                case MenuOptionEnum.ShowCurrentDate:
                     Console.WriteLine(DateTime.Now.ToString("dd MMM yyyy"));
                     return;
-                case 3:
+                case MenuOptionEnum.ShowDayOfTheWeek:
                     Console.WriteLine(DateTime.Now.DayOfWeek);
                     return;
-                case 4:
+                case MenuOptionEnum.ShowFullDate:
                     Console.WriteLine(DateTime.Now.ToString("dd MMM yyyy, hh:mm:ss"));
                     return;
             }
         }
-        public static int ChooseMenuOption()
+        public static MenuOptionEnum ChooseMenuOption()
         {
             Console.WriteLine("1. Show current time");
             Console.WriteLine("2. Show current date");
@@ -48,13 +49,13 @@ namespace Rbyte.App
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        return 1;
+                        return MenuOptionEnum.ShowCurrentTime;
                     case "2":
-                        return 2;
+                        return MenuOptionEnum.ShowCurrentDate;
                     case "3":
-                        return 3;
+                        return MenuOptionEnum.ShowDayOfTheWeek;
                     case "4":
-                        return 4;
+                        return MenuOptionEnum.ShowFullDate;
                 }
             }
         }
@@ -69,5 +70,13 @@ namespace Rbyte.App
             }
             return number;
         }
+    }
+
+    public enum MenuOptionEnum
+    {
+        ShowCurrentTime = 1,
+        ShowCurrentDate = 2,
+        ShowDayOfTheWeek = 3,
+        ShowFullDate = 4
     }
 }
