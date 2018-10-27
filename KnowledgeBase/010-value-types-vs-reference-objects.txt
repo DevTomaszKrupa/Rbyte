@@ -1,0 +1,4 @@
+010 Value types vs reference objects
+    - Roznica miedzy wywolaniem funkcji z typem wartosciowym a obiektem referencyjnym
+    - slowo kluczowe 'ref'
+    

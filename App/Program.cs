@@ -15,14 +15,41 @@ namespace Rbyte.App
                 Address = "Warsaw, Cicha 12/5"
             };
 
-            var prod1 = new Product("Bread", "Gluten free", (decimal)2.99, "Bredex");
-            var prod2 = new Product("Milk", "White as snow", (decimal)3.49, "ForthE");
+            Console.WriteLine($"Name before func call: {shop.Name}");
+            ChangeShopInfo(shop);
+            Console.WriteLine($"Name after func call: {shop.Name}");
 
-            shop.AddProduct(prod1);
-            shop.AddProduct(prod2);
+            Console.WriteLine();
 
-            shop.ShowProducts();
+            int valueType = 10;
+            Console.WriteLine($"Valuetype before func call: {valueType}");
+            ChangeValueType(valueType);
+            Console.WriteLine($"Valuetype after func call: {valueType}");
+
+            Console.WriteLine();
+
+            int valueType2 = 10;
+            Console.WriteLine($"Valuetype before func with ref call: {valueType2}");
+            ChangeValueTypeWithRef(ref valueType2);
+            Console.WriteLine($"Valuetype after func with ref call: {valueType2}");
+
+
             Console.ReadLine();
+        }
+
+        public static void ChangeShopInfo(Shop shop)
+        {
+            shop.Name = "New name";
+        }
+
+        public static void ChangeValueType(int valueType)
+        {
+            valueType = 50;
+        }
+
+        public static void ChangeValueTypeWithRef(ref int valueType)
+        {
+            valueType = 50;
         }
     }
 }
