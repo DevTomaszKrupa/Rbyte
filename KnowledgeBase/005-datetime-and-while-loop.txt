@@ -1,0 +1,5 @@
+004 If statement and bool value type
+    - dateTime
+    - dateTime.ToString()
+    - while loop
+    - do-while loop

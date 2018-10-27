@@ -6,42 +6,33 @@ namespace Rbyte.App
     {   // TODO: komentarze
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("This is my first .net core app!");
+            var now = DateTime.Now;
+            Console.WriteLine($"Without format:                    {now}");
+            Console.WriteLine($"ToShortDateString:                 {now.ToShortDateString()}");
+            Console.WriteLine($"ToShortTimeString:                 {now.ToShortTimeString()}");
+            Console.WriteLine($"ToLongDateString:                  {now.ToLongDateString()}");
+            Console.WriteLine($"ToLongTimeString:                  {now.ToLongTimeString()}");
+            Console.WriteLine($"MM/dd/yyyy                         " + now.ToString("MM/dd/yyyy"));
+            Console.WriteLine($"MM/dd/yyyy hh:mm:ss                " + now.ToString("MM/dd/yyyy hh:mm:ss"));
+            Console.WriteLine($"MM/dd/yyyy hh:mm                   " + now.ToString("MM/dd/yyyy hh:mm"));
+            Console.WriteLine($"dd : MMM : yy                      " + now.ToString("dd : MMM : yy"));
 
-            Console.WriteLine("What is your name?");
-            var name = Console.ReadLine();
+            Console.ReadLine();
 
-            Console.WriteLine("How old are you?");
-            int age;
-            var intParsingResult = int.TryParse(Console.ReadLine(), out age); // this is bool value
-            if (!intParsingResult)
+            Console.WriteLine();
+            Console.WriteLine("Insert date [correct format is: dd.mm.yyyy hh:mm or dd/mm/yyyy, etc.]");
+            var yourDateStr = Console.ReadLine();
+            DateTime yourDate;
+            var dateParsingResult = DateTime.TryParse(yourDateStr, out yourDate);
+
+            while (!dateParsingResult)
             {
-                Console.WriteLine("You've entered the wrong value");
-                Console.WriteLine("Program ended.");
-                Console.ReadLine();
-                return;
-            }
-            var youAreAdult = age >= 18;
-
-            Console.WriteLine("How tall are you? [m]");
-            decimal height;
-            var decimalParsingResult = decimal.TryParse(Console.ReadLine(), out height);
-            if (!decimalParsingResult)
-            {
-                Console.WriteLine("You've entered the wrong value");
-                Console.WriteLine("Program ended.");
-                Console.ReadLine();
-                return;
+                dateParsingResult = DateTime.TryParse(Console.ReadLine(), out yourDate);
             }
 
-            Console.WriteLine($"It's nice to meet you, {name}");
-            Console.WriteLine($"You are {age} old. You will be {age + 10} in ten years");
-            if (youAreAdult)
-            {
-                Console.WriteLine($"You are adult!");
-            }
-            Console.WriteLine($"You are {height}m tall. It is {height * 100}cm");
+            Console.WriteLine("Correct date!");
+            Console.WriteLine(yourDate);
+
             Console.ReadLine();
         }
     }
