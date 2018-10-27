@@ -1,0 +1,6 @@
+009 Classes and objects
+    - properties
+    - private/public get/set
+    - parameterless constructor - creating object by 'new' keyword
+    - creating object by constructor with parameters
+    - public/private methods
