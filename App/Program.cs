@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rbyte
+namespace Rbyte.App
 {
     class Program
     {   // TODO: komentarze
