@@ -1,0 +1,4 @@
+003 If statement and bool value type
+    - bool
+    - If
+    - >= <= == ...
