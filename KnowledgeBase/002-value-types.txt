@@ -1,0 +1,7 @@
+002 Value types
+    - int
+    - decimal
+    - int.Parse() 
+    - decimal.Parse()
+    - operacje matematyczne 
+        

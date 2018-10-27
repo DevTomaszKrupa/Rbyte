@@ -8,25 +8,23 @@ namespace Rbyte.App
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("This is my first .net core app!");
+            
             Console.WriteLine("What is your name?");
             string name = Console.ReadLine();
+            
+            Console.WriteLine("How old are you?");
+            string ageStr = Console.ReadLine();
 
-            // Concatenation by multiple Write method call.
-            Console.Write("It's nice to meet you, ");
-            Console.Write(name);
-            Console.Write(Environment.NewLine);
+            Console.WriteLine("How tall are you? [m]");
+            string heightStr = Console.ReadLine();
 
-            // Concatenation by '+'
-            Console.WriteLine("It's nice to meet you, " + name);
+            int age = int.Parse(ageStr);
+            decimal height = decimal.Parse(heightStr);
 
-            // Concatenation by string.Concat
-            Console.WriteLine(string.Concat("It's nice to meet you, ", name));
-
-            // Concatenation by WriteLine args
-            Console.WriteLine("It's nice to meet you, {0}", name);
-
-            // Concatenation by new .net standard
             Console.WriteLine($"It's nice to meet you, {name}");
+            Console.WriteLine($"You are {age} old. You will be {age + 10} in ten years");
+            Console.WriteLine($"You are {height}m tall. It is {height * 100}cm");
+            Console.ReadLine();
         }
     }
 }
