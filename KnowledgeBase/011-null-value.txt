@@ -1,0 +1,4 @@
+011 Null value
+    - null dla typow wartosciowych
+    - null mozna przypisac do kazdego obiektu
+    - typy nullowalne dostarczaja wlasciwosci HasValue, Value

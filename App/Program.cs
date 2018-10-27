@@ -8,48 +8,44 @@ namespace Rbyte.App
     {
         static void Main(string[] args)
         {
-            var shop = new Shop
-            {
-                ShopId = 1,
-                Name = "Bakeroph",
-                Address = "Warsaw, Cicha 12/5"
-            };
+            int number = 1;
+            // not allowed operation
+            // number = null;
 
-            Console.WriteLine($"Name before func call: {shop.Name}");
-            ChangeShopInfo(shop);
-            Console.WriteLine($"Name after func call: {shop.Name}");
+            int? nullableNumber = 1;
+            nullableNumber = null;
 
-            Console.WriteLine();
-
-            int valueType = 10;
-            Console.WriteLine($"Valuetype before func call: {valueType}");
-            ChangeValueType(valueType);
-            Console.WriteLine($"Valuetype after func call: {valueType}");
-
-            Console.WriteLine();
-
-            int valueType2 = 10;
-            Console.WriteLine($"Valuetype before func with ref call: {valueType2}");
-            ChangeValueTypeWithRef(ref valueType2);
-            Console.WriteLine($"Valuetype after func with ref call: {valueType2}");
-
+            DisplayNullableNumberValue(nullableNumber);
+            DisplayNullableNumberValue(number);
+            DisplayNullableNumberValue(20);
+            DisplayNullableNumberValue(null);
+            DisplayProduct(new Product("Bread", "Gluten free", (decimal)2.99, "GryphT"));
+            DisplayProduct(null);
 
             Console.ReadLine();
         }
 
-        public static void ChangeShopInfo(Shop shop)
+        public static void DisplayNullableNumberValue(int? number)
         {
-            shop.Name = "New name";
+            if (!number.HasValue)
+            {
+                Console.WriteLine("Number doesnt have value!");
+            }
+            else
+            {
+                Console.WriteLine($"Number has value: {number.Value}");
+            }
         }
-
-        public static void ChangeValueType(int valueType)
+        public static void DisplayProduct(Product product)
         {
-            valueType = 50;
-        }
-
-        public static void ChangeValueTypeWithRef(ref int valueType)
-        {
-            valueType = 50;
+            if (product == null)
+            {
+                Console.WriteLine("Product is null!");
+            }
+            else
+            {
+                Console.WriteLine("Product has value");
+            }
         }
     }
 }
