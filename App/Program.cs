@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using App.Logic;
 using Rbyte.App.Models;
 
 namespace Rbyte.App
@@ -8,44 +9,26 @@ namespace Rbyte.App
     {
         static void Main(string[] args)
         {
-            int number = 1;
-            // not allowed operation
-            // number = null;
+            var productFactory = new ProductFactory();
+            var productService = new ProductService(productFactory.CreateProducts(100));
 
-            int? nullableNumber = 1;
-            nullableNumber = null;
+            var cheapestProducts = productService.GetTheCheapestProducts(5);
+            Console.WriteLine("The cheapest products:");
+            cheapestProducts.ForEach(x => DisplayProduct(x));
 
-            DisplayNullableNumberValue(nullableNumber);
-            DisplayNullableNumberValue(number);
-            DisplayNullableNumberValue(20);
-            DisplayNullableNumberValue(null);
-            DisplayProduct(new Product("Bread", "Gluten free", (decimal)2.99, "GryphT"));
-            DisplayProduct(null);
+            Console.WriteLine();
+            Console.WriteLine();
+
+            var mostExpensiveProducts = productService.GetTheMostExcensiveProducts(5);
+            Console.WriteLine("The most expensive products:");
+            mostExpensiveProducts.ForEach(x => DisplayProduct(x));
 
             Console.ReadLine();
         }
 
-        public static void DisplayNullableNumberValue(int? number)
+        static void DisplayProduct(Product product)
         {
-            if (!number.HasValue)
-            {
-                Console.WriteLine("Number doesnt have value!");
-            }
-            else
-            {
-                Console.WriteLine($"Number has value: {number.Value}");
-            }
-        }
-        public static void DisplayProduct(Product product)
-        {
-            if (product == null)
-            {
-                Console.WriteLine("Product is null!");
-            }
-            else
-            {
-                Console.WriteLine("Product has value");
-            }
+            Console.WriteLine($"{product.Producent}, {product.Name}, {product.Description}, {product.StandardPrice}");
         }
     }
 }
