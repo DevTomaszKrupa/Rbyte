@@ -1,3 +1,0 @@
-007 Switch and functions
-    - Switch
-    - functions 

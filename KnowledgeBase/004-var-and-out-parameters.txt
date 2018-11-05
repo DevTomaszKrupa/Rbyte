@@ -1,3 +1,0 @@
-004 If statement and bool value type
-    - var
-    - out

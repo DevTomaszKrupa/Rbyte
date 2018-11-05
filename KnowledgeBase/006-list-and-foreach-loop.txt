@@ -1,6 +1,0 @@
-006 List and foreach loop
-- negacja logiczna: !
-- inkrementacja za pomocą: ++
-- List<T>
-- for
-- foreach

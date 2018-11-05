@@ -1,5 +1,0 @@
-005 DateTime and while loop
-    - dateTime
-    - dateTime.ToString()
-    - while loop
-    - do-while loop
