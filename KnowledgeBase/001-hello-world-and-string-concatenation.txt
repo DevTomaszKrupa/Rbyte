@@ -5,24 +5,30 @@
     Do pojęcia tej lekcji potrzebujesz zrozumieć następujące rzeczy:
 
     001.01 Podstawowe komendy 'dotnet' takie jak:
-'dotnet new console'    Tworzy nowy projekt konsolowy .NET Core
-'dotnet restore'        Przeinstaluj paczki dołączone do aplikacji
-'dotnet run'            Uruchamia aplikację
-'dotnet clean'          Czyści pliki zbudowanej aplikacji
-'dotnet build'          Buduje aplikację
+        'dotnet new console'    Tworzy nowy projekt konsolowy .NET Core
+        'dotnet restore'        Przeinstaluj paczki dołączone do aplikacji
+        'dotnet run'            Uruchamia aplikację
+        'dotnet clean'          Czyści pliki zbudowanej aplikacji
+        'dotnet build'          Buduje aplikację    
 
-    - dotnet new console
-    - dotnet run
-
-    - Console.Write
-    - Console.WriteLine
-    - Console.Read
-    - Console.ReadLine
+    001.02 Podstawowe komendy konsoli systemowej
+        'Console.Write'
+        'Console.WriteLine'
+        'Console.Read'
+        'Console.ReadLine'
     
-    - Tworzenie zmiennych (string)
-    - Environment.NewLine
-    - Łaczenie stringow za pomocą '+'
-    - Łączenie stringow za pomoca string.Concat
-    - Łaczenie stringow za pomoca argumentow funckji WriteLine
-    - Laczenie stringow za pomoca nowego standardu i znaku $
+    001.03 Tworzenie zmiennych typu string
+
+    001.04 Wykorzystanie znaku nowej lini - Environment.NewLine
+
+    001.05 Konkatenacja zmiennych typu 'string' przy wykorzystaniu:
+        - znaku '+'
+        - funkcji string.Concat
+        - argumentow funckji WriteLine
+        - za pomocą znaku '$'
+
         
+Using string.Join().
+Using string.Format().
+Using string.Append().
+Using StringBuilder.
