@@ -1,4 +1,16 @@
 001 Pierwszy program i łączenie stringow
+
+    Cześć,
+    Witam Cię w pierwszej lekcji poświęconej językowi C#.
+    Do pojęcia tej lekcji potrzebujesz zrozumieć następujące rzeczy:
+
+    001.01 Podstawowe komendy 'dotnet' takie jak:
+'dotnet new console'    Tworzy nowy projekt konsolowy .NET Core
+'dotnet restore'        Przeinstaluj paczki dołączone do aplikacji
+'dotnet run'            Uruchamia aplikację
+'dotnet clean'          Czyści pliki zbudowanej aplikacji
+'dotnet build'          Buduje aplikację
+
     - dotnet new console
     - dotnet run
 
