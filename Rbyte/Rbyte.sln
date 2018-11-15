@@ -15,13 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Domain", "Src\Core\Rbyte.Domain\Rbyte.Domain.csproj", "{0837B424-BA7C-49EE-938B-3A723402EE9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Domain", "Src\Core\Rbyte.Domain\Rbyte.Domain.csproj", "{0837B424-BA7C-49EE-938B-3A723402EE9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Persistance", "Src\Infrastructure\Rbyte.Persistance\Rbyte.Persistance.csproj", "{3F79EE1D-6777-488D-AD4D-F8D02103571E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Persistance", "Src\Infrastructure\Rbyte.Persistance\Rbyte.Persistance.csproj", "{3F79EE1D-6777-488D-AD4D-F8D02103571E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.ConsoleApp", "Src\Presentation\Rbyte.Console\Rbyte.ConsoleApp.csproj", "{15FA0CA8-4D24-4CFD-A6A3-B89A8FF50F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.ConsoleApp", "Src\Presentation\Rbyte.Console\Rbyte.ConsoleApp.csproj", "{15FA0CA8-4D24-4CFD-A6A3-B89A8FF50F84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Application", "Src\Core\Rbyte.Application\Rbyte.Application.csproj", "{39BBD400-EED7-48A6-AB53-3489AB0DC5E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Application", "Src\Core\Rbyte.Application\Rbyte.Application.csproj", "{39BBD400-EED7-48A6-AB53-3489AB0DC5E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Mvc", "Src\Presentation\Rbyte.Mvc\Rbyte.Mvc.csproj", "{D254AF79-DCA6-4640-AF66-553E46BC2000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{39BBD400-EED7-48A6-AB53-3489AB0DC5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39BBD400-EED7-48A6-AB53-3489AB0DC5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39BBD400-EED7-48A6-AB53-3489AB0DC5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D254AF79-DCA6-4640-AF66-553E46BC2000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D254AF79-DCA6-4640-AF66-553E46BC2000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D254AF79-DCA6-4640-AF66-553E46BC2000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D254AF79-DCA6-4640-AF66-553E46BC2000}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{3F79EE1D-6777-488D-AD4D-F8D02103571E} = {B7313F21-4C85-4A89-B8E9-24379B5B0F9E}
 		{15FA0CA8-4D24-4CFD-A6A3-B89A8FF50F84} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 		{39BBD400-EED7-48A6-AB53-3489AB0DC5E0} = {135EB30F-3FC9-44E7-97A4-0A37C9C83871}
+		{D254AF79-DCA6-4640-AF66-553E46BC2000} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {763E3616-B55D-48F9-8FD2-5E6B30FD5306}
