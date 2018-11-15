@@ -7,7 +7,15 @@ using System.Linq;
 
 namespace Rbyte.Application.Product.Create
 {
-    public class ProductService
+    public interface IProductService
+    {
+        void Create(CreateProductModel model);
+        ReadProductModel Read(int productId);
+        IEnumerable<ReadProductModel> Read();
+        void Delete(int productId);
+    }
+
+    public class ProductService : IProductService
     {
         private readonly RbyteContext _context;
 
