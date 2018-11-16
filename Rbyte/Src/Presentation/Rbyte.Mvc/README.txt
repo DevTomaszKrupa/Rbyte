@@ -1,0 +1,1 @@
+1. Make sure that correct connection string is set in connectionString.Development.json
