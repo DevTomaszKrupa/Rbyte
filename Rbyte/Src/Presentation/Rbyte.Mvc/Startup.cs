@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rbyte.Application.Product.Create;
+using Rbyte.Persistance;
 
 namespace Rbyte.Mvc
 {
@@ -21,6 +23,11 @@ namespace Rbyte.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<RbyteContext>(options =>
+            {
+                options.UseMySQL("server=localhost;database=rByte;user=root;password=admin");
+            });
 
             services.AddScoped<IProductService, ProductService>();
         }

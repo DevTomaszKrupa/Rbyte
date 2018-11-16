@@ -1,7 +1,6 @@
 ﻿using Rbyte.Application.Product.Read;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
-using Rbyte.Persistance.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,9 +18,9 @@ namespace Rbyte.Application.Product.Create
     {
         private readonly RbyteContext _context;
 
-        public ProductService()
+        public ProductService(RbyteContext context)
         {
-            _context = new DesignTimeDbContextFactory().CreateDbContext(null);
+            _context = context;
         }
 
         public void Create(CreateProductModel model)
