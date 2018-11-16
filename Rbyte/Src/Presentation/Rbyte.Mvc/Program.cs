@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Rbyte.Mvc
 {
@@ -17,8 +11,19 @@ namespace Rbyte.Mvc
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var host = WebHost.CreateDefaultBuilder(args);
+
+            host
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("connectionString.json");
+                    config.AddJsonFile($"connectionString.{hostingContext.HostingEnvironment.EnvironmentName}.json");
+                });
+            host.UseStartup<Startup>();
+
+            return host;
+        }
     }
 }
