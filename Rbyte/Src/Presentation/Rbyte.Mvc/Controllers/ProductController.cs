@@ -20,5 +20,12 @@ namespace Rbyte.Mvc.Controllers
         {
             return View(new CreateProductModel());
         }       
+
+        [HttpPost]
+        public IActionResult Create(CreateProductModel model)
+        {
+            _productService.Create(model);
+            return RedirectToAction("Index");
+        }
     }
 }
