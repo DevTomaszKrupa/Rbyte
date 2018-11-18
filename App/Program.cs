@@ -27,6 +27,8 @@ namespace Rbyte.App
 
             // Concatenation by new .net standard
             Console.WriteLine($"It's nice to meet you, {name}");
+
+            Console.ReadLine();
         }
     }
 }
