@@ -2,21 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Rbyte.Persistance;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Rbyte.Persistance.PostgreSql;
 
-namespace Rbyte.Persistance.Migrations
+namespace Rbyte.Persistance.PostgreSql.Migrations
 {
-    [DbContext(typeof(RbyteContext))]
-    [Migration("20181113194922_InitialMigration")]
-    partial class InitialMigration
+    [DbContext(typeof(PostgreSqlRbyteContext))]
+    partial class PostgreSqlRbyteContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Rbyte.Domain.Entities.DbCategory", b =>
                 {

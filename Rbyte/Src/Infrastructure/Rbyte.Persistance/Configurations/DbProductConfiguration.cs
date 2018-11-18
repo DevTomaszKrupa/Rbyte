@@ -9,6 +9,9 @@ namespace Rbyte.Persistance.Configurations
         public void Configure(EntityTypeBuilder<DbProduct> builder)
         {
             builder.HasKey(x => x.ProductId);
+            
+            builder.Property(x => x.ProductId)
+                   .ValueGeneratedOnAdd();
 
             builder.HasMany(x => x.ProductDiscounts)
                     .WithOne(x => x.Product)

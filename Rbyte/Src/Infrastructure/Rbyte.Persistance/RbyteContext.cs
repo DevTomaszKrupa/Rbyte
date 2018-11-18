@@ -6,7 +6,7 @@ namespace Rbyte.Persistance
 {
     public class RbyteContext : DbContext
     {
-        public RbyteContext(DbContextOptions<RbyteContext> options) : base(options)
+        public RbyteContext(DbContextOptions options) : base(options)
         {
         }
 
