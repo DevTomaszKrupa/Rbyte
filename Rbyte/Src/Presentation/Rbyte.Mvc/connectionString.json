@@ -1,4 +1,4 @@
 {
-  "MySqlConnectionString": "server=SERVER_NAME;database=DATABASE_NAME;user=USER_NAME;password=USER_PASSWORD",
-  "PostgreSqlConnectionString": "server=SERVER_NAME;database=DATABASE_NAME;Username=USER_NAME;Password=USER_PASSWORD"
+  "MySqlConnectionString": "server=$$SERVER_NAME$$;database=$$DATABASE_NAME$$;user=$$USER_NAME$$;password=$$USER_PASSWORD$$",
+  "PostgreSqlConnectionString": "server=$$SERVER_NAME$$;database=$$DATABASE_NAME$$;Username=$$USER_NAME$$;Password=$$USER_PASSWORD$$"
 }
