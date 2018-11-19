@@ -9,12 +9,8 @@ namespace Rbyte.Application.Product.Create
     {
         void Create(CreateProductModel model);
         ReadProductModel Read(int productId);
-        ReadProductModel Read1(int productId);
         IEnumerable<ReadProductModel> Read();
         void Delete(int productId);
-        ReadProductModel Read2(int productId);
-        void Update(int productId); // test
-        ReadProductModel Read3(int productId);
     }
 
     public class ProductService : IProductService

@@ -331,3 +331,4 @@ ASALocalRun/
 .vscode/
 connectionString.Development.json
 appsettings.Development.json
+*.orig
