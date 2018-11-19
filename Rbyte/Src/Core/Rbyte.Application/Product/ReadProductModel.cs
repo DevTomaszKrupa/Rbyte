@@ -1,4 +1,4 @@
-﻿namespace Rbyte.Application.Product.Read
+﻿namespace Rbyte.Application.Product
 {
     public class ReadProductModel
     {

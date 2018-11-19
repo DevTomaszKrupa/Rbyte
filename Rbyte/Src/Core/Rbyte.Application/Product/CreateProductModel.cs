@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Rbyte.Application.Product.Create
+namespace Rbyte.Application.Product
 {
     public class CreateProductModel
     {
