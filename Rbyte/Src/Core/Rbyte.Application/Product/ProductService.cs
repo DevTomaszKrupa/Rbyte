@@ -1,5 +1,4 @@
-﻿using Rbyte.Application.Product.Read;
-using Rbyte.Domain.Entities;
+﻿using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +9,11 @@ namespace Rbyte.Application.Product.Create
     {
         void Create(CreateProductModel model);
         ReadProductModel Read(int productId);
+        ReadProductModel Read1(int productId);
         IEnumerable<ReadProductModel> Read();
         void Delete(int productId);
+        ReadProductModel Read2(int productId);
+        ReadProductModel Read3(int productId);
     }
 
     public class ProductService : IProductService
@@ -69,6 +71,21 @@ namespace Rbyte.Application.Product.Create
             var dbProduct = _context.Products.Where(x => x.ProductId == productId).FirstOrDefault();
             _context.Products.Remove(dbProduct);
             _context.SaveChanges();
+        }
+
+        public ReadProductModel Read1(int productId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ReadProductModel Read2(int productId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ReadProductModel Read3(int productId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
