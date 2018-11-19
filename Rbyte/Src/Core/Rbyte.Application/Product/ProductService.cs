@@ -13,6 +13,7 @@ namespace Rbyte.Application.Product.Create
         IEnumerable<ReadProductModel> Read();
         void Delete(int productId);
         ReadProductModel Read2(int productId);
+        void Update(int productId); // test
         ReadProductModel Read3(int productId);
     }
 
