@@ -23,5 +23,6 @@ namespace Rbyte.Persistance
         {
             modelBuilder.ApplyAllConfigurations();
         }
+
     }
 }
