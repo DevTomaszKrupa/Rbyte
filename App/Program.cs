@@ -23,7 +23,7 @@ namespace Rbyte.App
             var index = 1;
             foreach (var item in listOfStrings)
             {
-                Console.WriteLine($"Element no. {1}: {item}");
+                Console.WriteLine($"Element no. {index}: {item}");
                 index++;
             }
 
