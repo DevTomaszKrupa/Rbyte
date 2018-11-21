@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Product;
 using Rbyte.Application.Product.Create;
-using Rbyte.Persistance;
+using System.Linq;
 
 namespace Rbyte.Mvc.Controllers
 {
@@ -14,79 +12,50 @@ namespace Rbyte.Mvc.Controllers
         {
             _productService = productService;
         }
-        // GET: Products
+
+        [HttpGet]
         public IActionResult Index()
         {
             var list = _productService.Read();
             return View(list);
         }
-        // GET: Products/Create
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new CreateProductModel());
         }
-        // POST: Products/Create
+
         [HttpPost]
         public IActionResult Create(CreateProductModel model)
         {
             _productService.Create(model);
             return RedirectToAction("Index");
         }
-        // GET: Product/Details
-        public IActionResult Details(int? id)
+
+        [HttpGet]
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var product = _productService.Read()
-                .FirstOrDefault(p => p.ProductId == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = _productService.Read(id);
             return View(product);
         }
-        // GET: Products/Edit
-        public IActionResult Edit(int? id)
+
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var product = _productService.Update((int)id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = _productService.GetForEdition(id);
             return View(product);
         }
-        // POST: Products/Edit
+
         [HttpPost]
         public IActionResult Edit(UpdateProductModel model)
         {
-            // _productService.Update();
+            _productService.Update(model);
             return RedirectToAction("Index");
         }
 
-        //GET: Products/Delete
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var product = _productService.Read()
-                .FirstOrDefault(p => p.ProductId == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
-        //POST: Products/Delete
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
             _productService.Delete(id);
             return RedirectToAction("Index");

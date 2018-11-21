@@ -9,6 +9,7 @@
 <div class="container">
     <form method="post" asp-action="Edit">
 
+        @Html.HiddenFor(x => x.ProductId)
         <section class="row">
             <label class="control-label">Name</label>
             @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control" } })
