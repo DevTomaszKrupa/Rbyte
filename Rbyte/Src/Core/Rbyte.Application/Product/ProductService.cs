@@ -1,4 +1,4 @@
-﻿using Rbyte.Application.Product.Read;
+﻿using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
@@ -11,8 +11,9 @@ namespace Rbyte.Application.Product.Create
         void Create(CreateProductModel model);
         ReadProductModel Read(int productId);
         IEnumerable<ReadProductModel> Read();
+        UpdateProductModel Update(int productId);
+        void Update(UpdateProductModel model);
         void Delete(int productId);
-        void Update(int productId);
     }
 
     public class ProductService : IProductService
@@ -64,7 +65,23 @@ namespace Rbyte.Application.Product.Create
 
             return products;
         }
-
+        public UpdateProductModel Update(int productId)
+        {
+            var product = _context.Products.Where(x => x.ProductId == productId)
+                                           .Select(x => new UpdateProductModel
+                                           {
+                                               ProductId = x.ProductId,
+                                               Barcode = x.Barcode,
+                                               Description = x.Description,
+                                               Name = x.Name,
+                                               Price = $"{x.StandardPrice} PLN"
+                                           }).FirstOrDefault();
+            return product;
+        }
+        public void Update(UpdateProductModel model)
+        {
+            _context.SaveChanges();
+        }
         public void Delete(int productId)
         {
             var dbProduct = _context.Products.Where(x => x.ProductId == productId).FirstOrDefault();
