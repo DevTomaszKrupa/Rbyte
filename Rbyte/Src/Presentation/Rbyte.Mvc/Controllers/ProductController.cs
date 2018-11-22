@@ -59,7 +59,6 @@ namespace Rbyte.Mvc.Controllers
         {
             _productService.Delete(id);
             return RedirectToAction("Index");
-
         }
     }
 }
