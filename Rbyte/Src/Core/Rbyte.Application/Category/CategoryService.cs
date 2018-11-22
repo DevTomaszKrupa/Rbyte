@@ -1,5 +1,6 @@
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -77,9 +78,17 @@ namespace Rbyte.Application.Category
         }
         public void Delete(int categoryId)
         {
-            var dbCategory = _context.Categories.First(x => x.CategoryId == categoryId);
-            _context.Categories.Remove(dbCategory);
-            _context.SaveChanges();
+            var dbCategory = _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
+            if (dbCategory.CategoryProducts.Any())
+            {
+                throw new Exception("Cannot delete category with products");
+            }
+            else
+            {
+                _context.Categories.Remove(dbCategory);
+                _context.SaveChanges();
+            }
+
         }
     }
 }
