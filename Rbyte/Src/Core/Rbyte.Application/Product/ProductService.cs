@@ -95,20 +95,5 @@ namespace Rbyte.Application.Product.Create
             _context.Products.Remove(dbProduct);
             _context.SaveChanges();
         }
-
-        public ReadProductModel Read1(int productId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ReadProductModel Read2(int productId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ReadProductModel Read3(int productId)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
