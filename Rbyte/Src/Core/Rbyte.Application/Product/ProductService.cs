@@ -7,9 +7,11 @@ namespace Rbyte.Application.Product.Create
 {
     public interface IProductService
     {
-        void Create(CreateProductModel model);
         ReadProductModel Read(int productId);
         IEnumerable<ReadProductModel> Read();
+        void Create(CreateProductModel model);
+        UpdateProductModel GetForEdition(int productId);
+        void Update(UpdateProductModel model);
         void Delete(int productId);
     }
 
@@ -45,7 +47,7 @@ namespace Rbyte.Application.Product.Create
                                                Description = x.Description,
                                                Name = x.Name,
                                                Price = $"{x.StandardPrice} PLN"
-                                           }).FirstOrDefault();
+                                           }).First();
             return product;
         }
 
@@ -62,10 +64,34 @@ namespace Rbyte.Application.Product.Create
 
             return products;
         }
+        public UpdateProductModel GetForEdition(int productId)
+        {
+            var product = _context.Products
+                                    .Where(x => x.ProductId == productId)
+                                    .Select(x => new UpdateProductModel
+                                    {
+                                        ProductId = x.ProductId,
+                                        Barcode = x.Barcode,
+                                        Description = x.Description,
+                                        Name = x.Name,
+                                        Price = x.StandardPrice
+                                    }).First();
+            return product;
+        }
+        public void Update(UpdateProductModel model)
+        {
+            var dbProduct = _context.Products.First(x => x.ProductId == model.ProductId);
 
+            dbProduct.Barcode = model.Barcode;
+            dbProduct.Description = model.Description;
+            dbProduct.Name = model.Name;
+            dbProduct.StandardPrice = model.Price;
+
+            _context.SaveChanges();
+        }
         public void Delete(int productId)
         {
-            var dbProduct = _context.Products.Where(x => x.ProductId == productId).FirstOrDefault();
+            var dbProduct = _context.Products.Where(x => x.ProductId == productId).First();
             _context.Products.Remove(dbProduct);
             _context.SaveChanges();
         }
