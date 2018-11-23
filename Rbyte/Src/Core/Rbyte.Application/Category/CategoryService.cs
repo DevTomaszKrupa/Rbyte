@@ -83,12 +83,8 @@ namespace Rbyte.Application.Category
             {
                 throw new Exception("Cannot delete category with products");
             }
-            else
-            {
-                _context.Categories.Remove(dbCategory);
-                _context.SaveChanges();
-            }
-
+            _context.Categories.Remove(dbCategory);
+            _context.SaveChanges();
         }
     }
 }
