@@ -78,7 +78,7 @@ namespace Rbyte.Application.Category
         }
         public void Delete(int categoryId)
         {
-            var dbCategory = _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
+            var dbCategory = _context.Categories.First(x => x.CategoryId == categoryId);
             if (dbCategory.CategoryProducts.Any())
             {
                 throw new Exception("Cannot delete category with products");

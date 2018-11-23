@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rbyte.Application.Category;
+using Rbyte.Application.Discount;
 using Rbyte.Application.Product.Create;
 using Rbyte.Persistance;
 using Rbyte.Persistance.MySql;
@@ -35,6 +36,7 @@ namespace Rbyte.Mvc
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IDiscountService, DiscountService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
