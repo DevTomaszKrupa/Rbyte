@@ -1,7 +1,43 @@
-﻿
+﻿@model IEnumerable<Rbyte.Application.Category.ReadCategoryModel>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Product list";
 }
 
-<h2>Category list</h2>
+<h2>Categories</h2>
 
+<p>
+    @Html.ActionLink("Create new category", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desctiption)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

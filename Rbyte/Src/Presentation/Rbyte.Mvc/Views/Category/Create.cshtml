@@ -1,11 +1,10 @@
-﻿@using Rbyte.Application.Product.Create
-@model Rbyte.Application.Product.CreateProductModel
+@model Rbyte.Application.Category.CreateCategoryModel
 @{
     ViewData["Title"] = "Create";
 }
 
 <section>
-    <h2>Create new product</h2>
+    <h2>Create new category</h2>
 </section>
 <div class="container">
     <form method="post" asp-action="Create">
@@ -18,16 +17,6 @@
         <section class="row">
             <label class="control-label">Description</label>
             @Html.EditorFor(x => x.Description, new { htmlAttributes = new { @class = "form-control" } })
-        </section>
-
-        <section class="row">
-            <label class="control-label">Price</label>
-            @Html.EditorFor(x => x.Price, new { htmlAttributes = new { @class = "form-control" } })
-        </section>
-
-        <section class="row">
-            <label class="control-label">Barcode</label>
-            @Html.EditorFor(x => x.Barcode, new { htmlAttributes = new { @class = "form-control" } })
         </section>
 
         <section class="row">
