@@ -15,3 +15,7 @@ Do poprawnego działania projektu nalezy utworzyć pliki:
   $$DATABASE_NAME$$ -> Rbyte
   $$USER_NAME$$ -> admin
   $$USER_PASSWORD$$ -> admin
+
+  2. Operacje na bazie
+  Update-Database -Context $$ContextName$$
+	ex: Update-Database -Context PostgreSqlRbyteContext
