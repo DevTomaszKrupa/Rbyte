@@ -1,0 +1,32 @@
+@model Rbyte.Application.Discount.UpdateDiscountModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<section>
+    <h2>Edit</h2>
+</section>
+<div class="container">
+    <form method="post" asp-action="Edit">
+
+        @Html.HiddenFor(x => x.DiscountId)
+        <section class="row">
+            <label class="control-label">Value</label>
+            @Html.EditorFor(x => x.Value, new { htmlAttributes = new { @class = "form-control" } })
+        </section>
+        
+    </dl>
+
+    </dl>
+
+        <section class="row">
+            <button type="submit" class="btn btn-success">Save</button>
+        </section>
+
+    </form>
+</div>
+
+<div>
+    @Html.ActionLink("Back to list", "Index")
+</div>
+

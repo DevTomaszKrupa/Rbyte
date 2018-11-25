@@ -26,14 +26,23 @@ namespace Rbyte.Application.Product.Create
 
         public void Create(CreateProductModel model)
         {
-            _context.Products.Add(new DbProduct
+            var dbProduct = new DbProduct
             {
                 Barcode = model.Barcode,
                 Description = model.Description,
                 Name = model.Name,
                 ProducerId = model.ProducerId,
                 StandardPrice = model.Price
-            });
+            };
+            _context.Products.Add(dbProduct);
+            if (model.CategoryId.HasValue)
+            {
+                _context.CategoryProducts.Add(new DbCategoryProduct
+                {
+                    CategoryId = model.CategoryId.Value,
+                    ProductId = dbProduct.ProductId
+                });
+            }
             _context.SaveChanges();
         }
 

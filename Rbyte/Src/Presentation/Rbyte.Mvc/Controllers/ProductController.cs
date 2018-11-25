@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rbyte.Application.Category;
 using Rbyte.Application.Product;
 using Rbyte.Application.Product.Create;
-using System.Linq;
 
 namespace Rbyte.Mvc.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly ICategoryService _categoryService;
+
+        public ProductController(IProductService productService,
+                                 ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -23,7 +27,12 @@ namespace Rbyte.Mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new CreateProductModel());
+            var categories = _categoryService.GetSelectListItems();
+            var model = new CreateProductModel
+            {
+                CategorySelectList = categories
+            };
+            return View(model);
         }
 
         [HttpPost]

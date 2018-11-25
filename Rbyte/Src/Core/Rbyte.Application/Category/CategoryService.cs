@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System;
@@ -11,6 +12,7 @@ namespace Rbyte.Application.Category
         void Create(CreateCategoryModel model);
         ReadCategoryModel Read(int categoryId);
         IEnumerable<ReadCategoryModel> Read();
+        List<SelectListItem> GetSelectListItems();
         UpdateCategoryModel GetForEdition(int categoryId);
         void Update(UpdateCategoryModel model);
         void Delete(int categoryId);
@@ -78,13 +80,23 @@ namespace Rbyte.Application.Category
         }
         public void Delete(int categoryId)
         {
-            var dbCategory = _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
+            var dbCategory = _context.Categories.First(x => x.CategoryId == categoryId);
             if (dbCategory.CategoryProducts.Any())
             {
                 throw new Exception("Cannot delete category with products");
             }
             _context.Categories.Remove(dbCategory);
             _context.SaveChanges();
+        }
+
+        public List<SelectListItem> GetSelectListItems()
+        {
+            var productList = _context.Categories.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.CategoryId.ToString()
+            }).ToList();
+            return productList;
         }
     }
 }

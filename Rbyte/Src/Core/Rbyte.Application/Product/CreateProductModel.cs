@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Rbyte.Application.Product
 {
@@ -13,5 +15,7 @@ namespace Rbyte.Application.Product
         [Display(Name="Barcode")]
         public long Barcode { get; set; }
         public int? ProducerId { get; set; }
+        public int? CategoryId { get; set; }
+        public IEnumerable<SelectListItem> CategorySelectList { get; set; }
     }
 }
