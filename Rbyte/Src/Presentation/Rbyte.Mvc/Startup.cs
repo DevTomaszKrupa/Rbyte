@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Rbyte.Application.Category;
 using Rbyte.Application.Discount;
 using Rbyte.Application.Product.Create;
+using Rbyte.Application.Store;
 using Rbyte.Persistance;
 using Rbyte.Persistance.MySql;
 using Rbyte.Persistance.PostgreSql;
@@ -37,6 +38,7 @@ namespace Rbyte.Mvc
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<IStoreService, StoreService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
