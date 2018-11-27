@@ -24,10 +24,18 @@ namespace Rbyte.Application.Discount
         }
         public void Create(CreateDiscountModel model)
         {
-            _context.Add(new DbDiscount
+            var dbDiscount = new DbDiscount
             {
                 Value = model.Value
-            });
+            };
+            _context.Discounts.Add(dbDiscount);
+            var productDiscounts = _context.CategoryProducts.Where(x => x.CategoryId == model.CategoryId)
+                                                            .Select(x => new DbProductDiscount
+                                                            {
+                                                                ProductId = x.ProductId,
+                                                                DiscountId = dbDiscount.DiscountId
+                                                            }).ToList();
+            _context.ProductDiscounts.AddRange(productDiscounts);
             _context.SaveChanges();
         }
         public ReadDiscountModel Read(int discountId)

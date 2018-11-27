@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Rbyte.Application.Category;
 using Rbyte.Application.Discount;
 
 namespace Rbyte.Mvc.Controllers
@@ -6,9 +7,12 @@ namespace Rbyte.Mvc.Controllers
     public class DiscountController : Controller
     {
         private readonly IDiscountService _discountService;
-        public DiscountController(IDiscountService discountService)
+        private readonly ICategoryService _categoryService;
+        public DiscountController(IDiscountService discountService,
+                                    ICategoryService categoryService)
         {
             _discountService = discountService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -21,7 +25,12 @@ namespace Rbyte.Mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new CreateDiscountModel());
+            var categories = _categoryService.GetSelectListItems();
+            var model = new CreateDiscountModel
+            {
+                CategorySelectList = categories
+            };
+            return View(model);
         }
 
         [HttpPost]
