@@ -46,6 +46,8 @@ namespace Rbyte.Mvc
             services.AddTransient<IValidator<ReadCategoryModel>, ReadCategoryModelValidator>();
             services.AddTransient<IValidator<UpdateCategoryModel>, UpdateCategoryModelValidator>();
 
+            services.AddTransient<IValidator<CreateProductModel>, CreateProductModelValidator>();
+
             // services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();

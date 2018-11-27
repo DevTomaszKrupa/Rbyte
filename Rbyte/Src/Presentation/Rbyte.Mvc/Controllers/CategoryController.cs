@@ -34,7 +34,7 @@ namespace Rbyte.Mvc.Controllers
             if (!ModelState.IsValid)
             {
                 var errorMessages = ModelState.Values.SelectMany(x => x.Errors.Select(err => err.ErrorMessage)).ToList();
-                ViewBag.ErrorMessage = string.Join(Environment.NewLine, errorMessages);
+                ViewBag.ErrorMessages = errorMessages;
                 return View("Create", model);
             }
 

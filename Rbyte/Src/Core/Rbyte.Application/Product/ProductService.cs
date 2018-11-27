@@ -1,4 +1,6 @@
-﻿using Rbyte.Domain.Entities;
+﻿using Rbyte.Application.Product.Read;
+using Rbyte.Application.Product.Update;
+using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
 using System.Linq;
