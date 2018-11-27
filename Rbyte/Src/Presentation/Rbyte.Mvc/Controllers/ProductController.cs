@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Category;
-using Rbyte.Application.Product;
 using Rbyte.Application.Product.Create;
+using Rbyte.Application.Product.Update;
+using System;
+using System.Linq;
 
 namespace Rbyte.Mvc.Controllers
 {
@@ -38,6 +40,14 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(CreateProductModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var errorMessages = ModelState.Values.SelectMany(x => x.Errors.Select(err => err.ErrorMessage)).ToList();
+                ViewBag.ErrorMessages = errorMessages;
+                model.CategorySelectList = _categoryService.GetSelectListItems();
+                return View("Create", model);
+            }
+
             _productService.Create(model);
             return RedirectToAction("Index");
         }

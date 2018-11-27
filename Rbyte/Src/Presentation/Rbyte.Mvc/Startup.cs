@@ -11,7 +11,12 @@ using Rbyte.Application.Product.Create;
 using Rbyte.Application.Store;
 using Rbyte.Persistance;
 using Rbyte.Persistance.MySql;
+using FluentValidation.AspNetCore;
 using Rbyte.Persistance.PostgreSql;
+using FluentValidation;
+using Rbyte.Application.Category.Create;
+using Rbyte.Application.Category.Read;
+using Rbyte.Application.Category.Update;
 
 namespace Rbyte.Mvc
 {
@@ -30,11 +35,20 @@ namespace Rbyte.Mvc
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddMvc()                
+                .AddFluentValidation();
 
             ConfigureDatabaseConnection(services);
 
+            // validators
+            services.AddTransient<IValidator<CreateCategoryModel>, CreateCategoryModelValidator>();
+            services.AddTransient<IValidator<ReadCategoryModel>, ReadCategoryModelValidator>();
+            services.AddTransient<IValidator<UpdateCategoryModel>, UpdateCategoryModelValidator>();
+
+            services.AddTransient<IValidator<CreateProductModel>, CreateProductModelValidator>();
+
+            // services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IDiscountService, DiscountService>();
