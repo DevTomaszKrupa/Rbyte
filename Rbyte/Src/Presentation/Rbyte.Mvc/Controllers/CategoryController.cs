@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Category;
+using Rbyte.Application.Category.Create;
+using Rbyte.Application.Category.Update;
+using System;
 using System.Linq;
 
 namespace Rbyte.Mvc.Controllers
@@ -24,12 +27,21 @@ namespace Rbyte.Mvc.Controllers
         {
             return View(new CreateCategoryModel());
         }
+
         [HttpPost]
         public IActionResult Create(CreateCategoryModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var errorMessages = ModelState.Values.SelectMany(x => x.Errors.Select(err => err.ErrorMessage)).ToList();
+                ViewBag.ErrorMessage = string.Join(Environment.NewLine, errorMessages);
+                return View("Create", model);
+            }
+
             _categoryService.Create(model);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {

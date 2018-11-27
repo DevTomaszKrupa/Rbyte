@@ -1,4 +1,4 @@
-namespace Rbyte.Application.Category
+namespace Rbyte.Application.Category.Update
 {
     public class UpdateCategoryModel
     {
