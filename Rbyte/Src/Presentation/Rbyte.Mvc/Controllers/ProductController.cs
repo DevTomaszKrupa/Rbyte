@@ -2,9 +2,7 @@
 using Rbyte.Application.Category;
 using Rbyte.Application.Product.Create;
 using Rbyte.Application.Product.Update;
-using Rbyte.Mvc.Extensions;
-using System;
-using System.Linq;
+using Rbyte.Common.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {

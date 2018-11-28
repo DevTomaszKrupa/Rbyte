@@ -3,8 +3,7 @@ using Rbyte.Application.Category;
 using Rbyte.Application.Discount;
 using Rbyte.Application.Discount.Create;
 using Rbyte.Application.Discount.Update;
-using System;
-using Rbyte.Mvc.Extensions;
+using Rbyte.Common.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {
