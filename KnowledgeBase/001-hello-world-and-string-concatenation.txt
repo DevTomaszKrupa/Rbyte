@@ -27,8 +27,7 @@
         - argumentow funckji WriteLine
         - za pomocą znaku '$'
 
-        
-Using string.Join().
-Using string.Format().
-Using string.Append().
-Using StringBuilder.
+
+Zadania:
+    Napisz program który będzie wczytywał ciągi znaków i wyświetlał je w rożnej formie.
+    Przetestuj wszystkie poznane metody. 
