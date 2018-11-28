@@ -1,7 +1,52 @@
 002 Value types
-    - int
-    - decimal
-    - int.Parse() 
-    - decimal.Parse()
-    - operacje matematyczne 
+
+    W tej lekcji poznasz typy proste, operacje matematyczne i konwersje łańcucha znaków na typ prosty.
+    Do pojęcia tej lekcji potrzebujesz zrozumieć następujące rzeczy:
+    
+        002.01 Jakie typy wartościowe istneją w języku C#, najważniejsze na ten moment:
+            bool
+            char
+            decimal
+            double
+            int
+        - pozostałe:
+            byte
+            enum
+            float
+            long
+            sbyte
+            short
+            struct
+            uint
+            ulong
+            ushort
+            
+        002.02 Jak wykonać konwersję łańcucha znaków na typ prosty
+            string -> int
+            string -> decimal
+            string -> double
+            string -> to char
+            string -> bool
+            przy wykorzystaniu metody .Parse()
+            na ten moment nie przejmuj się wyjątkami zwracanymi w przypadku niepowodzenia.
+            
+        002.03 Jak wykonywać operacje matematyczne na typach int, decimal, double
+            - dodawanie
+            - odejmowanie
+            - mnożenie
+            - dzielenie
+            - reszta z dzielenia
         
+        Zadania:
+        01. Napisz własny program sprawdzający wiedzę z tej lekcji
+        02. Napisz prosty kalkulator, program powinien przyjmować 2 liczby i wyświetlić następujące wyniki
+            - wynik dodawania
+            - wynik odejmowania
+            - wynik mnożenia
+            - wyniek dzielenia
+            - resztę z dzielenia
+        03. Spróbuj wykonać konwersję pomiędzy typami
+            int <-> decimal
+            int <-> double
+            decimal <-> double
+            wykorzystując rzutowanie za pomocą nawiasu np. decimal test = (decimal)140;
