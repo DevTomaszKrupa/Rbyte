@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Rbyte.Application.Discount
+namespace Rbyte.Application.Discount.Update
 {
     public class UpdateDiscountModel
     {

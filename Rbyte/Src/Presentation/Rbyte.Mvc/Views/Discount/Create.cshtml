@@ -1,4 +1,4 @@
-@model Rbyte.Application.Discount.CreateDiscountModel
+@model Rbyte.Application.Discount.Create.CreateDiscountModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -18,6 +18,13 @@
              <label class="control-label">Category</label>
              @Html.DropDownListFor(model => model.CategoryId, Model.CategorySelectList, "-- Select category --", new { @class = "form-control" })
          </section>
+         @if (ViewBag.ErrorMessages != null)
+         {
+             @foreach (string error in ViewBag.ErrorMessages)
+             {
+                 <section style="color:red">@error</section>
+             }
+         }
 
         <section class="row">
             <button type="submit" class="btn btn-success">Save</button>

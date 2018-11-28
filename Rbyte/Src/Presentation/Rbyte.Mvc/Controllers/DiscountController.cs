@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Category;
 using Rbyte.Application.Discount;
+using Rbyte.Application.Discount.Create;
+using Rbyte.Application.Discount.Update;
+using System;
+using Rbyte.Mvc.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {
@@ -36,6 +40,12 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(CreateDiscountModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                model.CategorySelectList = _categoryService.GetSelectListItems();
+                return View("Create", model);
+            }
             _discountService.Create(model);
             return RedirectToAction("Index");
         }
@@ -56,6 +66,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Edit(UpdateDiscountModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Edit", model);
+            }
             _discountService.Update(model);
             return RedirectToAction("Index");
         }

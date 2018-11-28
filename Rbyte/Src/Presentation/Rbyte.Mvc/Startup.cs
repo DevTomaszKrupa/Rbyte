@@ -17,6 +17,14 @@ using FluentValidation;
 using Rbyte.Application.Category.Create;
 using Rbyte.Application.Category.Read;
 using Rbyte.Application.Category.Update;
+using Rbyte.Application.Product.Read;
+using Rbyte.Application.Product.Update;
+using Rbyte.Application.Discount.Create;
+using Rbyte.Application.Discount.Read;
+using Rbyte.Application.Discount.Update;
+using Rbyte.Application.Store.Create;
+using Rbyte.Application.Store.Read;
+using Rbyte.Application.Store.Update;
 
 namespace Rbyte.Mvc
 {
@@ -36,7 +44,7 @@ namespace Rbyte.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddMvc()                
+                .AddMvc()
                 .AddFluentValidation();
 
             ConfigureDatabaseConnection(services);
@@ -47,6 +55,16 @@ namespace Rbyte.Mvc
             services.AddTransient<IValidator<UpdateCategoryModel>, UpdateCategoryModelValidator>();
 
             services.AddTransient<IValidator<CreateProductModel>, CreateProductModelValidator>();
+            services.AddTransient<IValidator<ReadProductModel>, ReadProductModelValidator>();
+            services.AddTransient<IValidator<UpdateProductModel>, UpdateProductModelValidator>();
+
+            services.AddTransient<IValidator<CreateDiscountModel>, CreateDiscountModelValidator>();
+            services.AddTransient<IValidator<ReadDiscountModel>, ReadDiscountModelValidator>();
+            services.AddTransient<IValidator<UpdateDiscountModel>, UpdateDiscountModelValidator>();
+
+            services.AddTransient<IValidator<CreateStoreModel>, CreateStoreModelValidator>();
+            services.AddTransient<IValidator<ReadStoreModel>, ReadStoreModelValidator>();
+            services.AddTransient<IValidator<UpdateStoreModel>, UpdateStoreModelValidator>();
 
             // services
             services.AddScoped<IProductService, ProductService>();

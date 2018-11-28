@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Store;
+using Rbyte.Application.Store.Create;
+using Rbyte.Application.Store.Update;
+using Rbyte.Mvc.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {
@@ -27,6 +30,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(CreateStoreModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Create", model);
+            }
             _storeService.Create(model);
             return RedirectToAction("Index");
         }
@@ -48,6 +56,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Edit(UpdateStoreModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Edit", model);
+            }
             _storeService.Update(model);
             return RedirectToAction("Index");
         }

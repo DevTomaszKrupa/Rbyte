@@ -1,4 +1,4 @@
-namespace Rbyte.Application.Discount
+namespace Rbyte.Application.Discount.Read
 {
     public class ReadDiscountModel
     {
