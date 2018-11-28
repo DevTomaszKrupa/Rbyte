@@ -22,6 +22,9 @@ using Rbyte.Application.Product.Update;
 using Rbyte.Application.Discount.Create;
 using Rbyte.Application.Discount.Read;
 using Rbyte.Application.Discount.Update;
+using Rbyte.Application.Store.Create;
+using Rbyte.Application.Store.Read;
+using Rbyte.Application.Store.Update;
 
 namespace Rbyte.Mvc
 {
@@ -58,6 +61,10 @@ namespace Rbyte.Mvc
             services.AddTransient<IValidator<CreateDiscountModel>, CreateDiscountModelValidator>();
             services.AddTransient<IValidator<ReadDiscountModel>, ReadDiscountModelValidator>();
             services.AddTransient<IValidator<UpdateDiscountModel>, UpdateDiscountModelValidator>();
+
+            services.AddTransient<IValidator<CreateStoreModel>, CreateStoreModelValidator>();
+            services.AddTransient<IValidator<ReadStoreModel>, ReadStoreModelValidator>();
+            services.AddTransient<IValidator<UpdateStoreModel>, UpdateStoreModelValidator>();
 
             // services
             services.AddScoped<IProductService, ProductService>();

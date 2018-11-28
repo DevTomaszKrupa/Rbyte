@@ -1,6 +1,6 @@
-namespace Rbyte.Application.Store
+namespace Rbyte.Application.Store.Read
 {
-    public class UpdateStoreModel
+    public class ReadStoreModel
     {
         public int StoreId { get; set; }
         public string Name { get; set; }

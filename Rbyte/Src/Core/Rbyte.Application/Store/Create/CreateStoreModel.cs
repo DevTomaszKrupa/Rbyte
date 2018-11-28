@@ -1,4 +1,4 @@
-namespace Rbyte.Application.Store
+namespace Rbyte.Application.Store.Create
 {
     public class CreateStoreModel
     {
