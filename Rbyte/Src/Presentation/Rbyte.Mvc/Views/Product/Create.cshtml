@@ -34,13 +34,7 @@
             @Html.DropDownListFor(model => model.CategoryId, Model.CategorySelectList, "-- Select category --", new { @class = "form-control" })
         </section>
 
-        @if (ViewBag.ErrorMessages != null)
-        {
-            @foreach (string error in ViewBag.ErrorMessages)
-            {
-                <section style="color:red">@error</section>
-            }
-        }
+        @await Html.PartialAsync("_ErrorMessages")
 
         <section class="row">
             <button type="submit" class="btn btn-success">Save</button>

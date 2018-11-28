@@ -29,13 +29,8 @@
             <label class="control-label">Barcode</label>
             @Html.EditorFor(x => x.Barcode, new { htmlAttributes = new { @class = "form-control" } })
         </section>
-        @if (ViewBag.ErrorMessages != null)
-         {
-             @foreach (string error in ViewBag.ErrorMessages)
-             {
-                 <section style="color:red">@error</section>
-             }
-         }
+        
+        @await Html.PartialAsync("_ErrorMessages")
 
         <section class="row">
             <button type="submit" class="btn btn-success">Save</button>
