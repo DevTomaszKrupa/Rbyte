@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Rbyte.Application.Discount
+namespace Rbyte.Application.Discount.Create
 {
     public class CreateDiscountModel
     {

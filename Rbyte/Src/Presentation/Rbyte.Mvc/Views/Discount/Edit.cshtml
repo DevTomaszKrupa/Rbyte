@@ -1,4 +1,4 @@
-@model Rbyte.Application.Discount.UpdateDiscountModel
+@model Rbyte.Application.Discount.Update.UpdateDiscountModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -14,6 +14,13 @@
             <label class="control-label">Value</label>
             @Html.EditorFor(x => x.Value, new { htmlAttributes = new { @class = "form-control" } })
         </section>
+        @if (ViewBag.ErrorMessages != null)
+         {
+             @foreach (string error in ViewBag.ErrorMessages)
+             {
+                 <section style="color:red">@error</section>
+             }
+         }
         
     </dl>
 

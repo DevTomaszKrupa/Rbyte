@@ -3,6 +3,9 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
+using Rbyte.Application.Discount.Create;
+using Rbyte.Application.Discount.Read;
+using Rbyte.Application.Discount.Update;
 
 namespace Rbyte.Application.Discount
 {
