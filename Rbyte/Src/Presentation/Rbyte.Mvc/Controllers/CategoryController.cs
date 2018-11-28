@@ -2,6 +2,7 @@
 using Rbyte.Application.Category;
 using Rbyte.Application.Category.Create;
 using Rbyte.Application.Category.Update;
+using Rbyte.Mvc.Extensions;
 using System;
 using System.Linq;
 
@@ -33,8 +34,7 @@ namespace Rbyte.Mvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errorMessages = ModelState.Values.SelectMany(x => x.Errors.Select(err => err.ErrorMessage)).ToList();
-                ViewBag.ErrorMessages = errorMessages;
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
                 return View("Create", model);
             }
 
@@ -59,6 +59,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Edit(UpdateCategoryModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Edit", model);
+            }
             _categoryService.Update(model);
             return RedirectToAction("Index");
         }
