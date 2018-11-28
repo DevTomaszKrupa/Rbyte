@@ -1,10 +1,10 @@
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Rbyte.Mvc.Extensions
+namespace Rbyte.Common.Extensions
 {
-    public static class ErrorsExtensions
+    public static class ModelStateDictionaryExtensions
     {
         public static List<string> GetAllErrorMessages(this ModelStateDictionary modelState)
         {

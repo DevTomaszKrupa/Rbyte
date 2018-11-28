@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Mvc", "Src\Presentati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Tests", "Tests\Rbyte.Tests\Rbyte.Tests.csproj", "{6A083D74-3BD9-4377-960D-175ACC5A5A9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Common", "Src\Common\Rbyte.Common\Rbyte.Common.csproj", "{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{6A083D74-3BD9-4377-960D-175ACC5A5A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A083D74-3BD9-4377-960D-175ACC5A5A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A083D74-3BD9-4377-960D-175ACC5A5A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{39BBD400-EED7-48A6-AB53-3489AB0DC5E0} = {135EB30F-3FC9-44E7-97A4-0A37C9C83871}
 		{D254AF79-DCA6-4640-AF66-553E46BC2000} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 		{6A083D74-3BD9-4377-960D-175ACC5A5A9D} = {33F17F87-9D91-455E-996E-31BB22DDC611}
+		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54} = {C5A21030-D51D-49E3-B0B9-2FCF32AABC86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {763E3616-B55D-48F9-8FD2-5E6B30FD5306}

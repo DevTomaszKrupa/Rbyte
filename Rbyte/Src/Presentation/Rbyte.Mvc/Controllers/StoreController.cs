@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Store;
 using Rbyte.Application.Store.Create;
 using Rbyte.Application.Store.Update;
-using Rbyte.Mvc.Extensions;
+using Rbyte.Common.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {
