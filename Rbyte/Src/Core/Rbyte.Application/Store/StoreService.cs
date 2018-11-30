@@ -1,17 +1,19 @@
-using System.Collections.Generic;
-using System.Linq;
+using Rbyte.Application.Product.Read;
 using Rbyte.Application.Store.Create;
+using Rbyte.Application.Store.Details;
 using Rbyte.Application.Store.Read;
 using Rbyte.Application.Store.Update;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rbyte.Application.Store
 {
     public interface IStoreService
     {
         void Create(CreateStoreModel model);
-        ReadStoreModel Read(int storeId);
+        DetailsStoreModel Read(int storeId);
         IEnumerable<ReadStoreModel> Read();
         UpdateStoreModel GetForEdition(int storeId);
         void Update(UpdateStoreModel model);
@@ -53,14 +55,22 @@ namespace Rbyte.Application.Store
             return stores;
         }
 
-        public ReadStoreModel Read(int storeId)
+        public DetailsStoreModel Read(int storeId)
         {
             var store = _context.Stores
                                     .Where(x => x.StoreId == storeId)
-                                    .Select(x => new ReadStoreModel
+                                    .Select(x => new DetailsStoreModel
                                     {
                                         StoreId = x.StoreId,
-                                        Name = x.Name
+                                        Name = x.Name,
+                                        Products = x.StoreProducts.Select(prod => new ReadProductModel
+                                        {
+                                            Barcode = prod.Product.Barcode,
+                                            Description = prod.Product.Description,
+                                            Name = prod.Product.Name,
+                                            Price = prod.Product.StandardPrice.ToString(),
+                                            ProductId = prod.ProductId
+                                        }).ToList()
                                     }).First();
             return store;
         }
