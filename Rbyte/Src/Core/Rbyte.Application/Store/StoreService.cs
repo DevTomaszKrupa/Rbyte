@@ -79,6 +79,15 @@ namespace Rbyte.Application.Store
         {
             var dbStore = _context.Stores.Where(x => x.StoreId == model.StoreId).First();
             dbStore.Name = model.Name;
+            if (model.ProductId.HasValue)
+            {
+                _context.StoreProducts.Add(new DbStoreProduct
+                {
+                    ProductId = model.ProductId.Value,
+                    StoreId = dbStore.StoreId,
+                    Count = model.Count
+                });
+            }
             _context.SaveChanges();
         }
     }

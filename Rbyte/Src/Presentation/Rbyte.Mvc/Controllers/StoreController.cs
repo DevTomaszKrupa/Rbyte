@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Rbyte.Application.Product.Create;
 using Rbyte.Application.Store;
 using Rbyte.Application.Store.Create;
 using Rbyte.Application.Store.Update;
@@ -9,9 +10,12 @@ namespace Rbyte.Mvc.Controllers
     public class StoreController : Controller
     {
         private readonly IStoreService _storeService;
-        public StoreController(IStoreService storeService)
+        private readonly IProductService _productService;
+        public StoreController(IStoreService storeService,
+                                IProductService productService)
         {
             _storeService = storeService;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -50,6 +54,8 @@ namespace Rbyte.Mvc.Controllers
         public IActionResult Edit(int id)
         {
             var store = _storeService.GetForEdition(id);
+            var products = _productService.GetSelectListItems();
+            store.ProductSelectList = products;
             return View(store);
         }
 
