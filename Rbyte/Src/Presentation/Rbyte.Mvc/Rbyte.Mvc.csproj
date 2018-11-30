@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\Core\Rbyte.Application\Rbyte.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Styles\Variables\" />
+  </ItemGroup>
+
 </Project>
