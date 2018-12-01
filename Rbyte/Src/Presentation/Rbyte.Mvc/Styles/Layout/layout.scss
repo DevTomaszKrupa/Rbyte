@@ -12,6 +12,7 @@
 
     .side-panel-container {
         width: 15%;
+        min-width: 15%;
         background-color: #FFEB3B;
         flex-direction: column;
         display: flex;
@@ -55,6 +56,7 @@
 
     .page-container {
         width: 85%;
-        padding-left: 3rem;
+        min-width: 85%;
+       // padding-left: 3rem;
     }
 }

@@ -10,6 +10,7 @@ html, body {
   height: 100%; }
   .rbyte-container .side-panel-container {
     width: 15%;
+    min-width: 15%;
     background-color: #FFEB3B;
     flex-direction: column;
     display: flex;
@@ -43,5 +44,5 @@ html, body {
         background-color: #FFF176; }
   .rbyte-container .page-container {
     width: 85%;
-    padding-left: 3rem; }
+    min-width: 85%; }
 
