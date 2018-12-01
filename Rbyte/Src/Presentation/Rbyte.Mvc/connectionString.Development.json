@@ -1,0 +1,4 @@
+{
+  "MySqlConnectionString": "server=localhost;database=Rbyte_dev;user=root;password=admin",
+  "PostgreSqlConnectionString": "server=localhost;database=Rbyte_dev;Username=postgres;Password=postgre"
+}
