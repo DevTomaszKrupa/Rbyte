@@ -30,5 +30,7 @@ namespace logic.Order
             var orderPrice = _orderPriceCalculator.Calculate(products);
             var paymentMethod = _paymentMethodProvider.Get(orderPrice);
         }
+        //GivenAgeUnder18_ThenThrowsException
+        //GivenAgeOver18_Then
     }
 }

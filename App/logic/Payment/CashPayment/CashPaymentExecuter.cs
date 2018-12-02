@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace logic.Payment.CashPayment
+﻿namespace logic.Payment.CashPayment
 {
     public interface ICashPaymentExecuter
     {

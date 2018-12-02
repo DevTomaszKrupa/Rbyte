@@ -10,7 +10,6 @@ namespace logic.Order.OrderPrice
 
     public class OrderPriceCalculator : IOrderPriceCalculator
     {
-
         public decimal Calculate(List<ProductDto> products)
         {
             decimal sum = 0m;
@@ -19,7 +18,7 @@ namespace logic.Order.OrderPrice
                 if (item.Discount > 100)
                     throw new Exception("Invalid discount value");
 
-                sum += item.Discount == 0 ? item.Price : item.Price * item.Discount;
+                sum += item.Discount == 0 ? item.Price : item.Price * (100 - item.Discount) / 100;
             }
             return sum;
         }
