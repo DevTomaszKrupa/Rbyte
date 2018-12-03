@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public string Price { get; set; }
         public long Barcode { get; set; }
+        public int Count { get; set; }
     }
 }

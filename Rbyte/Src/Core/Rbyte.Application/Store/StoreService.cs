@@ -107,7 +107,8 @@ namespace Rbyte.Application.Store
                                             Description = prod.Product.Description,
                                             Name = prod.Product.Name,
                                             Price = $"{prod.Product.StandardPrice.ToString()} PLN",
-                                            ProductId = prod.ProductId
+                                            ProductId = prod.ProductId,
+                                            Count = prod.Count
                                         }).ToList()
                                     }).First();
             return store;
