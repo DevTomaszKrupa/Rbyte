@@ -1,4 +1,5 @@
 using Rbyte.Application.Product.Read;
+using Rbyte.Application.Store.Add;
 using Rbyte.Application.Store.Create;
 using Rbyte.Application.Store.Details;
 using Rbyte.Application.Store.Read;
@@ -18,6 +19,8 @@ namespace Rbyte.Application.Store
         UpdateStoreModel GetForEdition(int storeId);
         void Update(UpdateStoreModel model);
         void Delete(int storeId);
+        void AddProduct(AddStoreProductModel model);
+        AddStoreProductModel GetForAdd(int storeId);
     }
     public class StoreService : IStoreService
     {
@@ -26,6 +29,21 @@ namespace Rbyte.Application.Store
         {
             _context = context;
         }
+
+        public void AddProduct(AddStoreProductModel model)
+        {
+            if (model.ProductId.HasValue)
+            {
+                _context.StoreProducts.Add(new DbStoreProduct
+                {
+                    ProductId = model.ProductId.Value,
+                    StoreId = model.StoreId,
+                    Count = model.Count
+                });
+            }
+            _context.SaveChanges();
+        }
+
         public void Create(CreateStoreModel model)
         {
             var dbStore = new DbStore
@@ -41,6 +59,18 @@ namespace Rbyte.Application.Store
             var dbStore = _context.Stores.Where(x => x.StoreId == storeId).First();
             _context.Stores.Remove(dbStore);
             _context.SaveChanges();
+        }
+
+        public AddStoreProductModel GetForAdd(int storeId)
+        {
+            var store = _context.Stores
+                                    .Where(x => x.StoreId == storeId)
+                                    .Select(x => new AddStoreProductModel
+                                    {
+                                        StoreId = x.StoreId,
+                                        Name = x.Name
+                                    }).First();
+            return store;
         }
 
         public UpdateStoreModel GetForEdition(int storeId)
@@ -68,7 +98,7 @@ namespace Rbyte.Application.Store
                                             Barcode = prod.Product.Barcode,
                                             Description = prod.Product.Description,
                                             Name = prod.Product.Name,
-                                            Price = prod.Product.StandardPrice.ToString(),
+                                            Price = $"{prod.Product.StandardPrice.ToString()} PLN",
                                             ProductId = prod.ProductId
                                         }).ToList()
                                     }).First();
@@ -89,15 +119,6 @@ namespace Rbyte.Application.Store
         {
             var dbStore = _context.Stores.Where(x => x.StoreId == model.StoreId).First();
             dbStore.Name = model.Name;
-            if (model.ProductId.HasValue)
-            {
-                _context.StoreProducts.Add(new DbStoreProduct
-                {
-                    ProductId = model.ProductId.Value,
-                    StoreId = dbStore.StoreId,
-                    Count = model.Count
-                });
-            }
             _context.SaveChanges();
         }
     }

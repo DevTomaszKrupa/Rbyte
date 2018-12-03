@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Product.Create;
 using Rbyte.Application.Store;
+using Rbyte.Application.Store.Add;
 using Rbyte.Application.Store.Create;
 using Rbyte.Application.Store.Update;
 using Rbyte.Common.Extensions;
@@ -51,11 +52,31 @@ namespace Rbyte.Mvc.Controllers
         }
 
         [HttpGet]
+        public IActionResult AddProduct(int id)
+        {
+            var store = _storeService.GetForAdd(id);
+            var products = _productService.GetSelectListItems();
+            store.ProductSelectList = products;
+            return View(store);
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(AddStoreProductModel model)
+        {
+            // if (!ModelState.IsValid)
+            // {
+            //     ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+            //     return View("AddProduct", model);
+            // }
+            _storeService.AddProduct(model);
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var store = _storeService.GetForEdition(id);
-            var products = _productService.GetSelectListItems();
-            store.ProductSelectList = products;
             return View(store);
         }
 
