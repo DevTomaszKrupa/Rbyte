@@ -98,5 +98,12 @@ namespace Rbyte.Mvc.Controllers
             _storeService.Delete(id);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            _storeService.DeleteProduct(id);
+            return RedirectToAction("Index");
+        }
     }
 }

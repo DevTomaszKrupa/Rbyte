@@ -21,6 +21,7 @@ namespace Rbyte.Application.Store
         void Delete(int storeId);
         void AddProduct(AddStoreProductModel model);
         AddStoreProductModel GetForAdd(int storeId);
+        void DeleteProduct(int productId);
     }
     public class StoreService : IStoreService
     {
@@ -58,6 +59,13 @@ namespace Rbyte.Application.Store
         {
             var dbStore = _context.Stores.Where(x => x.StoreId == storeId).First();
             _context.Stores.Remove(dbStore);
+            _context.SaveChanges();
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            var dbProduct = _context.StoreProducts.Where(x => x.ProductId == productId).First();
+            _context.StoreProducts.Remove(dbProduct);
             _context.SaveChanges();
         }
 
