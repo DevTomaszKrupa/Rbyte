@@ -6,6 +6,7 @@ using Rbyte.Application.Store.Read;
 using Rbyte.Application.Store.Update;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,6 +59,10 @@ namespace Rbyte.Application.Store
         public void Delete(int storeId)
         {
             var dbStore = _context.Stores.Where(x => x.StoreId == storeId).First();
+            if (dbStore.StoreProducts.Any())
+            {
+                throw new Exception("Cannot delete storehouse with products");
+            }
             _context.Stores.Remove(dbStore);
             _context.SaveChanges();
         }
