@@ -60,7 +60,8 @@ namespace Rbyte.Application.Product.Create
                                                Barcode = x.Barcode,
                                                Description = x.Description,
                                                Name = x.Name,
-                                               Price = $"{x.StandardPrice} PLN"
+                                               Price = $"{x.StandardPrice} PLN",
+                                               TaxValue = x.Tax != null ? x.Tax.Value : 0
                                            }).First();
             return product;
         }
@@ -73,7 +74,8 @@ namespace Rbyte.Application.Product.Create
                 Barcode = x.Barcode,
                 Description = x.Description,
                 Name = x.Name,
-                Price = $"{x.StandardPrice} PLN"
+                Price = $"{x.StandardPrice} PLN",
+                TaxValue = x.Tax != null ? x.Tax.Value : 0
             }).ToList();
 
             return products;

@@ -8,5 +8,6 @@
         public string Price { get; set; }
         public long Barcode { get; set; }
         public int Count { get; set; }
+        public decimal TaxValue { get; set; }
     }
 }
