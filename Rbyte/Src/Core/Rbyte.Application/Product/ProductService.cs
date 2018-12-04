@@ -13,7 +13,7 @@ namespace Rbyte.Application.Product.Create
         ReadProductModel Read(int productId);
         IEnumerable<ReadProductModel> Read();
         void Create(CreateProductModel model);
-        List<SelectListItem> GetSelectListItems();
+        List<SelectListItem> GetProductSelectList();
         UpdateProductModel GetForEdition(int productId);
         void Update(UpdateProductModel model);
         void Delete(int productId);
@@ -109,7 +109,7 @@ namespace Rbyte.Application.Product.Create
             _context.SaveChanges();
         }
 
-        public List<SelectListItem> GetSelectListItems()
+        public List<SelectListItem> GetProductSelectList()
         {
             var productList = _context.Products.Select(x => new SelectListItem
             {

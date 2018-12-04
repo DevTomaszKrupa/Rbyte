@@ -55,7 +55,7 @@ namespace Rbyte.Mvc.Controllers
         public IActionResult AddProduct(int id)
         {
             var store = _storeService.GetForAdd(id);
-            var products = _productService.GetSelectListItems();
+            var products = _productService.GetProductSelectList();
             store.ProductSelectList = products;
             return View(store);
         }
