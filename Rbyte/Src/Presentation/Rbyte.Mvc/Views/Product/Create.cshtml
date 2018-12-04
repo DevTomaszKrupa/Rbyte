@@ -34,6 +34,11 @@
             @Html.DropDownListFor(model => model.CategoryId, Model.CategorySelectList, "-- Select category --", new { @class = "form-control" })
         </section>
 
+        <section class="row">
+            <label class="control-label">Tax</label>
+            @Html.DropDownListFor(model => model.TaxId, Model.TaxSelectList, "-- Select tax --", new { @class = "form-control" })
+        </section>
+
         @await Html.PartialAsync("_ErrorMessages")
 
         <section class="row">

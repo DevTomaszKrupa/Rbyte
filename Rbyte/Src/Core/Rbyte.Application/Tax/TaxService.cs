@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Rbyte.Application.Tax.Create;
 using Rbyte.Application.Tax.Read;
 using Rbyte.Application.Tax.Update;
@@ -13,6 +14,7 @@ namespace Rbyte.Application.Tax
         void Create(CreateTaxModel model);
         ReadTaxModel Read(int taxId);
         IEnumerable<ReadTaxModel> Read();
+        List<SelectListItem> GetTaxSelectList();
         UpdateTaxModel GetForEdition(int taxId);
         void Update(UpdateTaxModel model);
         void Delete(int taxId);
@@ -50,6 +52,16 @@ namespace Rbyte.Application.Tax
                                         Value = x.Value
                                     }).First();
             return tax;
+        }
+
+        public List<SelectListItem> GetTaxSelectList()
+        {
+            var taxList = _context.Taxes.Select(x => new SelectListItem
+            {
+                Text = x.Value.ToString(),
+                Value = x.TaxId.ToString()
+            }).ToList();
+            return taxList;
         }
 
         public ReadTaxModel Read(int taxId)
