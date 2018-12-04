@@ -18,6 +18,7 @@ namespace Rbyte.Persistance
         public DbSet<DbProductDiscount> ProductDiscounts { get; set; }
         public DbSet<DbStore> Stores { get; set; }
         public DbSet<DbStoreProduct> StoreProducts { get; set; }
+        public DbSet<DbTax> Taxes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

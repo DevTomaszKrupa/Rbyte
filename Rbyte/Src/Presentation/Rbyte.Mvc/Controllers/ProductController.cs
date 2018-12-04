@@ -2,6 +2,7 @@
 using Rbyte.Application.Category;
 using Rbyte.Application.Product.Create;
 using Rbyte.Application.Product.Update;
+using Rbyte.Application.Tax;
 using Rbyte.Common.Extensions;
 
 namespace Rbyte.Mvc.Controllers
@@ -10,12 +11,15 @@ namespace Rbyte.Mvc.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ITaxService _taxService;
 
         public ProductController(IProductService productService,
-                                 ICategoryService categoryService)
+                                 ICategoryService categoryService,
+                                 ITaxService taxService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _taxService = taxService;
         }
 
         [HttpGet]
@@ -29,9 +33,11 @@ namespace Rbyte.Mvc.Controllers
         public IActionResult Create()
         {
             var categories = _categoryService.GetSelectListItems();
+            var taxes = _taxService.GetTaxSelectList();
             var model = new CreateProductModel
             {
-                CategorySelectList = categories
+                CategorySelectList = categories,
+                TaxSelectList = taxes
             };
             return View(model);
         }

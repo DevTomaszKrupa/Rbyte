@@ -17,5 +17,7 @@ namespace Rbyte.Application.Product.Create
         public int? ProducerId { get; set; }
         public int? CategoryId { get; set; }
         public IEnumerable<SelectListItem> CategorySelectList { get; set; }
+        public int? TaxId { get; set; }
+        public IEnumerable<SelectListItem> TaxSelectList { get; set; }
     }
 }

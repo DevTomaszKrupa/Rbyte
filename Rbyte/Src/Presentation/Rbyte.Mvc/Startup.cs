@@ -25,6 +25,7 @@ using Rbyte.Application.Discount.Update;
 using Rbyte.Application.Store.Create;
 using Rbyte.Application.Store.Read;
 using Rbyte.Application.Store.Update;
+using Rbyte.Application.Tax;
 
 namespace Rbyte.Mvc
 {
@@ -71,6 +72,7 @@ namespace Rbyte.Mvc
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<ITaxService, TaxService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
