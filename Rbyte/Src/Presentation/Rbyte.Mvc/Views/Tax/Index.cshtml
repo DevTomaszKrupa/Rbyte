@@ -1,0 +1,35 @@
+@model IEnumerable<Rbyte.Application.Tax.Read.ReadTaxModel>
+
+@{
+    ViewData["Title"] = "Tax list";
+}
+
+<h2>Taxes</h2>
+
+<p>
+    @Html.ActionLink("Create new tax", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Value
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TaxId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TaxId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TaxId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
