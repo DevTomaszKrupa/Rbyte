@@ -1,21 +1,28 @@
-using System.Collections.Generic;
-using System.Linq;
+using Rbyte.Application.Product.Read;
+using Rbyte.Application.Store.Add;
 using Rbyte.Application.Store.Create;
+using Rbyte.Application.Store.Details;
 using Rbyte.Application.Store.Read;
 using Rbyte.Application.Store.Update;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rbyte.Application.Store
 {
     public interface IStoreService
     {
         void Create(CreateStoreModel model);
-        ReadStoreModel Read(int storeId);
+        DetailsStoreModel Read(int storeId);
         IEnumerable<ReadStoreModel> Read();
         UpdateStoreModel GetForEdition(int storeId);
         void Update(UpdateStoreModel model);
         void Delete(int storeId);
+        void AddProduct(AddStoreProductModel model);
+        AddStoreProductModel GetForAdd(int storeId);
+        void DeleteProduct(int productId);
     }
     public class StoreService : IStoreService
     {
@@ -24,6 +31,21 @@ namespace Rbyte.Application.Store
         {
             _context = context;
         }
+
+        public void AddProduct(AddStoreProductModel model)
+        {
+            if (model.ProductId.HasValue)
+            {
+                _context.StoreProducts.Add(new DbStoreProduct
+                {
+                    ProductId = model.ProductId.Value,
+                    StoreId = model.StoreId,
+                    Count = model.Count
+                });
+            }
+            _context.SaveChanges();
+        }
+
         public void Create(CreateStoreModel model)
         {
             var dbStore = new DbStore
@@ -37,8 +59,31 @@ namespace Rbyte.Application.Store
         public void Delete(int storeId)
         {
             var dbStore = _context.Stores.Where(x => x.StoreId == storeId).First();
+            if (dbStore.StoreProducts.Any())
+            {
+                throw new Exception("Cannot delete storehouse with products");
+            }
             _context.Stores.Remove(dbStore);
             _context.SaveChanges();
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            var dbProduct = _context.StoreProducts.Where(x => x.ProductId == productId).First();
+            _context.StoreProducts.Remove(dbProduct);
+            _context.SaveChanges();
+        }
+
+        public AddStoreProductModel GetForAdd(int storeId)
+        {
+            var store = _context.Stores
+                                    .Where(x => x.StoreId == storeId)
+                                    .Select(x => new AddStoreProductModel
+                                    {
+                                        StoreId = x.StoreId,
+                                        Name = x.Name
+                                    }).First();
+            return store;
         }
 
         public UpdateStoreModel GetForEdition(int storeId)
@@ -53,14 +98,23 @@ namespace Rbyte.Application.Store
             return stores;
         }
 
-        public ReadStoreModel Read(int storeId)
+        public DetailsStoreModel Read(int storeId)
         {
             var store = _context.Stores
                                     .Where(x => x.StoreId == storeId)
-                                    .Select(x => new ReadStoreModel
+                                    .Select(x => new DetailsStoreModel
                                     {
                                         StoreId = x.StoreId,
-                                        Name = x.Name
+                                        Name = x.Name,
+                                        Products = x.StoreProducts.Select(prod => new ReadProductModel
+                                        {
+                                            Barcode = prod.Product.Barcode,
+                                            Description = prod.Product.Description,
+                                            Name = prod.Product.Name,
+                                            Price = $"{prod.Product.StandardPrice.ToString()} PLN",
+                                            ProductId = prod.ProductId,
+                                            Count = prod.Count
+                                        }).ToList()
                                     }).First();
             return store;
         }

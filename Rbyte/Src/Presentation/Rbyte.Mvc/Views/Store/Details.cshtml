@@ -1,4 +1,5 @@
-@model Rbyte.Application.Store.Read.ReadStoreModel
+@model Rbyte.Application.Store.Details.DetailsStoreModel
+@{   
     ViewData["Title"] = "Details";
 }
 
@@ -14,6 +15,58 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+</div>
+<div>
+    @Html.ActionLink("Add new product to storehouse", "AddProduct", new { id = Model.StoreId })
+</div>
+<div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Barcode
+            </th>
+             <th>
+                Count
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Barcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+
+                <td>     
+                    @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 </div>
 <div>
     @Html.ActionLink("Edit store", "Edit", new { id = Model.StoreId })

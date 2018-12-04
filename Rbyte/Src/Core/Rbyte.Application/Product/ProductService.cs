@@ -1,4 +1,5 @@
-﻿using Rbyte.Application.Product.Read;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Rbyte.Application.Product.Read;
 using Rbyte.Application.Product.Update;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
@@ -12,6 +13,7 @@ namespace Rbyte.Application.Product.Create
         ReadProductModel Read(int productId);
         IEnumerable<ReadProductModel> Read();
         void Create(CreateProductModel model);
+        List<SelectListItem> GetProductSelectList();
         UpdateProductModel GetForEdition(int productId);
         void Update(UpdateProductModel model);
         void Delete(int productId);
@@ -105,6 +107,16 @@ namespace Rbyte.Application.Product.Create
             var dbProduct = _context.Products.Where(x => x.ProductId == productId).First();
             _context.Products.Remove(dbProduct);
             _context.SaveChanges();
+        }
+
+        public List<SelectListItem> GetProductSelectList()
+        {
+            var productList = _context.Products.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.ProductId.ToString()
+            }).ToList();
+            return productList;
         }
     }
 }
