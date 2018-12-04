@@ -1,4 +1,4 @@
-@model Rbyte.Application.Category.Read.ReadCategoryModel
+@model Rbyte.Application.Category.Details.DetailsCategoryModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -15,14 +15,50 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Desctiption)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Desctiption)
-        </dd>
     </dl>
 </div>
+<div>
+     <table class="table">
+     <thead>
+         <tr>
+             <th>
+                 Name
+             </th>
+             <th>
+                 Description
+             </th>
+             <th>
+                 Price
+             </th>
+             <th>
+                 Barcode
+             </th>
+         </tr>
+     </thead>
+     <tbody>
+         @foreach (var item in Model.Products)
+         {
+             <tr>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Name)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Description)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Price)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Barcode)
+                 </td>
+
+                 <td>     
+                     @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                 </td>
+             </tr>
+         }
+     </tbody>
+ </table>
 <div>
     @Html.ActionLink("Edit category", "Edit", new { id = Model.CategoryId })
 </div>

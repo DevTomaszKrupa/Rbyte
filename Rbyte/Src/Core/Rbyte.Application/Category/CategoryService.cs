@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rbyte.Application.Category.Create;
+using Rbyte.Application.Category.Details;
 using Rbyte.Application.Category.Read;
 using Rbyte.Application.Category.Update;
+using Rbyte.Application.Product.Read;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System;
@@ -13,8 +15,8 @@ namespace Rbyte.Application.Category
     public interface ICategoryService
     {
         void Create(CreateCategoryModel model);
-        ReadCategoryModel Read(int categoryId);
         IEnumerable<ReadCategoryModel> Read();
+        DetailsCategoryModel Read(int categoryId);
         List<SelectListItem> GetSelectListItems();
         UpdateCategoryModel GetForEdition(int categoryId);
         void Update(UpdateCategoryModel model);
@@ -38,14 +40,21 @@ namespace Rbyte.Application.Category
             _context.SaveChanges();
         }
 
-        public ReadCategoryModel Read(int categoryId)
+        public DetailsCategoryModel Read(int categoryId)
         {
             var category = _context.Categories.Where(x => x.CategoryId == categoryId)
-                                              .Select(x => new ReadCategoryModel
+                                              .Select(x => new DetailsCategoryModel
                                               {
                                                   CategoryId = x.CategoryId,
                                                   Name = x.Name,
-                                                  Desctiption = x.Description
+                                                  Products = x.CategoryProducts.Select(prod => new ReadProductModel
+                                                  {
+                                                      Barcode = prod.Product.Barcode,
+                                                      Description = prod.Product.Description,
+                                                      Name = prod.Product.Name,
+                                                      Price = prod.Product.StandardPrice.ToString(),
+                                                      ProductId = prod.ProductId
+                                                  }).ToList()
                                               }).First();
             return category;
         }
