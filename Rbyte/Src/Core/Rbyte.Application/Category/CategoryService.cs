@@ -21,6 +21,7 @@ namespace Rbyte.Application.Category
         UpdateCategoryModel GetForEdition(int categoryId);
         void Update(UpdateCategoryModel model);
         void Delete(int categoryId);
+        void DeleteProduct(int productId);
     }
     public class CategoryService : ICategoryService
     {
@@ -109,6 +110,13 @@ namespace Rbyte.Application.Category
                 Value = x.CategoryId.ToString()
             }).ToList();
             return productList;
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            var dbProduct = _context.CategoryProducts.Where(x => x.ProductId == productId).First();
+            _context.CategoryProducts.Remove(dbProduct);
+            _context.SaveChanges();
         }
     }
 }
