@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -39,6 +40,10 @@ namespace Rbyte.Application.Tax
         public void Delete(int taxId)
         {
             var dbTax = _context.Taxes.First(x => x.TaxId == taxId);
+            if (dbTax.Products.Any())
+            {
+                throw new Exception("Cannot delete tax belonging to products");
+            }
             _context.Taxes.Remove(dbTax);
             _context.SaveChanges();
         }
