@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Tax;
 using Rbyte.Application.Tax.Create;
 using Rbyte.Application.Tax.Update;
+using Rbyte.Common.Extensions;
 
 namespace Rbyte.Mvc.Controllers
 {
@@ -29,6 +30,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(CreateTaxModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Create", model);
+            }
             _taxService.Create(model);
             return RedirectToAction("Index");
         }
@@ -50,6 +56,11 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult Edit(UpdateTaxModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                return View("Edit", model);
+            }
             _taxService.Update(model);
             return RedirectToAction("Index");
         }

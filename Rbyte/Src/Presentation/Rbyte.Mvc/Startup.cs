@@ -28,6 +28,9 @@ using Rbyte.Application.Store.Update;
 using Rbyte.Application.Tax;
 using Rbyte.Application.Store.Add;
 using Rbyte.Application.Store.Details;
+using Rbyte.Application.Tax.Create;
+using Rbyte.Application.Tax.Read;
+using Rbyte.Application.Tax.Update;
 
 namespace Rbyte.Mvc
 {
@@ -70,6 +73,10 @@ namespace Rbyte.Mvc
             services.AddTransient<IValidator<UpdateStoreModel>, UpdateStoreModelValidator>();
             services.AddTransient<IValidator<AddStoreProductModel>, AddStoreProductModelValidator>();
             services.AddTransient<IValidator<DetailsStoreModel>, DetailsStoreModelValidator>();
+
+            services.AddTransient<IValidator<CreateTaxModel>, CreateTaxModelValidator>();
+            services.AddTransient<IValidator<ReadTaxModel>, ReadTaxModelValidator>();
+            services.AddTransient<IValidator<UpdateTaxModel>, UpdateTaxModelValidator>();
 
             // services
             services.AddScoped<IProductService, ProductService>();
