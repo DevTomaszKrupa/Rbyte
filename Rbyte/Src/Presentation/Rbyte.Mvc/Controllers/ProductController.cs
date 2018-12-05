@@ -49,6 +49,7 @@ namespace Rbyte.Mvc.Controllers
             {
                 ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
                 model.CategorySelectList = _categoryService.GetSelectListItems();
+                model.TaxSelectList = _taxService.GetTaxSelectList();
                 return View("Create", model);
             }
 
