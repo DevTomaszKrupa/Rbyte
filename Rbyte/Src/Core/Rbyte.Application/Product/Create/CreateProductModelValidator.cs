@@ -21,6 +21,10 @@ namespace Rbyte.Application.Product.Create
             RuleFor(x => x.CategoryId)
                 .Must(x => x.HasValue && x > 0)
                 .WithMessage("Category is required");
+
+            RuleFor(x => x.TaxId)
+                .Must(x => x.HasValue && x != null)
+                .WithMessage("Tax is required");
         }
     }
 }

@@ -63,11 +63,12 @@ namespace Rbyte.Mvc.Controllers
         [HttpPost]
         public IActionResult AddProduct(AddStoreProductModel model)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
-            //     return View("AddProduct", model);
-            // }
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessages = ModelState.GetAllErrorMessages();
+                model.ProductSelectList = _productService.GetProductSelectList();
+                return View("AddProduct", model);
+            }
             _storeService.AddProduct(model);
             return RedirectToAction("Index");
         }
