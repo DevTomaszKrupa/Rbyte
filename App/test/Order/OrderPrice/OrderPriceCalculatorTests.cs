@@ -30,7 +30,8 @@ namespace test.Order.OrderPrice
             });
 
             // Act Assert
-            Should.Throw<Exception>(() => Sut.Calculate(list)); // TODO handle Message
+            Should.Throw<ArgumentException>(() => Sut.Calculate(list)).Message
+                .ShouldBe("Invalid discount value");       
         }
 
         [Fact]

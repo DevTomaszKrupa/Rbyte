@@ -16,7 +16,7 @@ namespace logic.Order.OrderPrice
             foreach (var item in products)
             {
                 if (item.Discount > 100)
-                    throw new Exception("Invalid discount value");
+                    throw new ArgumentException("Invalid discount value");
 
                 sum += item.Discount == 0 ? item.Price : item.Price * (100 - item.Discount) / 100;
             }
