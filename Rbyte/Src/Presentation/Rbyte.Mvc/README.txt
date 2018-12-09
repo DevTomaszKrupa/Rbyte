@@ -26,3 +26,5 @@ Do poprawnego działania projektu nalezy utworzyć pliki:
   2. Operacje na bazie
   Update-Database -Context $$ContextName$$
 	ex: Update-Database -Context PostgreSqlRbyteContext
+  Add-Migration -Context $$ContextName$$ -o $$OutputFolder$$
+	ex: Add-Migration -Context PostgreSqlRbyteContext -o PostgreSql\Migrations
