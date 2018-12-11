@@ -23,9 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Application", "Src\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Mvc", "Src\Presentation\Rbyte.Mvc\Rbyte.Mvc.csproj", "{D254AF79-DCA6-4640-AF66-553E46BC2000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Tests", "Tests\Rbyte.Tests\Rbyte.Tests.csproj", "{6A083D74-3BD9-4377-960D-175ACC5A5A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Tests", "Tests\Rbyte.Tests\Rbyte.Tests.csproj", "{6A083D74-3BD9-4377-960D-175ACC5A5A9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Common", "Src\Common\Rbyte.Common\Rbyte.Common.csproj", "{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Common", "Src\Common\Rbyte.Common\Rbyte.Common.csproj", "{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Api", "Src\Presentation\Rbyte.Api\Rbyte.Api.csproj", "{3882A8F7-1735-44CA-837A-651D31E27A02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3882A8F7-1735-44CA-837A-651D31E27A02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3882A8F7-1735-44CA-837A-651D31E27A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3882A8F7-1735-44CA-837A-651D31E27A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3882A8F7-1735-44CA-837A-651D31E27A02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{D254AF79-DCA6-4640-AF66-553E46BC2000} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 		{6A083D74-3BD9-4377-960D-175ACC5A5A9D} = {33F17F87-9D91-455E-996E-31BB22DDC611}
 		{F6F42D5F-1305-4A44-BA41-00AB9DAE8A54} = {C5A21030-D51D-49E3-B0B9-2FCF32AABC86}
+		{3882A8F7-1735-44CA-837A-651D31E27A02} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {763E3616-B55D-48F9-8FD2-5E6B30FD5306}
