@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "34723092-b52d-4def-aa61-64c79c85eba8",
+		"name": "Invoice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Invoice POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:15555/api/invoice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "15555",
+					"path": [
+						"api",
+						"invoice"
+					]
+				},
+				"description": "Endpoint creates new invoice."
+			},
+			"response": []
+		}
+	]
+}
