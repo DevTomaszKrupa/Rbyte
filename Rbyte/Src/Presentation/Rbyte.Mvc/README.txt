@@ -24,7 +24,8 @@ Do poprawnego działania projektu nalezy utworzyć pliki:
 
 
   2. Operacje na bazie
+  - wykonujemy w projekcie Rbyte.Persistance
   Update-Database -Context $$ContextName$$
 	ex: Update-Database -Context PostgreSqlRbyteContext
-  Add-Migration -Context $$ContextName$$ -o $$OutputFolder$$
-	ex: Add-Migration -Context PostgreSqlRbyteContext -o PostgreSql\Migrations
+  Add-Migration $$NAME$$ -Context $$ContextName$$ -o $$OutputFolder$$
+	ex: Add-Migration AddProdcutEntity -Context PostgreSqlRbyteContext -o PostgreSql\Migrations

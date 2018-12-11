@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.ApiModels.Invoice;
+using Rbyte.Domain.ApiModels.Invoice;
 using System.Collections.Generic;
 
 namespace Rbyte.Api.Controllers
