@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { ProductDashboardComponentComponent } from './product-dashboard-component/product-dashboard-component.component';
+import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
 
 @NgModule({
     imports: [
     ],
     declarations: [
-        ProductDashboardComponentComponent
+        ProductDashboardComponent
     ],
     providers: [
     ],
