@@ -1,5 +1,7 @@
 ﻿using logic.Order.OrderPrice;
 using logic.Payment;
+using logic.Payment.Policy;
+using logic.User;
 using System;
 using System.Collections.Generic;
 
@@ -14,12 +16,18 @@ namespace logic.Order
     {
         private readonly IOrderPriceCalculator _orderPriceCalculator;
         private readonly IPaymentMethodProvider _paymentMethodProvider;
+        private readonly IUserAuthorizer _userAuthorizer;
+        private readonly IPaymentPolicyService _paymentPolicyService;
 
         public OrderResolver(IOrderPriceCalculator orderPriceCalculator,
-                             IPaymentMethodProvider paymentMethodProvider)
+                             IPaymentMethodProvider paymentMethodProvider,
+                             IUserAuthorizer userAuthorizer,
+                             IPaymentPolicyService paymentPolicyService)
         {
             _orderPriceCalculator = orderPriceCalculator;
             _paymentMethodProvider = paymentMethodProvider;
+            _userAuthorizer = userAuthorizer;
+            _paymentPolicyService = paymentPolicyService;
         }
 
         public void Resolve(List<ProductDto> products, UserDto user)
@@ -29,22 +37,13 @@ namespace logic.Order
 
             var orderPrice = _orderPriceCalculator.Calculate(products);
             var paymentMethod = _paymentMethodProvider.Get(orderPrice);
-            DoSmf(paymentMethod);
-            if (orderPrice > 100)
+
+            _paymentPolicyService.Apply(paymentMethod);
+
+            if (orderPrice > 10000)
             {
-                DoSmf2();
+                _userAuthorizer.Authorize(user);
             }
         }
-
-        private void DoSmf(PaymentMethod payment)
-        {
-            Console.WriteLine(payment);
-        }
-        private void DoSmf2()
-        {
-
-        }
-        //GivenAgeUnder18_ThenThrowsException
-        //GivenAgeOver18_Then
     }
 }

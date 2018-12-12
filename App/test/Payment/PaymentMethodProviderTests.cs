@@ -4,11 +4,11 @@ using Xunit;
 
 namespace test.Payment
 {
-    public class WhenProvidingPaymentMethod
+    public class PaymentMethodProviderTests
     {
         private PaymentMethodProvider Sut { get; }
 
-        public WhenProvidingPaymentMethod()
+        public PaymentMethodProviderTests()
         {
             Sut = new PaymentMethodProvider();
         }
@@ -16,39 +16,39 @@ namespace test.Payment
         [Fact]
         public void GivenCostOver1000_ThenReturnsCardPaymentMethod()
         {
-            // Assert
+            // Arrange
             const decimal cost = 2500m;
 
             // Act
             var result = Sut.Get(cost);
 
-            // Arrange
+            // Assert
             result.ShouldBe(PaymentMethod.Card);
         }
 
         [Fact]
         public void GivenCostUnder1000_ThenReturnsCashPaymentMethod()
         {
-            // Assert
+            // Arrange
             const decimal cost = 25m;
 
             // Act
             var result = Sut.Get(cost);
 
-            // Arrange
+            // Assert
             result.ShouldBe(PaymentMethod.Cash);
         }
 
         [Fact]
         public void GivenCostEqual0_ThenReturnsCashPaymentMethod()
         {
-            // Assert
+            // Arrange
             const decimal cost = 0;
 
             // Act
             var result = Sut.Get(cost);
 
-            // Arrange
+            // Assert
             result.ShouldBe(PaymentMethod.Cash);
         }
 
@@ -56,13 +56,13 @@ namespace test.Payment
         public void GivenCostUnder0_ThenReturnsCashPaymentMethod()
         {
 
-            // Assert
+            // Arrange
             const decimal cost = -100m;
 
             // Act
             var result = Sut.Get(cost);
 
-            // Arrange
+            // Assert
             result.ShouldBe(PaymentMethod.Cash);
         }
     }
