@@ -4,16 +4,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductModule } from './product/product.module';
-import { SideNavComponent } from './layout/side-nav/side-nav.component';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SideNavComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LayoutModule,
     ProductModule
   ],
   providers: [],

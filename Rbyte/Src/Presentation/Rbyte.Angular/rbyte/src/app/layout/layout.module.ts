@@ -12,6 +12,8 @@ import { SideNavItemComponent } from './side-nav/side-nav-item/side-nav-item.com
     providers: [
     ],
     exports: [
+        SideNavComponent,
+        SideNavItemComponent
     ]
 })
 export class LayoutModule { }

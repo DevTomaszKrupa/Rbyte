@@ -10,6 +10,7 @@ import { ProductDashboardComponent } from './product-dashboard/product-dashboard
     providers: [
     ],
     exports: [
+        ProductDashboardComponent
     ]
 })
 export class ProductModule { }
