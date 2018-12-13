@@ -1,7 +1,9 @@
+@import '../../../styles/global-variables.scss';
+
 .side_nav_container {
     display: flex;
     flex-direction: column;
     :hover{
-        background-color: #FFEE58;
+        background-color: $side-nav-item-hover-background-color;
     }
 }
