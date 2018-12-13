@@ -1,0 +1,13 @@
+@import '../styles/global-variables.scss';
+
+.app_container{
+    display: flex;
+    .side_nav_container{
+        flex: $side-nav-container-proportion;
+        background-color: $side-nav-container-background-color;
+    }
+    .main_container{
+        flex: $main-container-proportion;
+        background-color: $main-container-background-color;
+    }
+}

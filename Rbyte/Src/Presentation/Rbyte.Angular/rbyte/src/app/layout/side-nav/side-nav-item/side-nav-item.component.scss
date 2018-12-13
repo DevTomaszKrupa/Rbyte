@@ -1,0 +1,10 @@
+.side_nav_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; 
+    border-bottom: 0.02rem solid;    
+    .label{
+        font-size: 1rem;
+    }
+}
