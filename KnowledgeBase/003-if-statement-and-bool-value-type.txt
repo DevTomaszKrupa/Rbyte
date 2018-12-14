@@ -1,4 +1,23 @@
 003 If statement and bool value type
-    - bool
-    - If
-    - >= <= == ...
+    W tej lekcji szerzej poznasz zmienną typu 'bool' oraz wykorzystanie słowa kluczowego 'if'.
+    
+    Przykład wykorzystania: 
+    - if (warunek) 
+    {
+        kod;
+    }   
+     
+    * Rzeczy na które warto zwrócić uwagę:
+    - 'warunek' musi być wartością true/false - nie jest istotne skąd będzie ona pochodzić (zwykłe pole, operacja logiczna, wywołanie funkcji)
+    
+    1) zwykłe pole
+                        bool warunek = true;
+                        if (warunek) ...
+    
+    2) operacja logiczna
+                        int number = 20;
+                        if (number >= 100) ... else ...
+    dostępne operatory: >= <= == ... // TODO
+    
+    3) *wywołanie funkcji zwracającej bool // TODO funkcje omówione zostaną w lekcji X
+                        if(CheckIfAvailable()) ... 
