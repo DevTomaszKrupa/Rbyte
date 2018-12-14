@@ -21,5 +21,6 @@ Słowo kluczowe if oraz zmienna bool
 Switch
 Funkcje
 Słowo kluczowe out
+Funkcje generyczne
 Klasy i obiekty
 Bibliteka LINQ
