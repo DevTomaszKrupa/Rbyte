@@ -1,5 +1,5 @@
-005 DateTime and while loop
-    - dateTime
-    - dateTime.ToString()
-    - while loop
-    - do-while loop
+005 DateTime and while loop 
+// TODO Podzielić lekcję na 
+//      - struktury
+//      - struktura DateTime
+//      pętla do-while, while
