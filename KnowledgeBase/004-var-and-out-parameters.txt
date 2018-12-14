@@ -1,3 +1,9 @@
 004 If statement and bool value type
-    - var
-    - out
+        
+    Czym jest słowo kluczowe var?
+    Czy jest dobrą praktyką uywanie słowa 'var'?
+    Czym jest słowo kluczowe 'out' i jak je wykorzystać?
+    
+    Zadania:
+    1) Napisz własne funkcje z wykorzystaniem 'out' // TODO Przenieść tą lekcję za lekcję z funkcjami
+    2) Czy jest dobrą praktyką wykorzystywanie słowa kluczowego 'out'?
