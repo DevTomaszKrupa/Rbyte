@@ -24,3 +24,17 @@ Słowo kluczowe out
 Funkcje generyczne
 Klasy i obiekty
 Bibliteka LINQ
+
+tablice
+interfejsy
+filestream
+using
+delegaty
+funkcje lokalne
+wyjatki
+refleksja
+
+SOLID
+CQRS
+JSON, XML
+API
