@@ -1,4 +1,8 @@
 006 List and foreach loop
+// TODO podzielić lekcję na 
+// kolekcje
+// petla for i foreech
+
 - negacja logiczna: !
 - inkrementacja za pomocą: ++
 - List<T>
