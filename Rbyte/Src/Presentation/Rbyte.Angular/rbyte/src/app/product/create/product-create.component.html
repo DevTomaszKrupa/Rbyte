@@ -1,0 +1,27 @@
+<div class="product_create_page">
+    <form (ngSubmit)="submitHandler()">
+      <div class="product_create_form_body">
+        <div class="labels">
+          <label>Nazwa</label>
+          <label>Opis</label>
+          <label>Kod kreskowy</label>
+          <label>Podatek VAT</label>
+          <label>Cena bez marży</label>
+          <label>Cena sklepowa</label>
+        </div>
+    
+        <div class="inputs">
+          <input name="name" placeholder="Nazwa">
+          <input name="description" placeholder="Opis">
+          <input name="barcode" placeholder="Kod kreskowy">
+          <input name="tax" placeholder="Podatek VAT">
+          <input name="priceWithoutMargin" placeholder="Cena bez marży">
+          <input name="fullPrice" placeholder="Cena sklepowa">
+        </div>
+      </div>
+    
+      <button class=""> Zapisz </button>
+    </form>
+
+    <button routerLink="/products"> Powrót do listy </button>
+</div>
