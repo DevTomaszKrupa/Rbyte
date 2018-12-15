@@ -29,5 +29,3 @@ Do poprawnego działania projektu nalezy utworzyć pliki:
 	ex: Update-Database -Context PostgreSqlRbyteContext
   Add-Migration $$NAME$$ -Context $$ContextName$$ -o $$OutputFolder$$
 	ex: Add-Migration AddProdcutEntity -Context PostgreSqlRbyteContext -o PostgreSql\Migrations
-
-	// TODO LOGGER
