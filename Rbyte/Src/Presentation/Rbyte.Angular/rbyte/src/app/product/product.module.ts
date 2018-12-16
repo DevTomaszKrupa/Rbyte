@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RbControlsModule } from './../../rb-controls/rb-controls.module';
 import { NgModule } from '@angular/core';
@@ -11,7 +12,8 @@ import { ProductUpdateComponent } from './update/product-update.component';
     imports: [
         RbControlsModule,
         CommonModule,
-        RouterModule
+        RouterModule,
+        FormsModule
     ],
     declarations: [
         ProductDashboardComponent,

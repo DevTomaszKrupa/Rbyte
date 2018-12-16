@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Rbyte.Api
 {
@@ -12,8 +13,19 @@ namespace Rbyte.Api
                 .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var host = WebHost.CreateDefaultBuilder(args);
+
+            host
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("connectionString.json");
+                    config.AddJsonFile($"connectionString.{hostingContext.HostingEnvironment.EnvironmentName}.json");
+                });
+            host.UseStartup<Startup>();
+
+            return host;
+        }
     }
 }

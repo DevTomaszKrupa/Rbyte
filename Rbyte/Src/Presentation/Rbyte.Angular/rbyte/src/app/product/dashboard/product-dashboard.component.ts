@@ -1,3 +1,4 @@
+import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 
@@ -8,16 +9,10 @@ import { Product } from '../models/product';
 })
 export class ProductDashboardComponent implements OnInit {
   public products: Product[] = [];
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
-    this.products.push(new Product(1, 'Mąka', '100% gluten', 1231232, 15, 2.32, 3.99));
+    this.productService.getProductList().subscribe(x => this.products = x);
   }
 
 }

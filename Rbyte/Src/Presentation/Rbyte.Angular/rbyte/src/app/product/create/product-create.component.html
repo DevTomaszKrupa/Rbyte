@@ -11,16 +11,16 @@
         </div>
     
         <div class="inputs">
-          <input name="name" placeholder="Nazwa">
-          <input name="description" placeholder="Opis">
-          <input name="barcode" placeholder="Kod kreskowy">
-          <input name="tax" placeholder="Podatek VAT">
-          <input name="priceWithoutMargin" placeholder="Cena bez marży">
-          <input name="fullPrice" placeholder="Cena sklepowa">
+          <input name="name" [(ngModel)]="product.name" placeholder="Nazwa">
+          <input name="description" [(ngModel)]="product.description" placeholder="Opis">
+          <input name="barcode" [(ngModel)]="product.barcode" placeholder="Kod kreskowy">
+          <input name="tax" [(ngModel)]="product.nataxme" placeholder="Podatek VAT">
+          <input name="priceWithoutMargin" [(ngModel)]="product.priceWithoutMargin" placeholder="Cena bez marży">
+          <input name="fullPrice" [(ngModel)]="product.fullPrice" placeholder="Cena sklepowa">
         </div>
       </div>
     
-      <button class=""> Zapisz </button>
+      <button (ngClick)="submitHandler()"> Zapisz </button>
     </form>
 
     <button routerLink="/products"> Powrót do listy </button>

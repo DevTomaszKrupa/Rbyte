@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ApiModels\" />
+    <Compile Remove="ApiModels\**" />
+    <Content Remove="ApiModels\**" />
+    <EmbeddedResource Remove="ApiModels\**" />
+    <None Remove="ApiModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -16,6 +22,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Rbyte.Application\Rbyte.Application.csproj" />
     <ProjectReference Include="..\..\Core\Rbyte.Domain\Rbyte.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
