@@ -332,3 +332,4 @@ ASALocalRun/
 connectionString.Development.json
 appsettings.Development.json
 *.orig
+/Rbyte/Src/Presentation/Rbyte.Mvc/package-lock.json

@@ -118,12 +118,13 @@ namespace Rbyte.Mvc
                     });
                     services.AddScoped<RbyteContext, MySqlRbyteContext>();
                     break;
-                case "MSSQL":   // TODO
+                case "MSSQL":
                     connectionString = _configuration.GetSection("MSSQLConnectionString").Value;
-                    //services.AddDbContext<MSSqlRbyteContext>(options =>
-                    //{
-                    //    options.UseSqlServer(connectionString);
-                    //});
+                    services.AddDbContext<MSSqlRbyteContext>(options =>
+                    {
+                        options.UseSqlServer(connectionString);
+                    });
+                    services.AddScoped<RbyteContext, MSSqlRbyteContext>();
                     break;
                 case "PostgreSql":
                     connectionString = _configuration.GetSection("PostgreSqlConnectionString").Value;
