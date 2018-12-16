@@ -78,10 +78,10 @@ namespace Rbyte.Api
                     break;
                 case "MSSQL":   // TODO
                     connectionString = _configuration.GetSection("MSSQLConnectionString").Value;
-                    //services.AddDbContext<MSSqlRbyteContext>(options =>
-                    //{
-                    //    options.UseSqlServer(connectionString);
-                    //});
+                    services.AddDbContext<MSSqlRbyteContext>(options =>
+                    {
+                        options.UseSqlServer(connectionString);
+                    });
                     break;
                 case "PostgreSql":
                     connectionString = _configuration.GetSection("PostgreSqlConnectionString").Value;
