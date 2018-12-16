@@ -15,6 +15,7 @@ FAQ
 					- 'MySql\Migrations' for MySql
 					- 'MSSql\Migrations' for MSSql
 
-		ex: Add-Migration AddProdcutEntity -Context PostgreSqlRbyteContext -o PostgreSql\Migrations
+		ex: Add-Migration AddProdcutEntity -Context PostgreSqlRbyteContext -OutputDir PostgreSql\Migrations
 	
 	In Command line client:
+	// TODO
