@@ -1,0 +1,20 @@
+FAQ
+
+1. How to create a new database migration?
+
+	In Visual Studio:
+		pattern: Add-Migration $$MIGRATION_NAME$$ -Context $$CONTEXT_NAME$$ -o $$OUTPUT_DIRECTORY$$
+			where
+				$$MIGRATION_NAME$$ - name of migration
+				$$CONTEXT_NAME$$ - name of context
+					- 'PostgreSqlRbyteContext' for PostgreSql
+					- 'MySqlRbyteContext' for MySql
+					- 'MSSqlRbyteContext' for MSSql
+				$$OUTPUT_DIRECTORY$$
+					- 'PostgreSql\Migrations' for PostgreSql
+					- 'MySql\Migrations' for MySql
+					- 'MSSql\Migrations' for MSSql
+
+		ex: Add-Migration AddProdcutEntity -Context PostgreSqlRbyteContext -o PostgreSql\Migrations
+	
+	In Command line client:
