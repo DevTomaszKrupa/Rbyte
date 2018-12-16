@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Rbyte.Application.Product.Create;
 using Rbyte.Persistance;
 using Rbyte.Persistance.MySql;
@@ -37,12 +30,11 @@ namespace Rbyte.Api
             services.AddScoped<IProductService, ProductService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(o => o.AddPolicy("RbytePolicy", builder =>
-               {
-                   builder.AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .AllowAnyOrigin();
-               })
-            );
+            {
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,12 +68,13 @@ namespace Rbyte.Api
                     });
                     services.AddScoped<RbyteContext, MySqlRbyteContext>();
                     break;
-                case "MSSQL":   // TODO
-                    connectionString = _configuration.GetSection("MSSQLConnectionString").Value;
+                case "MSSql":
+                    connectionString = _configuration.GetSection("MSSqlConnectionString").Value;
                     services.AddDbContext<MSSqlRbyteContext>(options =>
                     {
                         options.UseSqlServer(connectionString);
                     });
+                    services.AddScoped<RbyteContext, PostgreSqlRbyteContext>();
                     break;
                 case "PostgreSql":
                     connectionString = _configuration.GetSection("PostgreSqlConnectionString").Value;

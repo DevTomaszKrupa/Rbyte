@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ApiModels\**" />
-    <Content Remove="ApiModels\**" />
-    <EmbeddedResource Remove="ApiModels\**" />
-    <None Remove="ApiModels\**" />
+    <_ContentIncludedByDefault Remove="connectionString.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,11 +18,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Rbyte.Application\Rbyte.Application.csproj" />
-    <ProjectReference Include="..\..\Core\Rbyte.Domain\Rbyte.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Rbyte.Persistance\Rbyte.Persistance.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="connectionString.Development.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
