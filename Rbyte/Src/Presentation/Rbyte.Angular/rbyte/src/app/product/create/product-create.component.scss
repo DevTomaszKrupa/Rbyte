@@ -1,0 +1,14 @@
+.product_create_form_body {
+    display: flex;
+    flex-direction: row;
+    .labels {
+        display: flex;
+        flex:3;
+        flex-direction: column;
+    }
+    .inputs {
+        display: flex;
+        flex: 7;
+        flex-direction: column;
+    }
+}

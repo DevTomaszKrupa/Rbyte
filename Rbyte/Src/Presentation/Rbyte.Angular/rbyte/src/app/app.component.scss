@@ -1,0 +1,22 @@
+@import '../styles/global-variables.scss';
+
+.app_container{
+    display: flex;
+    height: 100%;
+    min-height: 100%;
+    .side_nav_container{
+        flex: $side-nav-container-proportion;
+        box-shadow: 6px 0 6px rgba(0,0,0,.1);
+        box-shadow: 6px 0 6px rgba(0,0,0,.1);
+        z-index: 2;
+        height: 100%;
+        min-height: 100%;
+        padding-top: 2rem; 
+        background-color: $side-nav-container-background-color;
+    }
+    .main_container{
+        flex: $main-container-proportion;
+        background-color: $main-container-background-color;
+        padding: 2.5rem;
+    }
+}

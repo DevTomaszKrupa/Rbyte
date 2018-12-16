@@ -1,0 +1,26 @@
+<table border="1">
+
+  <tr>
+    <th>Lp</th>
+    <th>Nazwa</th>
+    <th>Opis</th>
+    <th>Cena sklepowa</th>
+    <th>Cena bez marży</th>
+    <th>Vat</th>
+    <th>Kod kreskowy</th>
+  </tr>
+  <tr *ngFor="let item of items; let i = index">
+    <td>{{i + 1}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.description}}</td>
+    <td>{{item.fullPrice}} zł</td>
+    <td>{{item.priceWithoutMargin}} zł</td>
+    <td>{{item.tax}} %</td>
+    <td>{{item.barcode}}</td>
+  </tr>
+
+</table>
+
+<button routerLink="/products/create">Dodaj nowy
+
+</button>
