@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rbyte.Api.Models.Product;
 using Rbyte.Application.Product.Create;
-using Rbyte.Domain.ApiModels.Product;
 using System.Collections.Generic;
 
 namespace Rbyte.Api.Controllers
@@ -20,39 +20,37 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return Ok(_productService.Read());
+            var list = _productService.Get();
+            return Ok(list);
         }
 
         // GET api/products/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            var list = _productService.Get(id);
+            return Ok(list);
         }
 
         // POST api/products
         [HttpPost]
-        public void Post([FromBody] ApiCreateProduct request)
+        public void Post([FromBody] ApiProduct request)
         {
-            _productService.Create(new CreateProductModel
-            {
-                Barcode = request.Barcode,
-                Description = request.Description,
-                Name = request.Name,
-                Price = request.PriceWithoutMargin
-            });
+            _productService.Create(request);
         }
 
         // PUT api/products/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put([FromBody] ApiProduct request)
         {
+            _productService.Update(request);
         }
 
-        // DELETEapi/products/5
+        // DELETE api/products/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _productService.Delete(id);
         }
     }
 }

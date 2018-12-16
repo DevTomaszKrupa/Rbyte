@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{F371746C-F17
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Api", "Src\Api\Rbyte.Api\Rbyte.Api.csproj", "{08984AC7-9B33-48FF-912C-ADA0A40152F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbyte.Api.Models", "Src\Api\Rbyte.Api.Models\Rbyte.Api.Models.csproj", "{C288270C-2DE9-4069-BC90-4B766E3CF64F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{08984AC7-9B33-48FF-912C-ADA0A40152F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08984AC7-9B33-48FF-912C-ADA0A40152F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08984AC7-9B33-48FF-912C-ADA0A40152F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C288270C-2DE9-4069-BC90-4B766E3CF64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C288270C-2DE9-4069-BC90-4B766E3CF64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C288270C-2DE9-4069-BC90-4B766E3CF64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C288270C-2DE9-4069-BC90-4B766E3CF64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{85FFDA2C-BFF9-45CF-99F0-33C6849874FB} = {3DC448FB-22B2-4DEF-9BD1-FFCD2285FCB7}
 		{F371746C-F17E-45D5-821A-B59AE9B652BE} = {3D880BBA-8D23-49F3-B109-0D680C6BBD01}
 		{08984AC7-9B33-48FF-912C-ADA0A40152F5} = {F371746C-F17E-45D5-821A-B59AE9B652BE}
+		{C288270C-2DE9-4069-BC90-4B766E3CF64F} = {F371746C-F17E-45D5-821A-B59AE9B652BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {763E3616-B55D-48F9-8FD2-5E6B30FD5306}

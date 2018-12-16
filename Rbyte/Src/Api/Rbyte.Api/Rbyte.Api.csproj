@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Rbyte.Application\Rbyte.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Rbyte.Persistance\Rbyte.Persistance.csproj" />
+    <ProjectReference Include="..\Rbyte.Api.Models\Rbyte.Api.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
