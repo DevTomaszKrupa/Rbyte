@@ -24,8 +24,9 @@ namespace Rbyte.Tests.Application.Product
                     PriceWithoutMargin = 80m,
                     Name = "fake_name"
                 };
-                // Act
                 var sut = new ProductService(context);
+
+                // Act
                 sut.Create(apiProduct);
 
                 // Assert
