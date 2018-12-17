@@ -14,7 +14,7 @@ namespace Rbyte.Persistance.MySql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
             modelBuilder.Entity("Rbyte.Domain.Entities.DbCategory", b =>
                 {
@@ -84,11 +84,13 @@ namespace Rbyte.Persistance.MySql.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal>("FullPrice");
+
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProducerId");
+                    b.Property<decimal>("PriceWithoutMargin");
 
-                    b.Property<decimal>("StandardPrice");
+                    b.Property<int?>("ProducerId");
 
                     b.Property<int?>("TaxId");
 

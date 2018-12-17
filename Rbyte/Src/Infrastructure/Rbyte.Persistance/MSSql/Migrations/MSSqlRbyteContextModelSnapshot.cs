@@ -91,11 +91,13 @@ namespace Rbyte.Persistance.MSSQL.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal>("FullPrice");
+
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProducerId");
+                    b.Property<decimal>("PriceWithoutMargin");
 
-                    b.Property<decimal>("StandardPrice");
+                    b.Property<int?>("ProducerId");
 
                     b.Property<int?>("TaxId");
 

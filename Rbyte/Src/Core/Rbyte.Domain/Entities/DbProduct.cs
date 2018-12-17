@@ -14,7 +14,8 @@ namespace Rbyte.Domain.Entities
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal StandardPrice { get; set; }
+        public decimal FullPrice { get; set; }
+        public decimal PriceWithoutMargin { get; set; }
         public long Barcode { get; set; }
         public int? ProducerId { get; set; }
         public virtual DbProducer Producer { get; set; }
