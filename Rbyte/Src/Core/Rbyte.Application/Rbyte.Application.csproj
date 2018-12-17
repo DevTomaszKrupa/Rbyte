@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Api\Rbyte.Api.Models\Rbyte.Api.Models.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Rbyte.Persistance\Rbyte.Persistance.csproj" />
   </ItemGroup>
 

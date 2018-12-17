@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Rbyte.Application.Product.Read;
-using Rbyte.Application.Product.Update;
+﻿using Rbyte.Api.Models.Product;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
@@ -10,12 +8,10 @@ namespace Rbyte.Application.Product.Create
 {
     public interface IProductService
     {
-        ReadProductModel Read(int productId);
-        IEnumerable<ReadProductModel> Read();
-        void Create(CreateProductModel model);
-        List<SelectListItem> GetProductSelectList();
-        UpdateProductModel GetForEdition(int productId);
-        void Update(UpdateProductModel model);
+        void Create(ApiProduct model);
+        ApiProduct Get(int productId);
+        List<ApiProduct> Get();
+        void Update(ApiProduct model);
         void Delete(int productId);
     }
 
@@ -28,98 +24,72 @@ namespace Rbyte.Application.Product.Create
             _context = context;
         }
 
-        public void Create(CreateProductModel model)
+        public void Create(ApiProduct model)
         {
             var dbProduct = new DbProduct
             {
                 Barcode = model.Barcode,
                 Description = model.Description,
                 Name = model.Name,
-                ProducerId = model.ProducerId,
-                StandardPrice = model.Price,
-                TaxId = model.TaxId
+                StandardPrice = model.FullPrice
             };
             _context.Products.Add(dbProduct);
-            if (model.CategoryId.HasValue)
-            {
-                _context.CategoryProducts.Add(new DbCategoryProduct
-                {
-                    CategoryId = model.CategoryId.Value,
-                    ProductId = dbProduct.ProductId
-                });
-            }
+            //if (model.CategoryId.HasValue)
+            //{
+            //    _context.CategoryProducts.Add(new DbCategoryProduct
+            //    {
+            //        CategoryId = model.CategoryId.Value,
+            //        ProductId = dbProduct.ProductId
+            //    });
+            //}
             _context.SaveChanges();
         }
 
-        public ReadProductModel Read(int productId)
+        public ApiProduct Get(int productId)
         {
             var product = _context.Products.Where(x => x.ProductId == productId)
-                                           .Select(x => new ReadProductModel
+                                           .Select(x => new ApiProduct
                                            {
                                                ProductId = x.ProductId,
                                                Barcode = x.Barcode,
                                                Description = x.Description,
                                                Name = x.Name,
-                                               Price = $"{x.StandardPrice} PLN",
-                                               TaxValue = x.Tax != null ? x.Tax.Value : 0
+                                               FullPrice = x.StandardPrice
                                            }).First();
             return product;
         }
 
-        public IEnumerable<ReadProductModel> Read()
+        public List<ApiProduct> Get()
         {
-            var products = _context.Products.Select(x => new ReadProductModel
+            var products = _context.Products.Select(x => new ApiProduct
             {
                 ProductId = x.ProductId,
                 Barcode = x.Barcode,
                 Description = x.Description,
                 Name = x.Name,
-                Price = $"{x.StandardPrice} PLN",
-                TaxValue = x.Tax != null ? x.Tax.Value : 0
+                FullPrice = x.StandardPrice
             }).ToList();
 
             return products;
         }
-        public UpdateProductModel GetForEdition(int productId)
-        {
-            var product = _context.Products
-                                    .Where(x => x.ProductId == productId)
-                                    .Select(x => new UpdateProductModel
-                                    {
-                                        ProductId = x.ProductId,
-                                        Barcode = x.Barcode,
-                                        Description = x.Description,
-                                        Name = x.Name,
-                                        Price = x.StandardPrice
-                                    }).First();
-            return product;
-        }
-        public void Update(UpdateProductModel model)
+
+        public void Update(ApiProduct model)
         {
             var dbProduct = _context.Products.First(x => x.ProductId == model.ProductId);
 
             dbProduct.Barcode = model.Barcode;
             dbProduct.Description = model.Description;
             dbProduct.Name = model.Name;
-            dbProduct.StandardPrice = model.Price;
+            dbProduct.StandardPrice = model.PriceWithoutMargin;
 
             _context.SaveChanges();
         }
+
         public void Delete(int productId)
         {
             var dbProduct = _context.Products.Where(x => x.ProductId == productId).First();
             _context.Products.Remove(dbProduct);
             _context.SaveChanges();
-        }
-
-        public List<SelectListItem> GetProductSelectList()
-        {
-            var productList = _context.Products.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.ProductId.ToString()
-            }).ToList();
-            return productList;
         }
     }
 }
