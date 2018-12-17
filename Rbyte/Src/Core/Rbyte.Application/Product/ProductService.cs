@@ -31,7 +31,8 @@ namespace Rbyte.Application.Product.Create
                 Barcode = model.Barcode,
                 Description = model.Description,
                 Name = model.Name,
-                FullPrice = model.FullPrice
+                FullPrice = model.FullPrice,
+                PriceWithoutMargin = model.PriceWithoutMargin
             };
             _context.Products.Add(dbProduct);
             //if (model.CategoryId.HasValue)
@@ -54,7 +55,8 @@ namespace Rbyte.Application.Product.Create
                                                Barcode = x.Barcode,
                                                Description = x.Description,
                                                Name = x.Name,
-                                               FullPrice = x.FullPrice
+                                               FullPrice = x.FullPrice,
+                                               PriceWithoutMargin = x.PriceWithoutMargin
                                            }).First();
             return product;
         }
@@ -67,7 +69,8 @@ namespace Rbyte.Application.Product.Create
                 Barcode = x.Barcode,
                 Description = x.Description,
                 Name = x.Name,
-                FullPrice = x.FullPrice
+                FullPrice = x.FullPrice,
+                PriceWithoutMargin = x.PriceWithoutMargin
             }).ToList();
 
             return products;
@@ -80,7 +83,8 @@ namespace Rbyte.Application.Product.Create
             dbProduct.Barcode = model.Barcode;
             dbProduct.Description = model.Description;
             dbProduct.Name = model.Name;
-            dbProduct.FullPrice = model.PriceWithoutMargin;
+            dbProduct.FullPrice = model.FullPrice;
+            dbProduct.PriceWithoutMargin = model.PriceWithoutMargin;
 
             _context.SaveChanges();
         }
