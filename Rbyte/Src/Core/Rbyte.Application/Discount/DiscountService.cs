@@ -1,21 +1,15 @@
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Rbyte.Domain.Entities;
+using Rbyte.Api.Models.Discount;
 using Rbyte.Persistance;
-using Rbyte.Application.Discount.Create;
-using Rbyte.Application.Discount.Read;
-using Rbyte.Application.Discount.Update;
+using System.Collections.Generic;
 
 namespace Rbyte.Application.Discount
 {
     public interface IDiscountService
     {
-        void Create(CreateDiscountModel model);
-        ReadDiscountModel Read(int discountId);
-        IEnumerable<ReadDiscountModel> Read();
-        UpdateDiscountModel GetForEdition(int discountId);
-        void Update(UpdateDiscountModel model);
+        void Create(ApiDiscount model);
+        ApiDiscount Get(int discountId);
+        List<ApiDiscount> Get();
+        void Update(ApiDiscount model);
         void Delete(int discountId);
     }
     public class DiscountService : IDiscountService
@@ -25,65 +19,30 @@ namespace Rbyte.Application.Discount
         {
             _context = context;
         }
-        public void Create(CreateDiscountModel model)
+
+        public void Create(ApiDiscount model)
         {
-            var dbDiscount = new DbDiscount
-            {
-                Value = model.Value
-            };
-            _context.Discounts.Add(dbDiscount);
-            var productDiscounts = _context.CategoryProducts.Where(x => x.CategoryId == model.CategoryId)
-                                                            .Select(x => new DbProductDiscount
-                                                            {
-                                                                ProductId = x.ProductId,
-                                                                DiscountId = dbDiscount.DiscountId
-                                                            }).ToList();
-            _context.ProductDiscounts.AddRange(productDiscounts);
-            _context.SaveChanges();
-        }
-        public ReadDiscountModel Read(int discountId)
-        {
-            var discount = _context.Discounts.Where(x => x.DiscountId == discountId)
-                                             .Select(x => new ReadDiscountModel
-                                             {
-                                                 DiscountId = x.DiscountId,
-                                                 Value = x.Value
-                                             }).First();
-            return discount;
+            throw new System.NotImplementedException();
         }
 
-        public IEnumerable<ReadDiscountModel> Read()
-        {
-            var discounts = _context.Discounts.Select(x => new ReadDiscountModel
-            {
-                DiscountId = x.DiscountId,
-                Value = x.Value
-            }).ToList();
-            return discounts;
-        }
-
-        public UpdateDiscountModel GetForEdition(int discountId)
-        {
-            var discount = _context.Discounts.Where(x => x.DiscountId == discountId)
-                                             .Select(x => new UpdateDiscountModel
-                                             {
-                                                 DiscountId = x.DiscountId,
-                                                 Value = x.Value
-                                             }).First();
-            return discount;
-        }
-        public void Update(UpdateDiscountModel model)
-        {
-            var dbDiscount = _context.Discounts.First(x => x.DiscountId == model.DiscountId);
-            dbDiscount.Value = model.Value;
-            _context.SaveChanges();
-
-        }
         public void Delete(int discountId)
         {
-            var dbDiscount = _context.Discounts.First(x => x.DiscountId == discountId);
-            _context.Discounts.Remove(dbDiscount);
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
+        }
+
+        public ApiDiscount Get(int discountId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<ApiDiscount> Get()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(ApiDiscount model)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

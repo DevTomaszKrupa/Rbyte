@@ -24,6 +24,7 @@ namespace Rbyte.Application.Product.Create
             _context = context;
         }
 
+
         public void Create(ApiProduct model)
         {
             var dbProduct = new DbProduct
