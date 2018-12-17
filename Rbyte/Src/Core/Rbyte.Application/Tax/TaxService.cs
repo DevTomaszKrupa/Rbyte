@@ -1,23 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Rbyte.Application.Tax.Create;
-using Rbyte.Application.Tax.Read;
-using Rbyte.Application.Tax.Update;
-using Rbyte.Domain.Entities;
+using Rbyte.Api.Models.Tax;
 using Rbyte.Persistance;
+using System.Collections.Generic;
 
 namespace Rbyte.Application.Tax
 {
     public interface ITaxService
     {
-        void Create(CreateTaxModel model);
-        ReadTaxModel Read(int taxId);
-        IEnumerable<ReadTaxModel> Read();
-        List<SelectListItem> GetTaxSelectList();
-        UpdateTaxModel GetForEdition(int taxId);
-        void Update(UpdateTaxModel model);
+        void Create(ApiTax model);
+        ApiTax Get(int taxId);
+        List<ApiTax> Get();
+        void Update(ApiTax model);
         void Delete(int taxId);
     }
     public class TaxService : ITaxService
@@ -28,73 +20,29 @@ namespace Rbyte.Application.Tax
             _context = context;
         }
 
-        public void Create(CreateTaxModel model)
+        public void Create(ApiTax model)
         {
-            _context.Add(new DbTax
-            {
-                Value = model.Value
-            });
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
         }
 
         public void Delete(int taxId)
         {
-            var dbTax = _context.Taxes.First(x => x.TaxId == taxId);
-            if (dbTax.Products.Any())
-            {
-                throw new Exception("Cannot delete tax belonging to products");
-            }
-            _context.Taxes.Remove(dbTax);
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
         }
 
-        public UpdateTaxModel GetForEdition(int taxId)
+        public ApiTax Get(int taxId)
         {
-            var tax = _context.Taxes.Where(x => x.TaxId == taxId)
-                                    .Select(x => new UpdateTaxModel
-                                    {
-                                        TaxId = x.TaxId,
-                                        Value = x.Value
-                                    }).First();
-            return tax;
+            throw new System.NotImplementedException();
         }
 
-        public List<SelectListItem> GetTaxSelectList()
+        public List<ApiTax> Get()
         {
-            var taxList = _context.Taxes.Select(x => new SelectListItem
-            {
-                Text = x.Value.ToString(),
-                Value = x.TaxId.ToString()
-            }).ToList();
-            return taxList;
+            throw new System.NotImplementedException();
         }
 
-        public ReadTaxModel Read(int taxId)
+        public void Update(ApiTax model)
         {
-            var tax = _context.Taxes.Where(x => x.TaxId == taxId)
-                                    .Select(x => new ReadTaxModel
-                                    {
-                                        TaxId = x.TaxId,
-                                        Value = x.Value
-                                    }).First();
-            return tax;
-        }
-
-        public IEnumerable<ReadTaxModel> Read()
-        {
-            var taxes = _context.Taxes.Select(x => new ReadTaxModel
-            {
-                TaxId = x.TaxId,
-                Value = x.Value
-            }).ToList();
-            return taxes;
-        }
-
-        public void Update(UpdateTaxModel model)
-        {
-            var dbTax = _context.Taxes.First(x => x.TaxId == model.TaxId);
-            dbTax.Value = model.Value;
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
         }
     }
 }
