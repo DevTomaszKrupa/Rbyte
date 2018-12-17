@@ -1,9 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Rbyte.Application.Category.Create;
-using Rbyte.Application.Category.Details;
-using Rbyte.Application.Category.Read;
-using Rbyte.Application.Category.Update;
-using Rbyte.Application.Product.Read;
+using Rbyte.Api.Models.Category;
 using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System;
@@ -14,14 +9,11 @@ namespace Rbyte.Application.Category
 {
     public interface ICategoryService
     {
-        void Create(CreateCategoryModel model);
-        IEnumerable<ReadCategoryModel> Read();
-        DetailsCategoryModel Read(int categoryId);
-        List<SelectListItem> GetSelectListItems();
-        UpdateCategoryModel GetForEdition(int categoryId);
-        void Update(UpdateCategoryModel model);
+        void Create(ApiCategory model);
+        ApiCategory Get(int categoryId);
+        List<ApiCategory> Get();
+        void Update(ApiCategory model);
         void Delete(int categoryId);
-        void DeleteProduct(int productId);
     }
     public class CategoryService : ICategoryService
     {
@@ -31,7 +23,7 @@ namespace Rbyte.Application.Category
             _context = context;
         }
 
-        public void Create(CreateCategoryModel model)
+        public void Create(ApiCategory model)
         {
             _context.Categories.Add(new DbCategory
             {
@@ -41,82 +33,73 @@ namespace Rbyte.Application.Category
             _context.SaveChanges();
         }
 
-        public DetailsCategoryModel Read(int categoryId)
-        {
-            var category = _context.Categories.Where(x => x.CategoryId == categoryId)
-                                              .Select(x => new DetailsCategoryModel
-                                              {
-                                                  CategoryId = x.CategoryId,
-                                                  Name = x.Name,
-                                                  Products = x.CategoryProducts.Select(prod => new ReadProductModel
-                                                  {
-                                                      Barcode = prod.Product.Barcode,
-                                                      Description = prod.Product.Description,
-                                                      Name = prod.Product.Name,
-                                                      Price = prod.Product.StandardPrice.ToString(),
-                                                      ProductId = prod.ProductId
-                                                  }).ToList()
-                                              }).First();
-            return category;
-        }
+        // public DetailsCategoryModel Read(int categoryId)
+        // {
+        //     var category = _context.Categories.Where(x => x.CategoryId == categoryId)
+        //                                       .Select(x => new DetailsCategoryModel
+        //                                       {
+        //                                           CategoryId = x.CategoryId,
+        //                                           Name = x.Name,
+        //                                           Products = x.CategoryProducts.Select(prod => new ReadProductModel
+        //                                           {
+        //                                               Barcode = prod.Product.Barcode,
+        //                                               Description = prod.Product.Description,
+        //                                               Name = prod.Product.Name,
+        //                                               Price = prod.Product.StandardPrice.ToString(),
+        //                                               ProductId = prod.ProductId
+        //                                           }).ToList()
+        //                                       }).First();
+        //     return category;
+        // }
 
-        public IEnumerable<ReadCategoryModel> Read()
+        public List<ApiCategory> Get()
         {
-            var categories = _context.Categories.Select(x => new ReadCategoryModel
+            var categories = _context.Categories.Select(x => new ApiCategory
             {
                 CategoryId = x.CategoryId,
                 Name = x.Name,
-                Desctiption = x.Description,
+                Description = x.Description,
             }).ToList();
             return categories;
         }
-        public UpdateCategoryModel GetForEdition(int categoryId)
-        {
-            var product = _context.Categories.Where(x => x.CategoryId == categoryId)
-                                             .Select(x => new UpdateCategoryModel
-                                             {
-                                                 CategoryId = x.CategoryId,
-                                                 Name = x.Name,
-                                                 Desctiption = x.Description
-                                             }).First();
-            return product;
-        }
 
 
-        public void Update(UpdateCategoryModel model)
+        public void Update(ApiCategory model)
         {
             var dbCategory = _context.Categories.First(x => x.CategoryId == model.CategoryId);
             dbCategory.Name = model.Name;
-            dbCategory.Description = model.Desctiption;
+            dbCategory.Description = model.Description;
 
             _context.SaveChanges();
         }
         public void Delete(int categoryId)
         {
             var dbCategory = _context.Categories.First(x => x.CategoryId == categoryId);
-            if (dbCategory.CategoryProducts.Any())
-            {
-                throw new Exception("Cannot delete category with products");
-            }
+            // if (dbCategory.CategoryProducts.Any())
+            // {
+            //     throw new Exception("Cannot delete category with products");
+            // }
             _context.Categories.Remove(dbCategory);
             _context.SaveChanges();
         }
 
-        public List<SelectListItem> GetSelectListItems()
+        public ApiCategory Get(int categoryId)
         {
-            var productList = _context.Categories.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.CategoryId.ToString()
-            }).ToList();
-            return productList;
+            var category = _context.Categories.Where(x => x.CategoryId == categoryId)
+                                              .Select(x => new ApiCategory
+                                              {
+                                                  CategoryId = x.CategoryId,
+                                                  Name = x.Name,
+                                                  Description = x.Description
+                                              }).First();
+            return category;
         }
 
-        public void DeleteProduct(int productId)
-        {
-            var dbProduct = _context.CategoryProducts.Where(x => x.ProductId == productId).First();
-            _context.CategoryProducts.Remove(dbProduct);
-            _context.SaveChanges();
-        }
+        // public void DeleteProduct(int productId)
+        // {
+        //     var dbProduct = _context.CategoryProducts.Where(x => x.ProductId == productId).First();
+        //     _context.CategoryProducts.Remove(dbProduct);
+        //     _context.SaveChanges();
+        // }
     }
 }

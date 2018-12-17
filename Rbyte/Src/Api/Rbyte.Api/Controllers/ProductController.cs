@@ -7,16 +7,16 @@ namespace Rbyte.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductController : ControllerBase
     {
         public IProductService _productService { get; set; }
 
-        public ProductsController(IProductService productService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }
 
-        // GET api/products
+        // GET api/product
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -24,7 +24,7 @@ namespace Rbyte.Api.Controllers
             return Ok(list);
         }
 
-        // GET api/products/5
+        // GET api/product/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
@@ -32,21 +32,21 @@ namespace Rbyte.Api.Controllers
             return Ok(list);
         }
 
-        // POST api/products
+        // POST api/product
         [HttpPost]
         public void Post([FromBody] ApiProduct request)
         {
             _productService.Create(request);
         }
 
-        // PUT api/products/5
+        // PUT api/product/5
         [HttpPut("{id}")]
         public void Put([FromBody] ApiProduct request)
         {
             _productService.Update(request);
         }
 
-        // DELETE api/products/5
+        // DELETE api/product/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

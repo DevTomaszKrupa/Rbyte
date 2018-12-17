@@ -111,7 +111,7 @@ namespace Rbyte.Application.Store
                                             Barcode = prod.Product.Barcode,
                                             Description = prod.Product.Description,
                                             Name = prod.Product.Name,
-                                            Price = $"{prod.Product.StandardPrice.ToString()} PLN",
+                                            Price = $"{prod.Product.FullPrice.ToString()} PLN",
                                             ProductId = prod.ProductId,
                                             Count = prod.Count
                                         }).ToList()
