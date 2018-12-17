@@ -2,27 +2,30 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Rbyte.Persistance.PostgreSql;
+using Rbyte.Persistance.MySql;
 
-namespace Rbyte.Persistance.PostgreSql.Migrations
+namespace Rbyte.Persistance.MSSQL.Migrations
 {
-    [DbContext(typeof(PostgreSqlRbyteContext))]
-    partial class PostgreSqlRbyteContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MSSqlRbyteContext))]
+    [Migration("20181217102809_ModifyProductPricesInDbProductEntity")]
+    partial class ModifyProductPricesInDbProductEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Rbyte.Domain.Entities.DbCategory", b =>
                 {
                     b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
 
@@ -57,7 +60,8 @@ namespace Rbyte.Persistance.PostgreSql.Migrations
             modelBuilder.Entity("Rbyte.Domain.Entities.DbDiscount", b =>
                 {
                     b.Property<int>("DiscountId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Value");
 
@@ -69,7 +73,8 @@ namespace Rbyte.Persistance.PostgreSql.Migrations
             modelBuilder.Entity("Rbyte.Domain.Entities.DbProducer", b =>
                 {
                     b.Property<int>("ProducerId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -81,7 +86,8 @@ namespace Rbyte.Persistance.PostgreSql.Migrations
             modelBuilder.Entity("Rbyte.Domain.Entities.DbProduct", b =>
                 {
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("Barcode");
 
@@ -122,7 +128,8 @@ namespace Rbyte.Persistance.PostgreSql.Migrations
             modelBuilder.Entity("Rbyte.Domain.Entities.DbStore", b =>
                 {
                     b.Property<int>("StoreId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -151,7 +158,8 @@ namespace Rbyte.Persistance.PostgreSql.Migrations
             modelBuilder.Entity("Rbyte.Domain.Entities.DbTax", b =>
                 {
                     b.Property<int>("TaxId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Value");
 
