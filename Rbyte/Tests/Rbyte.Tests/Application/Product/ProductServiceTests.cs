@@ -1,6 +1,5 @@
 ﻿using Rbyte.Api.Models.Product;
 using Rbyte.Application.Product.Create;
-using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using Shouldly;
 using System.Linq;
