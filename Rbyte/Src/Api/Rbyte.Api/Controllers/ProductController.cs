@@ -18,7 +18,7 @@ namespace Rbyte.Api.Controllers
 
         // GET api/product
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult Get()
         {
             var list = _productService.Get();
             return Ok(list);
@@ -26,7 +26,7 @@ namespace Rbyte.Api.Controllers
 
         // GET api/product/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult Get(int id)
         {
             var list = _productService.Get(id);
             return Ok(list);
