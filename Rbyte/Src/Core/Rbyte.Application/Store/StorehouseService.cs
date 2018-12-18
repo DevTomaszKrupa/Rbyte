@@ -42,12 +42,11 @@ namespace Rbyte.Application.Store
 
         public ApiStorehouse Get(int storehouseId)
         {
-            var dbStore = _context.Stores.First(x => x.StoreId == storehouseId);
-            return new ApiStorehouse
+            var store = _context.Stores.Where(x => x.StoreId == storehouseId).Select(x => new ApiStorehouse
             {
-                StorehouseId = dbStore.StoreId,
-                Name = dbStore.Name
-            };
+                Name = x.Name
+            }).First();
+            return store;
         }
 
         public List<ApiStorehouse> Get()
