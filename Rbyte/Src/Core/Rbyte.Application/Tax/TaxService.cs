@@ -1,6 +1,10 @@
+using Rbyte.Api.Models;
+using Rbyte.Api.Models.Product;
 using Rbyte.Api.Models.Tax;
+using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rbyte.Application.Tax
 {
@@ -22,27 +26,45 @@ namespace Rbyte.Application.Tax
 
         public void Create(ApiTax model)
         {
-            throw new System.NotImplementedException();
+            var dbTax = new DbTax()
+            {
+                Value = model.Value
+            };
+            _context.Taxes.Add(dbTax);
+            _context.SaveChanges();
         }
 
         public void Delete(int taxId)
         {
-            throw new System.NotImplementedException();
+            var dbTax = _context.Taxes.Where(x => x.TaxId == taxId).First();
+            _context.Taxes.Remove(dbTax);
+            _context.SaveChanges();
         }
 
         public ApiTax Get(int taxId)
         {
-            throw new System.NotImplementedException();
+            var dbTax = _context.Taxes.First(x => x.TaxId == taxId);
+            return new ApiTax
+            {
+                TaxId = dbTax.TaxId,
+                Value = dbTax.Value
+            };
         }
 
         public List<ApiTax> Get()
         {
-            throw new System.NotImplementedException();
+            return _context.Taxes.Select(x => new ApiTax
+            {
+                TaxId = x.TaxId,
+                Value = x.Value
+            }).ToList();
         }
 
         public void Update(ApiTax model)
         {
-            throw new System.NotImplementedException();
+            var dbTax = _context.Taxes.First(x => x.TaxId == model.TaxId);
+            dbTax.Value = model.Value;
+            _context.SaveChanges();
         }
     }
-}
+} 
