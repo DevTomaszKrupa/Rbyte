@@ -1,6 +1,8 @@
 using Rbyte.Api.Models.Discount;
+using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rbyte.Application.Discount
 {
@@ -22,27 +24,43 @@ namespace Rbyte.Application.Discount
 
         public void Create(ApiDiscount model)
         {
-            throw new System.NotImplementedException();
+            var dbDiscount = new DbDiscount
+            {
+                Value = model.Value
+            };
+            _context.Discounts.Add(dbDiscount);
         }
 
         public void Delete(int discountId)
         {
-            throw new System.NotImplementedException();
+            var dbDiscount = _context.Discounts.First(x => x.DiscountId == discountId);
+            _context.Discounts.Remove(dbDiscount);
         }
 
         public ApiDiscount Get(int discountId)
         {
-            throw new System.NotImplementedException();
+            var dbDiscount = _context.Discounts.First(x => x.DiscountId == discountId);
+            return new ApiDiscount
+            {
+                DiscountId = dbDiscount.DiscountId,
+                Value = dbDiscount.Value
+            };
         }
 
         public List<ApiDiscount> Get()
         {
-            throw new System.NotImplementedException();
+            return _context.Discounts.Select(x => new ApiDiscount
+            {
+                DiscountId = x.DiscountId,
+                Value = x.Value
+            }).ToList();
         }
 
         public void Update(ApiDiscount model)
         {
-            throw new System.NotImplementedException();
+            var dbDiscount = _context.Discounts.First(x => x.DiscountId == model.DiscountId);
+            dbDiscount.Value = model.Value;
+            _context.SaveChanges();
         }
     }
 }

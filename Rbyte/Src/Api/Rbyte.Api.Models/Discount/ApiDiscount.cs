@@ -3,6 +3,6 @@
     public class ApiDiscount
     {
         public int DiscountId { get; set; }
-        public int Value { get; set; }
+        public decimal Value { get; set; }
     }
 }
