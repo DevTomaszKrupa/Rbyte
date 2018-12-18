@@ -39,12 +39,12 @@ namespace Rbyte.Application.Discount
 
         public ApiDiscount Get(int discountId)
         {
-            var dbDiscount = _context.Discounts.First(x => x.DiscountId == discountId);
-            return new ApiDiscount
+            var discount = _context.Discounts.Where(x => x.DiscountId == discountId).Select(x => new ApiDiscount
             {
-                DiscountId = dbDiscount.DiscountId,
-                Value = dbDiscount.Value
-            };
+                Value = x.Value,
+                DiscountId = x.DiscountId
+            }).First();
+            return discount;
         }
 
         public List<ApiDiscount> Get()
