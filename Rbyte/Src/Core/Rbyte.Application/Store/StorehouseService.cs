@@ -1,7 +1,9 @@
 using Rbyte.Api.Models.Store;
+using Rbyte.Domain.Entities;
 using Rbyte.Persistance;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rbyte.Application.Store
 {
@@ -23,27 +25,44 @@ namespace Rbyte.Application.Store
 
         public void Create(ApiStorehouse model)
         {
-            throw new NotImplementedException();
+            var dbStore = new DbStore
+            {
+                Name = model.Name
+            };
+            _context.Stores.Add(dbStore);
+            _context.SaveChanges();
         }
 
         public void Delete(int storehouseId)
         {
-            throw new NotImplementedException();
+            var dbStore = _context.Stores.First(x => x.StoreId == storehouseId);
+            _context.Stores.Remove(dbStore);
+            _context.SaveChanges();
         }
 
         public ApiStorehouse Get(int storehouseId)
         {
-            throw new NotImplementedException();
+            var store = _context.Stores.Where(x => x.StoreId == storehouseId).Select(x => new ApiStorehouse
+            {
+                Name = x.Name
+            }).First();
+            return store;
         }
 
         public List<ApiStorehouse> Get()
         {
-            throw new NotImplementedException();
+            return _context.Stores.Select(x => new ApiStorehouse
+            {
+                StorehouseId = x.StoreId,
+                Name = x.Name
+            }).ToList();
         }
 
         public void Update(ApiStorehouse model)
         {
-            throw new NotImplementedException();
+            var dbStore = _context.Stores.First(x => x.StoreId == model.StorehouseId);
+            dbStore.Name = model.Name;
+            _context.SaveChanges();
         }
     }
 }
