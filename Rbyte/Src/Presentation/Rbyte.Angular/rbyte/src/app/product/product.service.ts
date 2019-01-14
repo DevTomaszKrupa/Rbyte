@@ -13,13 +13,13 @@ export class ProductService {
 
   getProductList(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(
-      environment.apiAddress + `products`
+      environment.apiAddress + `product`
     );
   }
 
   add(model: Product): Observable<any> {
     return this.httpClient.post<Product>(
-      environment.apiAddress + `products`,
+      environment.apiAddress + `product`,
       model
     );
   }

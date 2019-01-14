@@ -33,6 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Api", "Src\Api\Rbyte.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbyte.Api.Models", "Src\Api\Rbyte.Api.Models\Rbyte.Api.Models.csproj", "{C288270C-2DE9-4069-BC90-4B766E3CF64F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{F74EFD81-AB27-41F1-AC22-0E1C13DC8E3C}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
