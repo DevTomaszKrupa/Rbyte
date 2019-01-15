@@ -64,7 +64,7 @@ namespace Rbyte.Api
                     connectionString = _configuration.GetSection("MySqlConnectionString").Value;
                     services.AddDbContext<MySqlRbyteContext>(options =>
                     {
-                        options.UseMySQL(connectionString);
+                        options.UseMySql(connectionString);
                     });
                     services.AddScoped<RbyteContext, MySqlRbyteContext>();
                     break;
