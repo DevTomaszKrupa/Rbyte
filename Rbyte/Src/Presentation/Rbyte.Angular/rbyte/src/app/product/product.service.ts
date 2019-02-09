@@ -1,26 +1,26 @@
 import { Product } from './models/product';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService implements OnInit {
+
+  apiAddress: string;
+
+  ngOnInit(): void {
+    this.apiAddress = environment.apiAddress;
+  }
+
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductList(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(
-      environment.apiAddress + `product`
-    );
-  }
+  getCollection = (): Promise<Product[]> =>
+    this.httpClient.get<Product[]>(this.apiAddress + `product`).toPromise()
 
-  add(model: Product): Observable<any> {
-    return this.httpClient.post<Product>(
-      environment.apiAddress + `product`,
-      model
-    );
-  }
+  create = (model: Product): Promise<any> => // TODO Remove 'any'
+    this.httpClient.post<Product>(this.apiAddress + `product`, model).toPromise()
+
 }

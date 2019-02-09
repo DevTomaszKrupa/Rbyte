@@ -8,14 +8,8 @@ import { Product } from '../models/product';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   @Input() items: Product[] = [];
   constructor(private routerModule: RouterModule,
-              private productService: ProductService) {
-                this.productService.getProductList().subscribe(x => console.log(x));
-               }
-
-  ngOnInit() {
-  }
-
+    private productService: ProductService) { }
 }

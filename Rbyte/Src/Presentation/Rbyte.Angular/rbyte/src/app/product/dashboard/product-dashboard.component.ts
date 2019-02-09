@@ -11,8 +11,8 @@ export class ProductDashboardComponent implements OnInit {
   public products: Product[] = [];
   constructor(private productService: ProductService) { }
 
-  ngOnInit() {
-    this.productService.getProductList().subscribe(x => this.products = x);
+  ngOnInit = async () => {
+    this.products = await this.productService.getCollection();
   }
 
 }

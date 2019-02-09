@@ -1,10 +1,16 @@
-.side_nav_item{
+@import './../../../../styles/variables.scss';
+
+.NavItemBox {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem; 
     border-bottom: 0.02rem solid;    
-    .label{
-        font-size: 1rem;
+    &__name {
+        font-size: $resp-font-size-md;
+    }
+
+    &:hover {
+        background-color: $side-nav-item-hover-bg-color;
     }
 }

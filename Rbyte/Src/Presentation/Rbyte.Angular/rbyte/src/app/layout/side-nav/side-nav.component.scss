@@ -1,9 +1,9 @@
-@import '../../../styles/global-variables.scss';
+@import './../../../styles/variables.scss';
 
-.side_nav_container {
-    display: flex;
-    flex-direction: column;
-    :hover{
-        background-color: $side-nav-item-hover-background-color;
+.sideNavBox {
+    width: 100%;
+    background-color: $side-nav-bg-color;
+    &__item {
+
     }
 }
