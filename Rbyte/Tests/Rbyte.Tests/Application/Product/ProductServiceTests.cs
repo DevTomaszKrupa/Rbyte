@@ -1,5 +1,5 @@
-﻿using Rbyte.Api.Models.Product;
-using Rbyte.Application.Product.Create;
+﻿using Rbyte.Application.Product.Create;
+using Rbyte.Domain.Models.Product;
 using Rbyte.Persistance;
 using Shouldly;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace Rbyte.Tests.Application.Product
             void Method(RbyteContext context)
             {
                 // Arrange
-                var apiProduct = new ApiProduct
+                var apiProduct = new ProductDto
                 {
                     Barcode = 1000,
                     Description = "fake_description",
@@ -26,7 +26,7 @@ namespace Rbyte.Tests.Application.Product
                 var sut = new ProductService(context);
 
                 // Act
-                sut.Create(apiProduct);
+                sut.CreateAsync(apiProduct);
 
                 // Assert
                 var products = context.Products.ToArray();

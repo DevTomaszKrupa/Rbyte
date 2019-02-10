@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.Models.Tax;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Tax;
+using Rbyte.Domain.Models.Tax;
 
 namespace Rbyte.Api.Controllers
 {
@@ -23,33 +18,33 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var list = _taxService.Get();
+            var list = _taxService.GetAsync();
             return Ok(list);
         }
 
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var list = _taxService.Get(id);
+            var list = _taxService.GetAsync(id);
             return Ok(list);
         }
 
         [HttpPost]
-        public void Post([FromBody] ApiTax request)
+        public void Post([FromBody] TaxDto request)
         {
-            _taxService.Create(request);
+            _taxService.CreateAsync(request);
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] ApiTax request)
+        public void Put([FromBody] TaxDto request)
         {
-            _taxService.Update(request);
+            _taxService.UpdateAsync(request);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _taxService.Delete(id);
+            _taxService.DeleteAsync(id);
         }
 
     }

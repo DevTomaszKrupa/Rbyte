@@ -1,19 +1,22 @@
-using Rbyte.Api.Models.Discount;
+using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
+using Rbyte.Domain.Models.Discount;
 using Rbyte.Persistance;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rbyte.Application.Discount
 {
     public interface IDiscountService
     {
-        void Create(ApiDiscount model);
-        ApiDiscount Get(int discountId);
-        List<ApiDiscount> Get();
-        void Update(ApiDiscount model);
-        void Delete(int discountId);
+        Task CreateAsync(DiscountDto model);
+        Task<DiscountDto> GetAsync(int discountId);
+        Task<List<DiscountDto>> GetAsync();
+        Task UpdateAsync(DiscountDto model);
+        Task DeleteAsync(int discountId);
     }
+
     public class DiscountService : IDiscountService
     {
         private readonly RbyteContext _context;
@@ -22,45 +25,49 @@ namespace Rbyte.Application.Discount
             _context = context;
         }
 
-        public void Create(ApiDiscount model)
+        public async Task CreateAsync(DiscountDto model)
         {
             var dbDiscount = new DbDiscount
             {
                 Value = model.Value
             };
-            _context.Discounts.Add(dbDiscount);
+            await _context.Discounts.AddAsync(dbDiscount);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int discountId)
+        public async Task DeleteAsync(int discountId)
         {
-            var dbDiscount = _context.Discounts.First(x => x.DiscountId == discountId);
+            var dbDiscount = await _context.Discounts.FirstAsync(x => x.DiscountId == discountId);
             _context.Discounts.Remove(dbDiscount);
         }
 
-        public ApiDiscount Get(int discountId)
+        public async Task<DiscountDto> GetAsync(int discountId)
         {
-            var discount = _context.Discounts.Where(x => x.DiscountId == discountId).Select(x => new ApiDiscount
-            {
-                Value = x.Value,
-                DiscountId = x.DiscountId
-            }).First();
+            var discount = await _context.Discounts
+                .Where(x => x.DiscountId == discountId)
+                .Select(x => new DiscountDto
+                {
+                    Value = x.Value,
+                    DiscountId = x.DiscountId
+                }).FirstAsync();
             return discount;
         }
 
-        public List<ApiDiscount> Get()
+        public async Task<List<DiscountDto>> GetAsync()
         {
-            return _context.Discounts.Select(x => new ApiDiscount
+            var list = await _context.Discounts.Select(x => new DiscountDto
             {
                 DiscountId = x.DiscountId,
                 Value = x.Value
-            }).ToList();
+            }).ToListAsync();
+            return list;
         }
 
-        public void Update(ApiDiscount model)
+        public async Task UpdateAsync(DiscountDto model)
         {
-            var dbDiscount = _context.Discounts.First(x => x.DiscountId == model.DiscountId);
+            var dbDiscount = await _context.Discounts.FirstAsync(x => x.DiscountId == model.DiscountId);
             dbDiscount.Value = model.Value;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

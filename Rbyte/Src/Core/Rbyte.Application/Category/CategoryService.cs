@@ -1,20 +1,23 @@
-using Rbyte.Api.Models.Category;
+using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
+using Rbyte.Domain.Models.Category;
 using Rbyte.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rbyte.Application.Category
 {
     public interface ICategoryService
     {
-        void Create(ApiCategory model);
-        ApiCategory Get(int categoryId);
-        List<ApiCategory> Get();
-        void Update(ApiCategory model);
-        void Delete(int categoryId);
+        Task CreateAsync(CategoryDto model);
+        Task<CategoryDto> GetAsync(int categoryId);
+        Task<List<CategoryDto>> GetAsync();
+        Task UpdateAsync(CategoryDto model);
+        Task DeleteAsync(int categoryId);
     }
+
     public class CategoryService : ICategoryService
     {
         private readonly RbyteContext _context;
@@ -23,83 +26,59 @@ namespace Rbyte.Application.Category
             _context = context;
         }
 
-        public void Create(ApiCategory model)
+        public async Task CreateAsync(CategoryDto model)
         {
-            _context.Categories.Add(new DbCategory
+            await _context.Categories.AddAsync(new DbCategory
             {
                 Name = model.Name,
                 Description = model.Description
             });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        // public DetailsCategoryModel Read(int categoryId)
-        // {
-        //     var category = _context.Categories.Where(x => x.CategoryId == categoryId)
-        //                                       .Select(x => new DetailsCategoryModel
-        //                                       {
-        //                                           CategoryId = x.CategoryId,
-        //                                           Name = x.Name,
-        //                                           Products = x.CategoryProducts.Select(prod => new ReadProductModel
-        //                                           {
-        //                                               Barcode = prod.Product.Barcode,
-        //                                               Description = prod.Product.Description,
-        //                                               Name = prod.Product.Name,
-        //                                               Price = prod.Product.StandardPrice.ToString(),
-        //                                               ProductId = prod.ProductId
-        //                                           }).ToList()
-        //                                       }).First();
-        //     return category;
-        // }
-
-        public List<ApiCategory> Get()
+        public async Task<List<CategoryDto>> GetAsync()
         {
-            var categories = _context.Categories.Select(x => new ApiCategory
+            var categories = await _context.Categories.Select(x => new CategoryDto
             {
                 CategoryId = x.CategoryId,
                 Name = x.Name,
-                Description = x.Description,
-            }).ToList();
+                Description = x.Description
+            }).ToListAsync();
             return categories;
         }
 
 
-        public void Update(ApiCategory model)
+        public async Task UpdateAsync(CategoryDto model)
         {
-            var dbCategory = _context.Categories.First(x => x.CategoryId == model.CategoryId);
+            var dbCategory = await _context.Categories.FirstAsync(x => x.CategoryId == model.CategoryId);
+
             dbCategory.Name = model.Name;
             dbCategory.Description = model.Description;
 
-            _context.SaveChanges();
-        }
-        public void Delete(int categoryId)
-        {
-            var dbCategory = _context.Categories.First(x => x.CategoryId == categoryId);
-            // if (dbCategory.CategoryProducts.Any())
-            // {
-            //     throw new Exception("Cannot delete category with products");
-            // }
-            _context.Categories.Remove(dbCategory);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public ApiCategory Get(int categoryId)
+        public async Task DeleteAsync(int categoryId)
         {
-            var category = _context.Categories.Where(x => x.CategoryId == categoryId)
-                                              .Select(x => new ApiCategory
+            var dbCategory = await _context.Categories.FirstAsync(x => x.CategoryId == categoryId);
+            if (dbCategory.CategoryProducts.Any())
+            {
+                throw new Exception("Cannot delete category with products");
+            }
+            _context.Categories.Remove(dbCategory);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<CategoryDto> GetAsync(int categoryId)
+        {
+            var category = await _context.Categories.Where(x => x.CategoryId == categoryId)
+                                              .Select(x => new CategoryDto
                                               {
                                                   CategoryId = x.CategoryId,
                                                   Name = x.Name,
                                                   Description = x.Description
-                                              }).First();
+                                              }).FirstAsync();
             return category;
         }
-
-        // public void DeleteProduct(int productId)
-        // {
-        //     var dbProduct = _context.CategoryProducts.Where(x => x.ProductId == productId).First();
-        //     _context.CategoryProducts.Remove(dbProduct);
-        //     _context.SaveChanges();
-        // }
     }
 }

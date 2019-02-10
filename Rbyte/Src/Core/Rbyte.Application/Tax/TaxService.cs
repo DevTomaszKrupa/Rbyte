@@ -1,20 +1,20 @@
-using Rbyte.Api.Models;
-using Rbyte.Api.Models.Product;
-using Rbyte.Api.Models.Tax;
+using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
+using Rbyte.Domain.Models.Tax;
 using Rbyte.Persistance;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rbyte.Application.Tax
 {
     public interface ITaxService
     {
-        void Create(ApiTax model);
-        ApiTax Get(int taxId);
-        List<ApiTax> Get();
-        void Update(ApiTax model);
-        void Delete(int taxId);
+        Task CreateAsync(TaxDto model);
+        Task<TaxDto> GetAsync(int taxId);
+        Task<List<TaxDto>> GetAsync();
+        Task UpdateAsync(TaxDto model);
+        Task DeleteAsync(int taxId);
     }
     public class TaxService : ITaxService
     {
@@ -24,47 +24,49 @@ namespace Rbyte.Application.Tax
             _context = context;
         }
 
-        public void Create(ApiTax model)
+        public async Task CreateAsync(TaxDto model)
         {
-            var dbTax = new DbTax()
+            var dbTax = new DbTax
             {
                 Value = model.Value
             };
-            _context.Taxes.Add(dbTax);
-            _context.SaveChanges();
+            await _context.Taxes.AddAsync(dbTax);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int taxId)
+        public async Task DeleteAsync(int taxId)
         {
-            var dbTax = _context.Taxes.Where(x => x.TaxId == taxId).First();
+            var dbTax = await _context.Taxes.Where(x => x.TaxId == taxId).FirstAsync();
             _context.Taxes.Remove(dbTax);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public ApiTax Get(int taxId)
+        public Task<TaxDto> GetAsync(int taxId)
         {
-            var dbTax = _context.Taxes.First(x => x.TaxId == taxId);
-            return new ApiTax
-            {
-                TaxId = dbTax.TaxId,
-                Value = dbTax.Value
-            };
+            var dbTax = _context.Taxes
+                .Select(x => new TaxDto
+                {
+                    TaxId = x.TaxId,
+                    Value = x.Value
+                }).FirstAsync();
+            return dbTax;
         }
 
-        public List<ApiTax> Get()
+        public Task<List<TaxDto>> GetAsync()
         {
-            return _context.Taxes.Select(x => new ApiTax
+            var list = _context.Taxes.Select(x => new TaxDto
             {
                 TaxId = x.TaxId,
                 Value = x.Value
-            }).ToList();
+            }).ToListAsync();
+            return list;
         }
 
-        public void Update(ApiTax model)
+        public async Task UpdateAsync(TaxDto model)
         {
-            var dbTax = _context.Taxes.First(x => x.TaxId == model.TaxId);
+            var dbTax = await _context.Taxes.FirstAsync(x => x.TaxId == model.TaxId);
             dbTax.Value = model.Value;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
-} 
+}

@@ -1,6 +1,6 @@
-namespace Rbyte.Api.Models.Category
+namespace Rbyte.Domain.Models.Category
 {
-    public class ApiCategory
+    public class CategoryDto
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }

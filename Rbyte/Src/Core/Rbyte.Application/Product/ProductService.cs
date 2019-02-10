@@ -1,18 +1,20 @@
-﻿using Rbyte.Api.Models.Product;
+﻿using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
+using Rbyte.Domain.Models.Product;
 using Rbyte.Persistance;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rbyte.Application.Product.Create
 {
     public interface IProductService
     {
-        void Create(ApiProduct model);
-        ApiProduct Get(int productId);
-        List<ApiProduct> Get();
-        void Update(ApiProduct model);
-        void Delete(int productId);
+        Task CreateAsync(ProductDto model);
+        Task<ProductDto> GetAsync(int productId);
+        Task<List<ProductDto>> GetAsync();
+        Task UpdateAsync(ProductDto model);
+        Task DeleteAsync(int productId);
     }
 
     public class ProductService : IProductService
@@ -25,7 +27,7 @@ namespace Rbyte.Application.Product.Create
         }
 
 
-        public void Create(ApiProduct model)
+        public async Task CreateAsync(ProductDto model)
         {
             var dbProduct = new DbProduct
             {
@@ -35,22 +37,14 @@ namespace Rbyte.Application.Product.Create
                 FullPrice = model.FullPrice,
                 PriceWithoutMargin = model.PriceWithoutMargin
             };
-            _context.Products.Add(dbProduct);
-            //if (model.CategoryId.HasValue)
-            //{
-            //    _context.CategoryProducts.Add(new DbCategoryProduct
-            //    {
-            //        CategoryId = model.CategoryId.Value,
-            //        ProductId = dbProduct.ProductId
-            //    });
-            //}
-            _context.SaveChanges();
+            await _context.Products.AddAsync(dbProduct);
+            await _context.SaveChangesAsync();
         }
 
-        public ApiProduct Get(int productId)
+        public Task<ProductDto> GetAsync(int productId)
         {
             var product = _context.Products.Where(x => x.ProductId == productId)
-                                           .Select(x => new ApiProduct
+                                           .Select(x => new ProductDto
                                            {
                                                ProductId = x.ProductId,
                                                Barcode = x.Barcode,
@@ -58,13 +52,13 @@ namespace Rbyte.Application.Product.Create
                                                Name = x.Name,
                                                FullPrice = x.FullPrice,
                                                PriceWithoutMargin = x.PriceWithoutMargin
-                                           }).First();
+                                           }).FirstAsync();
             return product;
         }
 
-        public List<ApiProduct> Get()
+        public Task<List<ProductDto>> GetAsync()
         {
-            var products = _context.Products.Select(x => new ApiProduct
+            var products = _context.Products.Select(x => new ProductDto
             {
                 ProductId = x.ProductId,
                 Barcode = x.Barcode,
@@ -72,14 +66,14 @@ namespace Rbyte.Application.Product.Create
                 Name = x.Name,
                 FullPrice = x.FullPrice,
                 PriceWithoutMargin = x.PriceWithoutMargin
-            }).ToList();
+            }).ToListAsync();
 
             return products;
         }
 
-        public void Update(ApiProduct model)
+        public async Task UpdateAsync(ProductDto model)
         {
-            var dbProduct = _context.Products.First(x => x.ProductId == model.ProductId);
+            var dbProduct = await _context.Products.FirstAsync(x => x.ProductId == model.ProductId);
 
             dbProduct.Barcode = model.Barcode;
             dbProduct.Description = model.Description;
@@ -87,14 +81,14 @@ namespace Rbyte.Application.Product.Create
             dbProduct.FullPrice = model.FullPrice;
             dbProduct.PriceWithoutMargin = model.PriceWithoutMargin;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int productId)
+        public async Task DeleteAsync(int productId)
         {
-            var dbProduct = _context.Products.Where(x => x.ProductId == productId).First();
+            var dbProduct = await _context.Products.Where(x => x.ProductId == productId).FirstAsync();
             _context.Products.Remove(dbProduct);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

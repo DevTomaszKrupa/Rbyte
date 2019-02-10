@@ -1,11 +1,8 @@
-﻿using Rbyte.Api.Models.Category;
-using Rbyte.Application.Category;
+﻿using Rbyte.Application.Category;
+using Rbyte.Domain.Models.Category;
 using Rbyte.Persistance;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Rbyte.Tests.Application.Category
@@ -19,14 +16,14 @@ namespace Rbyte.Tests.Application.Category
             {
                 // Arrange
                 var categoryService = new CategoryService(context);
-                var apiCategory = new ApiCategory
+                var apiCategory = new CategoryDto
                 {
                     Description = "description",
                     Name = "name",
                 };
 
                 // Act
-                categoryService.Create(apiCategory);
+                categoryService.CreateAsync(apiCategory);
 
                 //Assert
                 var categories = context.Categories.ToArray();

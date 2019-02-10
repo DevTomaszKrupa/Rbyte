@@ -1,20 +1,22 @@
-using Rbyte.Api.Models.Store;
+using Microsoft.EntityFrameworkCore;
 using Rbyte.Domain.Entities;
+using Rbyte.Domain.Models.Storehouse;
 using Rbyte.Persistance;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rbyte.Application.Store
 {
     public interface IStorehouseService
     {
-        void Create(ApiStorehouse model);
-        ApiStorehouse Get(int storehouseId);
-        List<ApiStorehouse> Get();
-        void Update(ApiStorehouse model);
-        void Delete(int storehouseId);
+        Task CreateAsync(StorehouseDto model);
+        Task<StorehouseDto> GetAsync(int storehouseId);
+        Task<List<StorehouseDto>> GetAsync();
+        Task UpdateAsync(StorehouseDto model);
+        Task DeleteAsync(int storehouseId);
     }
+
     public class StorehouseService : IStorehouseService
     {
         private readonly RbyteContext _context;
@@ -23,46 +25,46 @@ namespace Rbyte.Application.Store
             _context = context;
         }
 
-        public void Create(ApiStorehouse model)
+        public async Task CreateAsync(StorehouseDto model)
         {
             var dbStore = new DbStore
             {
                 Name = model.Name
             };
-            _context.Stores.Add(dbStore);
-            _context.SaveChanges();
+            await _context.Stores.AddAsync(dbStore);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int storehouseId)
+        public async Task DeleteAsync(int storehouseId)
         {
-            var dbStore = _context.Stores.First(x => x.StoreId == storehouseId);
+            var dbStore = await _context.Stores.FirstAsync(x => x.StoreId == storehouseId);
             _context.Stores.Remove(dbStore);
-            _context.SaveChanges();
+             await _context.SaveChangesAsync();
         }
 
-        public ApiStorehouse Get(int storehouseId)
+        public Task<StorehouseDto> GetAsync(int storehouseId)
         {
-            var store = _context.Stores.Where(x => x.StoreId == storehouseId).Select(x => new ApiStorehouse
+            var store = _context.Stores.Where(x => x.StoreId == storehouseId).Select(x => new StorehouseDto
             {
                 Name = x.Name
-            }).First();
+            }).FirstAsync();
             return store;
         }
 
-        public List<ApiStorehouse> Get()
+        public Task<List<StorehouseDto>> GetAsync()
         {
-            return _context.Stores.Select(x => new ApiStorehouse
+            return _context.Stores.Select(x => new StorehouseDto
             {
                 StorehouseId = x.StoreId,
                 Name = x.Name
-            }).ToList();
+            }).ToListAsync();
         }
 
-        public void Update(ApiStorehouse model)
+        public async Task UpdateAsync(StorehouseDto model)
         {
-            var dbStore = _context.Stores.First(x => x.StoreId == model.StorehouseId);
+            var dbStore = await _context.Stores.FirstAsync(x => x.StoreId == model.StorehouseId);
             dbStore.Name = model.Name;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

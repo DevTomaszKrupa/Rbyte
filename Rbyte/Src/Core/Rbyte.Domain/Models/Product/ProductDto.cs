@@ -1,6 +1,6 @@
-﻿namespace Rbyte.Api.Models.Product
+﻿namespace Rbyte.Domain.Models.Product
 {
-    public class ApiProduct
+    public class ProductDto
     {
         public int ProductId { get; set; }
         public string Name { get; set; }

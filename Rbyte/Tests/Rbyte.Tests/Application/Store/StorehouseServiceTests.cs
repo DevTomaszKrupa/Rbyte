@@ -1,11 +1,8 @@
-﻿using Rbyte.Api.Models.Store;
-using Rbyte.Application.Store;
+﻿using Rbyte.Application.Store;
+using Rbyte.Domain.Models.Storehouse;
 using Rbyte.Persistance;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Rbyte.Tests.Application.Store
@@ -19,13 +16,13 @@ namespace Rbyte.Tests.Application.Store
             {
                 //Arrange
                 var storehouseService = new StorehouseService(context);
-                var apiHousestore = new ApiStorehouse
+                var apiHousestore = new StorehouseDto
                 {
                     Name = "name"
                 };
 
                 //Act
-                storehouseService.Create(apiHousestore);
+                storehouseService.CreateAsync(apiHousestore);
 
                 //Assert
                 var storehouses = context.Stores.ToArray();

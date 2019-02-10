@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.Models.Store;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Store;
+using Rbyte.Domain.Models.Storehouse;
 
 namespace Rbyte.Api.Controllers
 {
@@ -23,33 +18,33 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var list = _storehouseService.Get();
+            var list = _storehouseService.GetAsync();
             return Ok(list);
         }
 
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var list = _storehouseService.Get(id);
+            var list = _storehouseService.GetAsync(id);
             return Ok(list);
         }
 
         [HttpPost]
-        public void Post([FromBody] ApiStorehouse request)
+        public void Post([FromBody] StorehouseDto request)
         {
-            _storehouseService.Create(request);
+            _storehouseService.CreateAsync(request);
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] ApiStorehouse request)
+        public void Put([FromBody] StorehouseDto request)
         {
-            _storehouseService.Update(request);
+            _storehouseService.UpdateAsync(request);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _storehouseService.Delete(id);
+            _storehouseService.DeleteAsync(id);
         }
     }
 }

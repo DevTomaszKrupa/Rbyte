@@ -1,11 +1,8 @@
-﻿using Rbyte.Api.Models.Discount;
-using Rbyte.Application.Discount;
+﻿using Rbyte.Application.Discount;
+using Rbyte.Domain.Models.Discount;
 using Rbyte.Persistance;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Rbyte.Tests.Application.Discount
@@ -19,13 +16,13 @@ namespace Rbyte.Tests.Application.Discount
             {
                 // Arrange 
                 var discountService = new DiscountService(context);
-                var apiDiscount = new ApiDiscount
+                var apiDiscount = new DiscountDto
                 {
                     Value = 7
                 };
 
                 //Act
-                discountService.Create(apiDiscount);
+                discountService.CreateAsync(apiDiscount);
 
                 //Assert
                 var discounts = context.Discounts.ToArray();

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.Models.Product;
 using Rbyte.Application.Product.Create;
-using System.Collections.Generic;
+using Rbyte.Domain.Models.Product;
 
 namespace Rbyte.Api.Controllers
 {
@@ -20,7 +19,7 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var list = _productService.Get();
+            var list = _productService.GetAsync();
             return Ok(list);
         }
 
@@ -28,29 +27,30 @@ namespace Rbyte.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var list = _productService.Get(id);
+            var list = _productService.GetAsync(id);
             return Ok(list);
         }
 
         // POST api/product
         [HttpPost]
-        public void Post([FromBody] ApiProduct request)
+        public void Post([FromBody] ProductDto request)
         {
-            _productService.Create(request);
+            _productService.CreateAsync(request);
+           // TODO  return Created();
         }
 
         // PUT api/product/5
         [HttpPut("{id}")]
-        public void Put([FromBody] ApiProduct request)
+        public void Put([FromBody] ProductDto request)
         {
-            _productService.Update(request);
+            _productService.UpdateAsync(request);
         }
 
         // DELETE api/product/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _productService.Delete(id);
+            _productService.DeleteAsync(id);
         }
     }
 }

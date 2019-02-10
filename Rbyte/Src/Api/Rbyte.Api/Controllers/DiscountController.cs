@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.Models.Discount;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Discount;
+using Rbyte.Domain.Models.Discount;
 
 namespace Rbyte.Api.Controllers
 {
@@ -23,33 +18,33 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var list = _discountService.Get();
+            var list = _discountService.GetAsync();
             return Ok(list);
         }
 
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var list = _discountService.Get(id);
+            var list = _discountService.GetAsync(id);
             return Ok(list);
         }
 
         [HttpPost]
-        public void Post([FromBody] ApiDiscount request)
+        public void Post([FromBody] DiscountDto request)
         {
-            _discountService.Create(request);
+            _discountService.CreateAsync(request);
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] ApiDiscount request)
+        public void Put([FromBody] DiscountDto request)
         {
-            _discountService.Update(request);
+            _discountService.UpdateAsync(request);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _discountService.Delete(id);
+            _discountService.DeleteAsync(id);
         }
     }
 }

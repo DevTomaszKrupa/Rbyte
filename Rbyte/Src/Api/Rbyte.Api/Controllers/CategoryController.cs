@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Rbyte.Api.Models.Category;
 using Rbyte.Application.Category;
+using Rbyte.Domain.Models.Category;
 
 namespace Rbyte.Api.Controllers
 {
@@ -18,7 +17,7 @@ namespace Rbyte.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var list = _categoryService.Get();
+            var list = _categoryService.GetAsync();
             return Ok(list);
         }
 
@@ -26,29 +25,29 @@ namespace Rbyte.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var list = _categoryService.Get(id);
+            var list = _categoryService.GetAsync(id);
             return Ok(list);
         }
 
         // POST api/category
         [HttpPost]
-        public void Post([FromBody] ApiCategory request)
+        public void Post([FromBody] CategoryDto request)
         {
-            _categoryService.Create(request);
+            _categoryService.CreateAsync(request);
         }
 
         // PUT api/category/5
         [HttpPut("{id}")]
-        public void Put([FromBody] ApiCategory request)
+        public void Put([FromBody] CategoryDto request)
         {
-            _categoryService.Update(request);
+            _categoryService.UpdateAsync(request);
         }
 
         // DELETE api/category/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _categoryService.Delete(id);
+            _categoryService.DeleteAsync(id);
         }
 
     }
