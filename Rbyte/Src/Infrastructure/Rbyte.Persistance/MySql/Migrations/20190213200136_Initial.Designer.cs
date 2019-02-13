@@ -9,14 +9,15 @@ using Rbyte.Persistance.MySql;
 namespace Rbyte.Persistance.MySql.Migrations
 {
     [DbContext(typeof(MySqlRbyteContext))]
-    [Migration("20181211195550_AddTaxEntity")]
-    partial class AddTaxEntity
+    [Migration("20190213200136_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Rbyte.Domain.Entities.DbCategory", b =>
                 {
@@ -86,11 +87,13 @@ namespace Rbyte.Persistance.MySql.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal>("FullPrice");
+
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProducerId");
+                    b.Property<decimal>("PriceWithoutMargin");
 
-                    b.Property<decimal>("StandardPrice");
+                    b.Property<int?>("ProducerId");
 
                     b.Property<int?>("TaxId");
 

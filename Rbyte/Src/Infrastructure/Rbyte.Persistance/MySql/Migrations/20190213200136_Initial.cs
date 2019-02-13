@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rbyte.Persistance.MySql.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +12,7 @@ namespace Rbyte.Persistance.MySql.Migrations
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 15, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Parents = table.Column<string>(nullable: true),
@@ -33,7 +34,7 @@ namespace Rbyte.Persistance.MySql.Migrations
                 columns: table => new
                 {
                     DiscountId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Value = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -46,7 +47,7 @@ namespace Rbyte.Persistance.MySql.Migrations
                 columns: table => new
                 {
                     ProducerId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -59,7 +60,7 @@ namespace Rbyte.Persistance.MySql.Migrations
                 columns: table => new
                 {
                     StoreId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -68,16 +69,31 @@ namespace Rbyte.Persistance.MySql.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Taxes",
+                columns: table => new
+                {
+                    TaxId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Value = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taxes", x => x.TaxId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    StandardPrice = table.Column<decimal>(nullable: false),
+                    FullPrice = table.Column<decimal>(nullable: false),
+                    PriceWithoutMargin = table.Column<decimal>(nullable: false),
                     Barcode = table.Column<long>(nullable: false),
-                    ProducerId = table.Column<int>(nullable: true)
+                    ProducerId = table.Column<int>(nullable: true),
+                    TaxId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,6 +103,12 @@ namespace Rbyte.Persistance.MySql.Migrations
                         column: x => x.ProducerId,
                         principalTable: "Producers",
                         principalColumn: "ProducerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Taxes_TaxId",
+                        column: x => x.TaxId,
+                        principalTable: "Taxes",
+                        principalColumn: "TaxId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -142,10 +164,10 @@ namespace Rbyte.Persistance.MySql.Migrations
                 name: "StoreProducts",
                 columns: table => new
                 {
-                    StoreProductId = table.Column<int>(nullable: false),
-                    Count = table.Column<int>(nullable: false),
                     StoreId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(nullable: false),
+                    StoreProductId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,6 +207,11 @@ namespace Rbyte.Persistance.MySql.Migrations
                 column: "ProducerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_TaxId",
+                table: "Products",
+                column: "TaxId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StoreProducts_StoreId",
                 table: "StoreProducts",
                 column: "StoreId");
@@ -215,6 +242,9 @@ namespace Rbyte.Persistance.MySql.Migrations
 
             migrationBuilder.DropTable(
                 name: "Producers");
+
+            migrationBuilder.DropTable(
+                name: "Taxes");
         }
     }
 }
