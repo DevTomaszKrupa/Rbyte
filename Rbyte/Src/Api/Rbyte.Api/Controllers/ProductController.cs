@@ -78,7 +78,7 @@ namespace Rbyte.Api.Controllers
             try
             {
                 await _productService.UpdateAsync(request);
-                return NoContent()
+                return NoContent();
             }
             catch (Exception ex)
             {
