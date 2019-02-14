@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Product.Create;
 using Rbyte.Domain.Models.Product;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Rbyte.Api.Controllers
 {
@@ -16,41 +19,88 @@ namespace Rbyte.Api.Controllers
         }
 
         // GET api/product
+        [ProducesResponseType(typeof(List<ProductDto>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult<List<ProductDto>>> GetAsync()
         {
-            var list = _productService.GetAsync();
-            return Ok(list);
+            try
+            {
+                var list = await _productService.GetAsync();
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // GET api/product/5
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        [ProducesResponseType(typeof(ProductDto), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProductDto>> GetAsync(int id)
         {
-            var list = _productService.GetAsync(id);
-            return Ok(list);
+            try
+            {
+                var product = await _productService.GetAsync(id);
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // POST api/product
         [HttpPost]
-        public void Post([FromBody] ProductDto request)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> PostAsync([FromBody] ProductDto request)
         {
-            _productService.CreateAsync(request);
-           // TODO  return Created();
+            try
+            {
+                var id = await _productService.CreateAsync(request);
+                return CreatedAtAction(nameof(GetAsync), new { id }, id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/product/5
-        [HttpPut("{id}")]
-        public void Put([FromBody] ProductDto request)
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> PutAsync([FromBody] ProductDto request)
         {
-            _productService.UpdateAsync(request);
+            try
+            {
+                await _productService.UpdateAsync(request);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/product/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            _productService.DeleteAsync(id);
+            try
+            {
+                await _productService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex )
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
