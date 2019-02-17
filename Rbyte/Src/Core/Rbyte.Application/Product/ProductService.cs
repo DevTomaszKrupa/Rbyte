@@ -10,7 +10,7 @@ namespace Rbyte.Application.Product.Create
 {
     public interface IProductService
     {
-        Task CreateAsync(ProductDto model);
+        Task<int> CreateAsync(ProductDto model);
         Task<ProductDto> GetAsync(int productId);
         Task<List<ProductDto>> GetAsync();
         Task UpdateAsync(ProductDto model);
@@ -27,7 +27,7 @@ namespace Rbyte.Application.Product.Create
         }
 
 
-        public async Task CreateAsync(ProductDto model)
+        public async Task<int> CreateAsync(ProductDto model)
         {
             var dbProduct = new DbProduct
             {
@@ -39,6 +39,8 @@ namespace Rbyte.Application.Product.Create
             };
             await _context.Products.AddAsync(dbProduct);
             await _context.SaveChangesAsync();
+
+            return dbProduct.ProductId;
         }
 
         public Task<ProductDto> GetAsync(int productId)
