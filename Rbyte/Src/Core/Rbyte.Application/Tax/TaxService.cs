@@ -10,7 +10,7 @@ namespace Rbyte.Application.Tax
 {
     public interface ITaxService
     {
-        Task CreateAsync(TaxDto model);
+        Task<int> CreateAsync(TaxDto model);
         Task<TaxDto> GetAsync(int taxId);
         Task<List<TaxDto>> GetAsync();
         Task UpdateAsync(TaxDto model);
@@ -24,7 +24,7 @@ namespace Rbyte.Application.Tax
             _context = context;
         }
 
-        public async Task CreateAsync(TaxDto model)
+        public async Task<int> CreateAsync(TaxDto model)
         {
             var dbTax = new DbTax
             {
@@ -32,6 +32,7 @@ namespace Rbyte.Application.Tax
             };
             await _context.Taxes.AddAsync(dbTax);
             await _context.SaveChangesAsync();
+            return dbTax.TaxId;
         }
 
         public async Task DeleteAsync(int taxId)

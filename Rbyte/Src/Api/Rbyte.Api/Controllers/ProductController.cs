@@ -55,7 +55,7 @@ namespace Rbyte.Api.Controllers
         // POST api/product
         [HttpPost]
         [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> PostAsync([FromBody] ProductDto request)
         {
             try
@@ -72,7 +72,7 @@ namespace Rbyte.Api.Controllers
         // PUT api/product/5
         [HttpPut("{id:int}")]
         [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> PutAsync([FromBody] ProductDto request)
         {
             try
@@ -89,7 +89,7 @@ namespace Rbyte.Api.Controllers
         // DELETE api/product/5
         [HttpDelete("{id:int}")]
         [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             try

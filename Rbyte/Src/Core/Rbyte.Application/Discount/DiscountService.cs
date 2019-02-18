@@ -10,7 +10,7 @@ namespace Rbyte.Application.Discount
 {
     public interface IDiscountService
     {
-        Task CreateAsync(DiscountDto model);
+        Task<int> CreateAsync(DiscountDto model);
         Task<DiscountDto> GetAsync(int discountId);
         Task<List<DiscountDto>> GetAsync();
         Task UpdateAsync(DiscountDto model);
@@ -25,7 +25,7 @@ namespace Rbyte.Application.Discount
             _context = context;
         }
 
-        public async Task CreateAsync(DiscountDto model)
+        public async Task<int> CreateAsync(DiscountDto model)
         {
             var dbDiscount = new DbDiscount
             {
@@ -33,6 +33,7 @@ namespace Rbyte.Application.Discount
             };
             await _context.Discounts.AddAsync(dbDiscount);
             await _context.SaveChangesAsync();
+            return dbDiscount.DiscountId;
         }
 
         public async Task DeleteAsync(int discountId)

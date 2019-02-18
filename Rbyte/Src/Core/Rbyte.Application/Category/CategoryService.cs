@@ -11,7 +11,7 @@ namespace Rbyte.Application.Category
 {
     public interface ICategoryService
     {
-        Task CreateAsync(CategoryDto model);
+        Task<int> CreateAsync(CategoryDto model);
         Task<CategoryDto> GetAsync(int categoryId);
         Task<List<CategoryDto>> GetAsync();
         Task UpdateAsync(CategoryDto model);
@@ -26,14 +26,16 @@ namespace Rbyte.Application.Category
             _context = context;
         }
 
-        public async Task CreateAsync(CategoryDto model)
+        public async Task<int> CreateAsync(CategoryDto model)
         {
-            await _context.Categories.AddAsync(new DbCategory
+            var dbProduct = new DbProduct
             {
                 Name = model.Name,
                 Description = model.Description
-            });
+            };
+            await _context.AddAsync(dbProduct);
             await _context.SaveChangesAsync();
+            return dbProduct.ProductId;
         }
 
         public async Task<List<CategoryDto>> GetAsync()
