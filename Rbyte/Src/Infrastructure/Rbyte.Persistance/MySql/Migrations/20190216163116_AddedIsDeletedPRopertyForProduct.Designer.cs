@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rbyte.Persistance.MySql;
 
 namespace Rbyte.Persistance.MySql.Migrations
 {
     [DbContext(typeof(MySqlRbyteContext))]
-    partial class MySqlRbyteContextModelSnapshot : ModelSnapshot
+    [Migration("20190216163116_AddedIsDeleatedPRopertyForProduct")]
+    partial class AddedIsDeletedPRopertyForProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

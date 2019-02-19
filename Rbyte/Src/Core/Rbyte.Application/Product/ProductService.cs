@@ -45,7 +45,7 @@ namespace Rbyte.Application.Product.Create
 
         public Task<ProductDto> GetAsync(int productId)
         {
-            var product = _context.Products.Where(x => x.ProductId == productId)
+            var product = _context.Products.Where(x => x.ProductId == productId && !x.IsDeleted)
                                            .Select(x => new ProductDto
                                            {
                                                ProductId = x.ProductId,
@@ -60,7 +60,7 @@ namespace Rbyte.Application.Product.Create
 
         public Task<List<ProductDto>> GetAsync()
         {
-            var products = _context.Products.Select(x => new ProductDto
+            var products = _context.Products.Where(x => !x.IsDeleted).Select(x => new ProductDto
             {
                 ProductId = x.ProductId,
                 Barcode = x.Barcode,
@@ -89,7 +89,7 @@ namespace Rbyte.Application.Product.Create
         public async Task DeleteAsync(int productId)
         {
             var dbProduct = await _context.Products.Where(x => x.ProductId == productId).FirstAsync();
-            _context.Products.Remove(dbProduct);
+            dbProduct.IsDeleted = true;
             await _context.SaveChangesAsync();
         }
     }

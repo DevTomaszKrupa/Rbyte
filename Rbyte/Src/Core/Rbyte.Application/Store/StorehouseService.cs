@@ -10,7 +10,7 @@ namespace Rbyte.Application.Store
 {
     public interface IStorehouseService
     {
-        Task CreateAsync(StorehouseDto model);
+        Task<int> CreateAsync(StorehouseDto model);
         Task<StorehouseDto> GetAsync(int storehouseId);
         Task<List<StorehouseDto>> GetAsync();
         Task UpdateAsync(StorehouseDto model);
@@ -25,7 +25,7 @@ namespace Rbyte.Application.Store
             _context = context;
         }
 
-        public async Task CreateAsync(StorehouseDto model)
+        public async Task<int> CreateAsync(StorehouseDto model)
         {
             var dbStore = new DbStore
             {
@@ -33,6 +33,7 @@ namespace Rbyte.Application.Store
             };
             await _context.Stores.AddAsync(dbStore);
             await _context.SaveChangesAsync();
+            return dbStore.StoreId;
         }
 
         public async Task DeleteAsync(int storehouseId)

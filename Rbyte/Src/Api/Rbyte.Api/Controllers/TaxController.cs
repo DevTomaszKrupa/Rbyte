@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rbyte.Application.Tax;
 using Rbyte.Domain.Models.Tax;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Rbyte.Api.Controllers
 {
@@ -15,36 +18,90 @@ namespace Rbyte.Api.Controllers
             _taxService = taxService;
         }
 
+        // GET api/tax
+        [ProducesResponseType(typeof(List<TaxDto>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> GetAsync()
         {
-            var list = _taxService.GetAsync();
-            return Ok(list);
+            try
+            {
+                var list = await _taxService.GetAsync();
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
+
+        // GET api/tax/5
+        [ProducesResponseType(typeof(TaxDto), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> GetAsync(int id)
         {
-            var list = _taxService.GetAsync(id);
-            return Ok(list);
+            try
+            {
+                var list = await _taxService.GetAsync(id);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
+        // POST api/tax
         [HttpPost]
-        public void Post([FromBody] TaxDto request)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> PostAsync([FromBody] TaxDto request)
         {
-            _taxService.CreateAsync(request);
+            try
+            {
+                var id = await _taxService.CreateAsync(request);
+                return CreatedAtAction(nameof(GetAsync), new { id }, id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPut("{id}")]
-        public void Put([FromBody] TaxDto request)
+        // PUT api/tax/5
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> PutAsync([FromBody] TaxDto request)
         {
-            _taxService.UpdateAsync(request);
+            try
+            {
+                await _taxService.UpdateAsync(request);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/tax/5
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            _taxService.DeleteAsync(id);
+            try
+            {
+                await _taxService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
