@@ -1,11 +1,11 @@
-﻿using System;
-using Rbyte.Application.Category;
+﻿using Rbyte.Application.Category;
+using Rbyte.Domain.Entities;
 using Rbyte.Domain.Models.Category;
 using Rbyte.Persistance;
 using Shouldly;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Rbyte.Domain.Entities;
 using Xunit;
 
 namespace Rbyte.Tests.Application.Category
@@ -170,6 +170,52 @@ namespace Rbyte.Tests.Application.Category
                 //Assert
                 var resultArr = result.ToArray();
                 resultArr.Length.ShouldBe(0);
+            }
+            RbyteContextActionInvoker.InvokeAsync(Method);
+        }
+
+        [Fact]
+        public void Update_ListWithUpdatingItem_UpdatesItem()
+        {
+            async Task Method(RbyteContext context)
+            {
+                // Arrange
+                var c1 = new DbCategory { CategoryId = 1, Description = "desc1", Name = "name1" };
+                var c2 = new DbCategory { CategoryId = 2, Description = "desc2", Name = "name2" };
+                var c3 = new DbCategory { CategoryId = 3, Description = "desc3", Name = "name3" };
+                context.Categories.Add(c1);
+                context.Categories.Add(c2);
+                context.Categories.Add(c3);
+                context.SaveChanges();
+                var c2forUpdate = new CategoryDto { CategoryId = 2, Description = "updated_desc2", Name = "updated_name2" }; ;
+
+                // Act
+                var sut = new CategoryService(context);
+                await sut.UpdateAsync(c2forUpdate);
+
+                //Assert
+                var updatedItem = context.Categories.First(x => x.CategoryId == 2);
+                updatedItem.Name.ShouldBe("updated_name2");
+                updatedItem.Description.ShouldBe("updated_desc2");
+            }
+            RbyteContextActionInvoker.InvokeAsync(Method);
+        }
+
+        [Fact]
+        public void Update_ListWithoutUpdatingItem_UpdatesItem()
+        {
+            async Task Method(RbyteContext context)
+            {
+                var c2forUpdate = new CategoryDto { CategoryId = 2, Description = "updated_desc2", Name = "updated_name2" }; ;
+
+                // Act
+                var sut = new CategoryService(context);
+                await sut.UpdateAsync(c2forUpdate);
+
+                Func<Task> f = async () => { await sut.UpdateAsync(c2forUpdate); };
+
+                //Assert
+                f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
