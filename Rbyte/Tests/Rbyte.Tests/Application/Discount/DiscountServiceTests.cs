@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-
 namespace Rbyte.Tests.Application.Discount
 {
     public class DiscountServiceTests
@@ -25,10 +24,10 @@ namespace Rbyte.Tests.Application.Discount
                     Value = 7
                 };
 
-                //Act
+                // Act
                 await sut.CreateAsync(apiDiscount);
 
-                //Assert
+                // Assert
                 var discounts = context.Discounts.ToArray();
                 discounts.Length.ShouldBe(1);
                 discounts[0].Value.ShouldBe(7);
@@ -42,27 +41,27 @@ namespace Rbyte.Tests.Application.Discount
             async Task Method(RbyteContext context)
             {
                 // Arrange     
+                var d1 = new DbDiscount { DiscountId = 1, Value = 10 };
+                var d2 = new DbDiscount { DiscountId = 2, Value = 20 };
+                var d3 = new DbDiscount { DiscountId = 3, Value = 30 };
+                context.Discounts.Add(d1);
+                context.Discounts.Add(d2);
+                context.Discounts.Add(d3);
+                context.SaveChanges();
                 var sut = new DiscountService(context);
-                var d1 = new DbDiscount { DiscountId = 0, Value = 10 };
-                var d2 = new DbDiscount { DiscountId = 1, Value = 20 };
-                var d3 = new DbDiscount { DiscountId = 2, Value = 30 };
-                await context.Discounts.AddAsync(d1);
-                await context.Discounts.AddAsync(d2);
-                await context.Discounts.AddAsync(d3);
-                await context.SaveChangesAsync();
 
-                //Act
-                var list = await sut.GetAsync();
+                // Act
+                var result = await sut.GetAsync();
 
-                //Assert
-                var listArr = list.ToArray();
-                listArr.Length.ShouldBe(3);
-                listArr[0].Value.ShouldBe(10);
-                listArr[0].DiscountId.ShouldBe(0);
-                listArr[1].Value.ShouldBe(20);
-                listArr[1].DiscountId.ShouldBe(1);
-                listArr[2].Value.ShouldBe(30);
-                listArr[2].DiscountId.ShouldBe(2);
+                // Assert
+                var resultArr = list.ToArray();
+                resultArr.Length.ShouldBe(3);
+                resultArr[0].Value.ShouldBe(10);
+                resultArr[0].DiscountId.ShouldBe(1);
+                resultArr[1].Value.ShouldBe(20);
+                resultArr[1].DiscountId.ShouldBe(2);
+                resultArr[2].Value.ShouldBe(30);
+                resultArr[2].DiscountId.ShouldBe(3);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -75,11 +74,11 @@ namespace Rbyte.Tests.Application.Discount
                 // Arrange
                 var sut = new DiscountService(context);
 
-                //Act
-                var list =await sut.GetAsync();
+                // Act
+                var result =await sut.GetAsync();
 
-                //Assert
-                list.ToArray().Length.ShouldBe(0);
+                // Assert
+                result.ToArray().Length.ShouldBe(0);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -89,21 +88,21 @@ namespace Rbyte.Tests.Application.Discount
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
+                var d1 = new DbDiscount { DiscountId = 1, Value = 10 };
+                var d2 = new DbDiscount { DiscountId = 2, Value = 20 };
+                var d3 = new DbDiscount { DiscountId = 3, Value = 30 };
+                context.Discounts.Add(d1);
+                context.Discounts.Add(d2);
+                context.Discounts.Add(d3);
+                context.SaveChanges();
                 var sut = new DiscountService(context);
-                var d1 = new DbDiscount { DiscountId = 0, Value = 10 };
-                var d2 = new DbDiscount { DiscountId = 1, Value = 20 };
-                var d3 = new DbDiscount { DiscountId = 2, Value = 30 };
-                await context.Discounts.AddAsync(d1);
-                await context.Discounts.AddAsync(d2);
-                await context.Discounts.AddAsync(d3);
-                await context.SaveChangesAsync();
 
-                //Act
+                // Act
                 var item = await sut.GetAsync(1);
 
-                //Assert
-                item.DiscountId.ShouldBe(1);
+                // Assert
+                item.DiscountId.ShouldBe(2);
                 item.Value.ShouldBe(20);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
@@ -114,13 +113,13 @@ namespace Rbyte.Tests.Application.Discount
         {
             void  Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new DiscountService(context);
 
-                //Act
+                // Act
                 Func<Task> f=async () =>  await sut.GetAsync(3);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -131,16 +130,16 @@ namespace Rbyte.Tests.Application.Discount
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
+                var d1 = new DbDiscount { DiscountId = 1, Value = 10 };
+                context.Add(d1);
+                context.SaveChanges();
                 var sut = new DiscountService(context);
-                var d1 = new DbDiscount { DiscountId = 0, Value = 10 };
-                await context.AddAsync(d1);
-                await context.SaveChangesAsync();
 
-                //Act
+                // Act
                 await sut.DeleteAsync(1);
 
-                //Assert
+                // Assert
                 context.Discounts.Any(x => x.DiscountId == 1).ShouldBe(false); 
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
@@ -151,13 +150,13 @@ namespace Rbyte.Tests.Application.Discount
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new DiscountService(context);
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.DeleteAsync(3);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -168,21 +167,21 @@ namespace Rbyte.Tests.Application.Discount
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
+                var d1 = new DbDiscount { DiscountId = 1, Value = 10 };
+                var d2 = new DbDiscount { DiscountId = 2, Value = 20 };
+                var d3 = new DbDiscount { DiscountId = 3, Value = 30 };
+                context.Discounts.Add(d1);
+                context.Discounts.Add(d2);
+                context.Discounts.Add(d3);
+                context.SaveChanges();
                 var sut = new DiscountService(context);
-                var d1 = new DbDiscount { DiscountId = 0, Value = 10 };
-                var d2 = new DbDiscount { DiscountId = 1, Value = 20 };
-                var d3 = new DbDiscount { DiscountId = 2, Value = 30 };
                 var d2forUpdate = new DiscountDto { DiscountId=2, Value = 20 };
-                await context.Discounts.AddAsync(d1);
-                await context.Discounts.AddAsync(d2);
-                await context.Discounts.AddAsync(d3);
-                await context.SaveChangesAsync();
 
-                //Act
+                // Act
                 await sut.UpdateAsync(d2forUpdate);
 
-                //Act
+                // Assert
                 var updatedItem = context.Discounts.First(x => x.DiscountId == 2);
                 updatedItem.Value.ShouldBe(20);
             }
@@ -192,19 +191,19 @@ namespace Rbyte.Tests.Application.Discount
         [Fact]
         public void Update_WithoutUpdatingItem_ThrowsException()
         {
-            async Task Method(RbyteContext context)
+            void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new DiscountService(context);
                 var ItemforUpdate = new DiscountDto { DiscountId = 2, Value = 20 };
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.UpdateAsync(ItemforUpdate);
 
-                //Act
+                // Assert
                 f.ShouldThrow<Exception>();
             }
-            RbyteContextActionInvoker.InvokeAsync(Method);
+            RbyteContextActionInvoker.Invoke(Method);
         }
     }
 }

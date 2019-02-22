@@ -28,7 +28,7 @@ namespace Rbyte.Tests.Application.Category
                 // Act
                 await sut.CreateAsync(apiCategory);
 
-                //Assert
+                // Assert
                 var categories = context.Categories.ToArray();
                 categories.Length.ShouldBe(1);
                 categories[0].Name.ShouldBe("name");
@@ -55,7 +55,7 @@ namespace Rbyte.Tests.Application.Category
                 // Act
                 await sut.DeleteAsync(1);
 
-                //Assert
+                // Assert
                 context.Categories.Any(x => x.CategoryId == 1).ShouldBe(false);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
@@ -72,7 +72,7 @@ namespace Rbyte.Tests.Application.Category
                 // Act
                 Func<Task> f = async () => { await sut.DeleteAsync(1); };
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -87,16 +87,16 @@ namespace Rbyte.Tests.Application.Category
                 var c1 = new DbCategory { CategoryId = 1, Description = "desc1", Name = "name1" };
                 var c2 = new DbCategory { CategoryId = 2, Description = "desc2", Name = "name2" };
                 var c3 = new DbCategory { CategoryId = 3, Description = "desc3", Name = "name3" };
-                await context.Categories.AddAsync(c1);
-                await context.Categories.AddAsync(c2);
-                await context.Categories.AddAsync(c3);
-                await context.SaveChangesAsync();
+                context.Categories.Add(c1);
+                context.Categories.Add(c2);
+                context.Categories.Add(c3);
+                context.SaveChanges();
                 var sut = new CategoryService(context);
 
                 // Act
                 var result = await sut.GetAsync(2);
 
-                //Assert
+                // Assert
                 result.CategoryId.ShouldBe(2);
                 result.Description.ShouldBe("desc2");
                 result.Name.ShouldBe("name2");
@@ -113,10 +113,9 @@ namespace Rbyte.Tests.Application.Category
                 var sut = new CategoryService(context);
 
                 // Act
-
                 Func<Task> f = async () => { await sut.GetAsync(103); };
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -131,16 +130,16 @@ namespace Rbyte.Tests.Application.Category
                 var c1 = new DbCategory { CategoryId = 1, Description = "desc1", Name = "name1" };
                 var c2 = new DbCategory { CategoryId = 2, Description = "desc2", Name = "name2" };
                 var c3 = new DbCategory { CategoryId = 3, Description = "desc3", Name = "name3" };
-                await context.Categories.AddAsync(c1);
-                await context.Categories.AddAsync(c2);
-                await context.Categories.AddAsync(c3);
-                await context.SaveChangesAsync();
+                context.Categories.Add(c1);
+                context.Categories.Add(c2);
+                context.Categories.Add(c3);
+                context.SaveChanges();
                 var sut = new CategoryService(context);
 
                 // Act
                 var result = await sut.GetAsync();
 
-                //Assert
+                // Assert
                 var resultArr = result.ToArray();
                 resultArr.Length.ShouldBe(3);
                 resultArr[0].CategoryId.ShouldBe(1);
@@ -167,7 +166,7 @@ namespace Rbyte.Tests.Application.Category
                 // Act
                 var result = await sut.GetAsync();
 
-                //Assert
+                // Assert
                 var resultArr = result.ToArray();
                 resultArr.Length.ShouldBe(0);
             }
@@ -183,17 +182,17 @@ namespace Rbyte.Tests.Application.Category
                 var c1 = new DbCategory { CategoryId = 1, Description = "desc1", Name = "name1" };
                 var c2 = new DbCategory { CategoryId = 2, Description = "desc2", Name = "name2" };
                 var c3 = new DbCategory { CategoryId = 3, Description = "desc3", Name = "name3" };
-                await context.Categories.AddAsync(c1);
-                await context.Categories.AddAsync(c2);
-                await context.Categories.AddAsync(c3);
-                await context.SaveChangesAsync();
+                context.Categories.Add(c1);
+                context.Categories.Add(c2);
+                context.Categories.Add(c3);
+                context.SaveChanges();
                 var c2forUpdate = new CategoryDto { CategoryId = 2, Description = "updated_desc2", Name = "updated_name2" };
                 var sut = new CategoryService(context);
 
                 // Act
                 await sut.UpdateAsync(c2forUpdate);
 
-                //Assert
+                // Assert
                 var updatedItem = context.Categories.First(x => x.CategoryId == 2);
                 updatedItem.Name.ShouldBe("updated_name2");
                 updatedItem.Description.ShouldBe("updated_desc2");
@@ -204,20 +203,19 @@ namespace Rbyte.Tests.Application.Category
         [Fact]
         public void Update_ListWithoutUpdatingItem_ThrowsException()
         {
-            async Task Method(RbyteContext context)
+            void Method(RbyteContext context)
             {
+                // Arrange
                 var itemForUpdate = new CategoryDto { CategoryId = 2, Description = "updated_desc2", Name = "updated_name2" };
                 var sut = new CategoryService(context);
 
                 // Act
-                await sut.UpdateAsync(itemForUpdate);
-
                 Func<Task> f = async () => { await sut.UpdateAsync(itemForUpdate); };
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
-            RbyteContextActionInvoker.InvokeAsync(Method);
+            RbyteContextActionInvoker.Invoke(Method);
         }
     }
 }

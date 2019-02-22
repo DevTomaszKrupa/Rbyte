@@ -17,14 +17,14 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new StorehouseService(context);
-                var apiStorehouse = new StorehouseDto { StorehouseId = 0, Name = "name" };
+                var apiStorehouse = new StorehouseDto { StorehouseId = 1, Name = "name" };
 
-                //Act
+                // Act
                 await sut.CreateAsync(apiStorehouse);
 
-                //Assert
+                // Assert
                 var storehouse = context.Stores.ToArray();
                 storehouse.Length.ShouldBe(1);
                 storehouse[0].Name.ShouldBe("name");
@@ -38,20 +38,19 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                await context.Stores.AddAsync(new DbStore
+                // Arrange
+                context.Stores.Add(new DbStore
                 {
-                    StoreId = 0
+                    StoreId = 1
                 });
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 var sut = new StorehouseService(context);
 
-                //Act
-                await sut.DeleteAsync(0);
+                // Act
+                await sut.DeleteAsync(1);
 
-                //Assert
-                //Assert
-                context.Stores.Any(x => x.StoreId == 0).ShouldBe(false);
+                // Assert
+                context.Stores.Any(x => x.StoreId == 1).ShouldBe(false);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -61,13 +60,13 @@ namespace Rbyte.Tests.Application.Store
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new StorehouseService(context);
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.DeleteAsync(3);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -78,22 +77,22 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var s1 = new DbStore { StoreId = 0, Name = "name1" };
-                var s2 = new DbStore { StoreId = 1, Name = "name2" };
-                var s3 = new DbStore { StoreId = 2, Name = "name3" };
-                await context.Stores.AddAsync(s1);
-                await context.Stores.AddAsync(s2);
-                await context.Stores.AddAsync(s3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var s1 = new DbStore { StoreId = 1, Name = "name1" };
+                var s2 = new DbStore { StoreId = 2, Name = "name2" };
+                var s3 = new DbStore { StoreId = 3, Name = "name3" };
+                context.Stores.Add(s1);
+                context.Stores.Add(s2);
+                context.Stores.Add(s3);
+                context.SaveChanges();
                 var sut = new StorehouseService(context);
 
-                //Act
-                var store = await sut.GetAsync(1);
+                // Act
+                var store = await sut.GetAsync(2);
 
-                //Assert
+                // Assert
                 store.Name.ShouldBe("name2");
-                store.StorehouseId.ShouldBe(1);
+                store.StorehouseId.ShouldBe(2);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -103,13 +102,13 @@ namespace Rbyte.Tests.Application.Store
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new StorehouseService(context);
 
-                //Act
-                Func < Task > f= async () => await sut.GetAsync(2);
+                // Act
+                Func<Task> f= async () => await sut.GetAsync(2);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -120,28 +119,28 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var s1 = new DbStore { StoreId = 0, Name = "name1" };
-                var s2 = new DbStore { StoreId = 1, Name = "name2" };
-                var s3 = new DbStore { StoreId = 2, Name = "name3" };
-                await context.Stores.AddAsync(s1);
-                await context.Stores.AddAsync(s2);
-                await context.Stores.AddAsync(s3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var s1 = new DbStore { StoreId = 1, Name = "name1" };
+                var s2 = new DbStore { StoreId = 2, Name = "name2" };
+                var s3 = new DbStore { StoreId = 3, Name = "name3" };
+                context.Stores.Add(s1);
+                context.Stores.Add(s2);
+                context.Stores.Add(s3);
+                context.SaveChanges();
                 var sut = new StorehouseService(context);
 
-                //Act
+                // Act
                 var stores = await sut.GetAsync();
 
-                //Assert
+                // Assert
                 var storeArr = stores.ToArray();
                 storeArr.Length.ShouldBe(3);
                 storeArr[0].Name.ShouldBe("name1");
-                storeArr[0].StorehouseId.ShouldBe(0);
+                storeArr[0].StorehouseId.ShouldBe(1);
                 storeArr[1].Name.ShouldBe("name2");
-                storeArr[1].StorehouseId.ShouldBe(1);
+                storeArr[1].StorehouseId.ShouldBe(2);
                 storeArr[2].Name.ShouldBe("name3");
-                storeArr[2].StorehouseId.ShouldBe(2);
+                storeArr[2].StorehouseId.ShouldBe(3);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -151,14 +150,14 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new StorehouseService(context);
 
-                //Act
-                var list = await sut.GetAsync();
+                // Act
+                var result = await sut.GetAsync();
 
-                //Assert
-                list.ToArray().Length.ShouldBe(1);
+                // Assert
+                result.ToArray().Length.ShouldBe(0);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -168,24 +167,24 @@ namespace Rbyte.Tests.Application.Store
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var s1 = new DbStore { StoreId = 0, Name = "name1" };
-                var s2 = new DbStore { StoreId = 1, Name = "name2" };
-                var s3 = new DbStore { StoreId = 2, Name = "name3" };
-                var s2ForUpdate = new StorehouseDto { StorehouseId = 1, Name = "updatedName" };
-                await context.Stores.AddAsync(s1);
-                await context.Stores.AddAsync(s2);
-                await context.Stores.AddAsync(s3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var s1 = new DbStore { StoreId = 1, Name = "name1" };
+                var s2 = new DbStore { StoreId = 2, Name = "name2" };
+                var s3 = new DbStore { StoreId = 3, Name = "name3" };
+                context.Stores.Add(s1);
+                context.Stores.Add(s2);
+                context.Stores.Add(s3);
+                context.SaveChanges();
+                var s2ForUpdate = new StorehouseDto { StorehouseId = 2, Name = "updatedName" };
                 var sut = new StorehouseService(context);
 
-                //Act
+                // Act
                 await sut.UpdateAsync(s2ForUpdate);
 
-                //Assert
-                var store = context.Stores.First(x => x.StoreId == 1);
+                // Assert
+                var store = context.Stores.First(x => x.StoreId == 2);
                 store.Name.ShouldBe("name2");
-                store.StoreId.ShouldBe(1);
+                store.StoreId.ShouldBe(2);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -195,14 +194,14 @@ namespace Rbyte.Tests.Application.Store
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var itemToUpdate = new StorehouseDto { StorehouseId = 1, Name = "updatedName" };
                 var sut = new StorehouseService(context);
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.UpdateAsync(itemToUpdate);
-
-                //Assert
+                 
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);

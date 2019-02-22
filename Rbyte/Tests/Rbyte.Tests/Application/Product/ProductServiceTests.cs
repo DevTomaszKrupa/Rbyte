@@ -28,10 +28,10 @@ namespace Rbyte.Tests.Application.Product
                 };
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 await sut.CreateAsync(apiProduct);
 
-                //Assert
+                // Assert
                 var products = context.Products.ToArray();
                 products.Length.ShouldBe(1);
                 products[0].Barcode.ShouldBe(1000);
@@ -48,19 +48,19 @@ namespace Rbyte.Tests.Application.Product
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                await context.Products.AddAsync(new DbProduct
+                // Arrange
+                context.Products.Add(new DbProduct
                 {
-                    ProductId = 0,
+                    ProductId = 1,
                 });
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 var sut = new ProductService(context);
 
-                //Act
-                await sut.DeleteAsync(0);
+                // Act
+                await sut.DeleteAsync(1);
 
-                //Assert
-                context.Products.Any(x => x.ProducerId == 0).ShouldBe(false);
+                // Assert
+                context.Products.Any(x => x.ProducerId == 1).ShouldBe(false);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -70,13 +70,13 @@ namespace Rbyte.Tests.Application.Product
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.DeleteAsync(2);
-
-                //Assert 
+                
+                // Assert 
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -87,20 +87,20 @@ namespace Rbyte.Tests.Application.Product
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var p1 = new DbProduct { ProductId = 0, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
-                var p2 = new DbProduct { ProductId = 1, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
-                var p3 = new DbProduct { ProductId = 2, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
-                await context.Products.AddAsync(p1);
-                await context.Products.AddAsync(p2);
-                await context.Products.AddAsync(p3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var p1 = new DbProduct { ProductId = 1, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
+                var p2 = new DbProduct { ProductId = 2, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
+                var p3 = new DbProduct { ProductId = 3, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
+                context.Products.Add(p1);
+                context.Products.Add(p2);
+                context.Products.Add(p3);
+                context.SaveChanges();
                 var sut = new ProductService(context);
 
-                //Act
-                var product = await sut.GetAsync(1);
+                // Act
+                var product = await sut.GetAsync(2);
 
-                //Assert
+                // Assert
                 product.Barcode.ShouldBe(2000);
                 product.Description.ShouldBe("desc2");
                 product.PriceWithoutMargin.ShouldBe(20m);
@@ -115,13 +115,13 @@ namespace Rbyte.Tests.Application.Product
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.GetAsync(2);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
@@ -132,20 +132,20 @@ namespace Rbyte.Tests.Application.Product
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var p1 = new DbProduct { ProductId = 0, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
-                var p2 = new DbProduct { ProductId = 1, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
-                var p3 = new DbProduct { ProductId = 2, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
-                await context.Products.AddAsync(p1);
-                await context.Products.AddAsync(p2);
-                await context.Products.AddAsync(p3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var p1 = new DbProduct { ProductId = 1, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
+                var p2 = new DbProduct { ProductId = 2, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
+                var p3 = new DbProduct { ProductId = 3, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
+                context.Products.Add(p1);
+                context.Products.Add(p2);
+                context.Products.Add(p3);
+                context.SaveChanges();
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 var products = await sut.GetAsync();
 
-                //Assert
+                // Assert
                 var productArr = products.ToArray();
                 productArr.Length.ShouldBe(3);
                 productArr[0].Barcode.ShouldBe(1000);
@@ -172,13 +172,13 @@ namespace Rbyte.Tests.Application.Product
         {
             async Task Method(RbyteContext context)
             {
-                //Assert
+                // Assert
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 var items =await sut.GetAsync();
 
-                //Assert
+                // Assert
                 items.ToArray().Length.ShouldBe(0);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
@@ -189,22 +189,22 @@ namespace Rbyte.Tests.Application.Product
         {
             async Task Method(RbyteContext context)
             {
-                //Arrange
-                var p1 = new DbProduct { ProductId = 0, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
-                var p2 = new DbProduct { ProductId = 1, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
-                var p3 = new DbProduct { ProductId = 2, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
-                var p1forUpdate = new ProductDto { ProductId = 0, Barcode = 4000, Description = "updatedDesc", PriceWithoutMargin = 40m, FullPrice = 50m, Name = "updatedName" };
-                await context.Products.AddAsync(p1);
-                await context.Products.AddAsync(p2);
-                await context.Products.AddAsync(p3);
-                await context.SaveChangesAsync();
+                // Arrange
+                var p1forUpdate = new ProductDto { ProductId = 1, Barcode = 4000, Description = "updatedDesc", PriceWithoutMargin = 40m, FullPrice = 50m, Name = "updatedName" };
+                var p1 = new DbProduct { ProductId = 1, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
+                var p2 = new DbProduct { ProductId = 2, Barcode = 2000, Description = "desc2", PriceWithoutMargin = 20m, FullPrice = 30m, Name = "name2" };
+                var p3 = new DbProduct { ProductId = 3, Barcode = 3000, Description = "desc3", PriceWithoutMargin = 30m, FullPrice = 40m, Name = "name3" };
+                context.Products.Add(p1);
+                context.Products.Add(p2);
+                context.Products.Add(p3);
+                context.SaveChanges();
                 var sut = new ProductService(context);
 
-                //Act
+                // Act
                 await sut.UpdateAsync(p1forUpdate);
 
-                //Assert
-                var product = context.Products.First(x => x.ProductId == 0);
+                // Assert
+                var product = context.Products.First(x => x.ProductId == 1);
                 product.Barcode.ShouldBe(4000);
                 product.Description.ShouldBe("updatedDesc");
                 product.PriceWithoutMargin.ShouldBe(40m);
@@ -219,14 +219,14 @@ namespace Rbyte.Tests.Application.Product
         {
             void Method(RbyteContext context)
             {
-                //Arrange
+                // Arrange
                 var sut = new ProductService(context);
-                var itemToUpdate = new ProductDto { ProductId = 0, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
+                var itemToUpdate = new ProductDto { ProductId = 1, Barcode = 1000, Description = "desc1", PriceWithoutMargin = 10m, FullPrice = 20m, Name = "name1" };
 
-                //Act
+                // Act
                 Func<Task> f = async () => await sut.UpdateAsync(itemToUpdate);
 
-                //Assert
+                // Assert
                 f.ShouldThrow<Exception>();
             }
             RbyteContextActionInvoker.Invoke(Method);
