@@ -56,6 +56,7 @@ namespace Rbyte.Tests.Application.Discount
 
                 //Assert
                 var listArr = list.ToArray();
+                listArr.Length.ShouldBe(3);
                 listArr[0].Value.ShouldBe(10);
                 listArr[0].DiscountId.ShouldBe(0);
                 listArr[1].Value.ShouldBe(20);
@@ -146,7 +147,7 @@ namespace Rbyte.Tests.Application.Discount
         }
 
         [Fact]
-        public void Delete_NotExistingDiscount_DeletesDiscount()
+        public void Delete_DiscountNotExist_DeletesDiscount()
         {
             void Method(RbyteContext context)
             {
