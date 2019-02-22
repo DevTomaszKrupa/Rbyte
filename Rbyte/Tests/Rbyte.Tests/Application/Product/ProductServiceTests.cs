@@ -111,7 +111,7 @@ namespace Rbyte.Tests.Application.Product
         }
 
         [Fact]
-        public void GetById_EmptyList_ReturnsItem()
+        public void GetById_EmptyList_ThrowsException()
         {
             void Method(RbyteContext context)
             {
