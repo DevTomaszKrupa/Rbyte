@@ -54,7 +54,7 @@ namespace Rbyte.Tests.Application.Discount
                 var result = await sut.GetAsync();
 
                 // Assert
-                var resultArr = list.ToArray();
+                var resultArr = result.ToArray();
                 resultArr.Length.ShouldBe(3);
                 resultArr[0].Value.ShouldBe(10);
                 resultArr[0].DiscountId.ShouldBe(1);
