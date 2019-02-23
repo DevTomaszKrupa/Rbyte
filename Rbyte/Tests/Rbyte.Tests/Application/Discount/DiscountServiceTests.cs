@@ -75,7 +75,7 @@ namespace Rbyte.Tests.Application.Discount
                 var sut = new DiscountService(context);
 
                 // Act
-                var result =await sut.GetAsync();
+                var result = await sut.GetAsync();
 
                 // Assert
                 result.ToArray().Length.ShouldBe(0);
@@ -111,13 +111,13 @@ namespace Rbyte.Tests.Application.Discount
         [Fact]
         public void GetById_EmptyList_ThrowsException()
         {
-            void  Method(RbyteContext context)
+            void Method(RbyteContext context)
             {
                 // Arrange
                 var sut = new DiscountService(context);
 
                 // Act
-                Func<Task> f=async () =>  await sut.GetAsync(3);
+                Func<Task> f = async () => await sut.GetAsync(3);
 
                 // Assert
                 f.ShouldThrow<Exception>();
@@ -140,7 +140,7 @@ namespace Rbyte.Tests.Application.Discount
                 await sut.DeleteAsync(1);
 
                 // Assert
-                context.Discounts.Any(x => x.DiscountId == 1).ShouldBe(false); 
+                context.Discounts.Any(x => x.DiscountId == 1).ShouldBe(false);
             }
             RbyteContextActionInvoker.InvokeAsync(Method);
         }
@@ -176,7 +176,7 @@ namespace Rbyte.Tests.Application.Discount
                 context.Discounts.Add(d3);
                 context.SaveChanges();
                 var sut = new DiscountService(context);
-                var d2forUpdate = new DiscountDto { DiscountId=2, Value = 20 };
+                var d2forUpdate = new DiscountDto { DiscountId = 2, Value = 20 };
 
                 // Act
                 await sut.UpdateAsync(d2forUpdate);

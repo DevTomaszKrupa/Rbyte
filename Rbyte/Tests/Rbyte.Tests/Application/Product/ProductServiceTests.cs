@@ -75,7 +75,7 @@ namespace Rbyte.Tests.Application.Product
 
                 // Act
                 Func<Task> f = async () => await sut.DeleteAsync(2);
-                
+
                 // Assert 
                 f.ShouldThrow<Exception>();
             }
@@ -176,7 +176,7 @@ namespace Rbyte.Tests.Application.Product
                 var sut = new ProductService(context);
 
                 // Act
-                var items =await sut.GetAsync();
+                var items = await sut.GetAsync();
 
                 // Assert
                 items.ToArray().Length.ShouldBe(0);
