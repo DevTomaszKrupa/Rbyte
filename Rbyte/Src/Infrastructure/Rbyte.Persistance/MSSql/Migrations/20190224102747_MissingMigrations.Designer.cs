@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rbyte.Persistance.MySql;
 
 namespace Rbyte.Persistance.MSSQL.Migrations
 {
     [DbContext(typeof(MSSqlRbyteContext))]
-    partial class MSSqlRbyteContextModelSnapshot : ModelSnapshot
+    [Migration("20190224102747_MissingMigrations")]
+    partial class MissingMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

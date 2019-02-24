@@ -75,7 +75,7 @@ namespace Rbyte.Api
                     {
                         options.UseSqlServer(connectionString);
                     });
-                    services.AddScoped<RbyteContext, PostgreSqlRbyteContext>();
+                    services.AddScoped<RbyteContext, MSSqlRbyteContext>();
                     break;
                 case "PostgreSql":
                     connectionString = _configuration.GetSection("PostgreSqlConnectionString").Value;
